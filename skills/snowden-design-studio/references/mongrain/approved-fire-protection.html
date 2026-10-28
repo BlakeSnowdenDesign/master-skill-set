@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mongrain · Fire protection systems</title>
+<meta name="description" content="Passive fire protection by Mongrain: intumescent coatings, traditional fireproofing, thermal barriers, firewalls and partitions, and asbestos and vermiculite removal.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=Questrial&display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;padding:0;background:#eef1ec}
+#mg-fire{
+  --ink:#16313a;--ink-soft:#4a636a;--muted:#6c7f83;--paper:#eef1ec;--stone:#e3e9e5;--card:#f9faf7;
+  --line:rgba(22,49,58,.14);--cyan:#0f93a7;--cyan-deep:#0a7487;--ember:#e0621c;--ember-soft:#f2a066;
+  --steel:#87959a;--steel-d:#5f6e73;--char:#3c3834;--foam:#e8cf8c;--gyp:#d4ccbb;
+  --head:'Space Grotesk',ui-sans-serif,system-ui,sans-serif;--lab:'Questrial',ui-sans-serif,system-ui,sans-serif;
+  --ease:cubic-bezier(.2,.8,.2,1);--r:22px;
+  --sh:0 1px 2px rgba(22,49,58,.06),0 18px 44px -22px rgba(22,49,58,.32);
+  --sh-lg:0 2px 4px rgba(22,49,58,.05),0 40px 80px -40px rgba(22,49,58,.42);
+  font-family:var(--lab);color:var(--ink);background:var(--paper);font-size:16px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;position:relative
+}
+#mg-fire *,#mg-fire *::before,#mg-fire *::after{box-sizing:border-box}
+#mg-fire h2,#mg-fire h3,#mg-fire p,#mg-fire ul{margin:0}
+#mg-fire button{font:inherit;color:inherit;cursor:pointer}
+#mg-fire :focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
+#mg-fire .fp-sec{padding:clamp(56px,8vw,112px) clamp(20px,6vw,88px)}
+#mg-fire .fp-wrap{max-width:1240px;margin:0 auto}
+
+/* head */
+#mg-fire .fp-head{display:grid;grid-template-columns:1.1fr .9fr;gap:6%;align-items:end;margin-bottom:clamp(36px,5vw,64px)}
+#mg-fire .fp-kicker{display:flex;align-items:center;gap:12px;font:400 11px/1 var(--lab);letter-spacing:.2em;text-transform:uppercase;color:var(--cyan-deep);margin-bottom:22px}
+#mg-fire .fp-kicker i{width:28px;height:1px;background:var(--ember)}
+#mg-fire h2{font-family:var(--head);font-weight:500;font-size:clamp(38px,5.4vw,74px);line-height:.96;letter-spacing:-.045em}
+#mg-fire h2 span{color:var(--muted)}
+#mg-fire .fp-head p{color:var(--ink-soft);font-size:15.5px;line-height:1.75;max-width:420px;padding-bottom:6px}
+
+/* explorer */
+#mg-fire .fp-explorer{display:grid;grid-template-columns:minmax(260px,.62fr) 1.38fr;gap:clamp(18px,2.4vw,32px);align-items:start}
+#mg-fire .fp-tabs{display:flex;flex-direction:column;gap:6px;position:relative;padding:8px;background:var(--stone);border-radius:calc(var(--r) + 6px)}
+#mg-fire .fp-tab{position:relative;display:grid;grid-template-columns:44px 1fr 18px;align-items:center;gap:4px;text-align:left;border:0;background:transparent;padding:16px 16px 16px 14px;min-height:64px;border-radius:var(--r);color:var(--muted);transition:color .3s var(--ease),background .45s var(--ease),box-shadow .45s var(--ease),transform .45s var(--ease)}
+#mg-fire .fp-tab .n{font:400 11px var(--lab);letter-spacing:.14em;color:var(--cyan-deep)}
+#mg-fire .fp-tab strong{font:500 18px/1.2 var(--head);letter-spacing:-.02em}
+#mg-fire .fp-tab small{display:block;margin-top:4px;font:400 11px/1.3 var(--lab);letter-spacing:.06em;color:var(--muted);max-height:0;opacity:0;overflow:hidden;transition:max-height .5s var(--ease),opacity .4s var(--ease)}
+#mg-fire .fp-tab svg{opacity:0;transform:translateX(-6px);transition:opacity .3s,transform .4s var(--ease);color:var(--ember)}
+#mg-fire .fp-tab:hover{color:var(--ink);background:rgba(249,250,247,.55)}
+#mg-fire .fp-tab:hover svg{opacity:.5;transform:none}
+#mg-fire .fp-tab[aria-selected="true"]{color:var(--ink);background:var(--card);box-shadow:var(--sh)}
+#mg-fire .fp-tab[aria-selected="true"] small{max-height:40px;opacity:1}
+#mg-fire .fp-tab[aria-selected="true"] svg{opacity:1;transform:none}
+#mg-fire .fp-tab::before{content:"";position:absolute;left:0;top:22%;bottom:22%;width:3px;border-radius:3px;background:var(--ember);transform:scaleY(0);transition:transform .5s var(--ease)}
+#mg-fire .fp-tab[aria-selected="true"]::before{transform:scaleY(1)}
+#mg-fire .fp-tab:focus-visible{outline-offset:-2px}
+#mg-fire .fp-progress{display:flex;gap:6px;padding:12px 14px 6px}
+#mg-fire .fp-progress i{flex:1;height:2px;border-radius:2px;background:rgba(22,49,58,.12);transition:background .5s var(--ease)}
+#mg-fire .fp-progress i.on{background:var(--ember)}
+
+/* panel */
+#mg-fire .fp-explorer>*{min-width:0}
+#mg-fire .fp-panel{background:var(--card);border-radius:calc(var(--r) + 6px);box-shadow:var(--sh-lg);overflow:hidden}
+#mg-fire .fp-stage{position:relative;background:linear-gradient(180deg,#e9eee9,#dfe6e2);aspect-ratio:16/9;overflow:hidden}
+#mg-fire .fp-stage::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(22,49,58,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(22,49,58,.055) 1px,transparent 1px);background-size:32px 32px;pointer-events:none}
+#mg-fire .fp-stage::after{content:"";position:absolute;inset:auto 0 0;height:40%;background:radial-gradient(ellipse 60% 100% at 30% 100%,rgba(224,98,28,.14),transparent 70%);pointer-events:none}
+#mg-fire .fp-stage svg{position:absolute;inset:0;width:100%;height:100%}
+#mg-fire .fp-stage-cap{position:absolute;z-index:2;left:20px;right:20px;top:16px;display:flex;justify-content:space-between;font:400 10px var(--lab);letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft)}
+#mg-fire .fp-stage-cap b{font-weight:400;color:var(--ember)}
+#mg-fire .fp-body{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(20px,3vw,40px);padding:clamp(24px,3vw,38px)}
+#mg-fire .fp-idx{font:400 11px var(--lab);letter-spacing:.18em;color:var(--cyan-deep)}
+#mg-fire h3{margin:10px 0 6px;font:500 clamp(26px,2.6vw,34px)/1.05 var(--head);letter-spacing:-.035em}
+#mg-fire .fp-mat{font:400 12px/1.5 var(--lab);letter-spacing:.12em;text-transform:uppercase;color:var(--ember);margin-bottom:16px!important}
+#mg-fire .fp-body p.fp-copy{color:var(--ink-soft);font-size:15.5px;line-height:1.75}
+#mg-fire .fp-facts{list-style:none;padding:0;display:flex;flex-direction:column;align-self:end;border-top:1px solid var(--line)}
+#mg-fire .fp-facts li{display:flex;align-items:center;gap:12px;padding:13px 4px;border-bottom:1px solid var(--line);font:400 13px var(--lab);letter-spacing:.04em;transition:padding .35s var(--ease),color .3s}
+#mg-fire .fp-facts li::before{content:"";width:7px;height:7px;border-radius:50%;border:1.5px solid var(--ember);flex:none;transition:background .3s}
+#mg-fire .fp-facts li:hover{padding-left:10px;color:var(--cyan-deep)}
+#mg-fire .fp-facts li:hover::before{background:var(--ember)}
+
+/* svg labels */
+#mg-fire .lb{font:400 11px var(--lab);letter-spacing:.14em;fill:var(--ink-soft);text-transform:uppercase}
+#mg-fire .lb-e{fill:#b8470f}
+#mg-fire .lb-c{fill:var(--cyan-deep)}
+#mg-fire .ld{stroke:var(--ink-soft);stroke-width:1;fill:none}
+#mg-fire .nts{font:400 9px var(--lab);letter-spacing:.2em;fill:var(--muted);text-transform:uppercase}
+#mg-fire .fp-stage svg polygon{transition:filter .4s var(--ease)}
+#mg-fire .fp-stage svg g.a:hover>polygon{filter:brightness(1.05)}
+#mg-fire .dim{stroke:var(--ink-soft);stroke-width:.8;fill:none}
+
+/* selection choreography: parts assemble in sequence */
+#mg-fire.fp-js .fp-panel .a{opacity:0;translate:0 14px;transform-box:fill-box;transition:opacity .7s var(--ease),translate .9s var(--ease),scale .9s var(--ease);transition-delay:calc(var(--i,0) * 90ms + 120ms)}
+#mg-fire.fp-js .fp-panel.go .a{opacity:1;translate:0 0;scale:1}
+#mg-fire.fp-js .fp-panel .grow{scale:.6;transform-origin:50% 50%}
+#mg-fire.fp-js .fp-panel .draw{stroke-dasharray:var(--len,600);stroke-dashoffset:var(--len,600);opacity:1;transform:none;transition:stroke-dashoffset 1.3s var(--ease);transition-delay:calc(var(--i,0) * 90ms + 120ms)}
+#mg-fire.fp-js .fp-panel.go .draw{stroke-dashoffset:0}
+#mg-fire.fp-js .fp-panel .fp-body>*{opacity:0;transform:translateY(10px);transition:opacity .6s var(--ease),transform .7s var(--ease)}
+#mg-fire.fp-js .fp-panel.go .fp-body>*{opacity:1;transform:none}
+#mg-fire.fp-js .fp-panel.go .fp-body>*:nth-child(2){transition-delay:.12s}
+#mg-fire .flick{transform-box:fill-box;transform-origin:50% 100%;animation:fp-flick 1.8s ease-in-out infinite alternate}
+#mg-fire .pulse{animation:fp-pulse 2.8s ease-in-out infinite}
+#mg-fire .flow{stroke-dasharray:5 7;animation:fp-dash 1.6s linear infinite}
+#mg-fire .swell{transform-box:fill-box;transform-origin:50% 50%;animation:fp-swell 4.8s var(--ease) infinite alternate}
+
+/* entrance on scroll */
+#mg-fire.fp-js [data-rv]{opacity:0;transform:translateY(28px);transition:opacity 1s var(--ease),transform 1s var(--ease);transition-delay:var(--d,0s)}
+#mg-fire.fp-js [data-rv].is-in{opacity:1;transform:none}
+
+@keyframes fp-flick{0%{transform:scaleY(.86) scaleX(1.04)}100%{transform:scaleY(1.06) scaleX(.96)}}
+@keyframes fp-pulse{0%,100%{opacity:.3}50%{opacity:1}}
+@keyframes fp-dash{to{stroke-dashoffset:-24}}
+@keyframes fp-swell{0%,30%{transform:scale(1)}100%{transform:scale(1.035)}}
+
+@media (max-width:980px){
+  #mg-fire .fp-head{grid-template-columns:1fr;gap:20px}
+  #mg-fire .fp-explorer{grid-template-columns:1fr}
+  #mg-fire .fp-tabs{flex-direction:row;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  #mg-fire .fp-tabs::-webkit-scrollbar{display:none}
+  #mg-fire .fp-tab{flex:0 0 auto;grid-template-columns:30px auto;min-height:52px;padding:12px 18px 12px 14px;scroll-snap-align:start}
+  #mg-fire .fp-tab strong{font-size:15px;white-space:nowrap}
+  #mg-fire .fp-tab small,#mg-fire .fp-tab svg,#mg-fire .fp-progress{display:none}
+  #mg-fire .fp-tab::before{left:18%;right:18%;top:auto;bottom:6px;width:auto;height:2px;transform:scaleX(0)}
+  #mg-fire .fp-tab[aria-selected="true"]::before{transform:scaleX(1)}
+}
+@media (max-width:640px){
+  #mg-fire .fp-stage{aspect-ratio:4/3}
+  #mg-fire .fp-body{grid-template-columns:1fr}
+  #mg-fire .fp-stage-cap span+span{display:none}
+  #mg-fire .lb{font-size:15px}
+  #mg-fire .nts{font-size:12px}
+}
+@media (prefers-reduced-motion:reduce){
+  #mg-fire *,#mg-fire *::before,#mg-fire *::after{animation:none!important;transition:none!important}
+  #mg-fire.fp-js [data-rv],#mg-fire.fp-js .fp-panel .a,#mg-fire.fp-js .fp-panel .fp-body>*{opacity:1;translate:none;scale:1}
+  #mg-fire.fp-js .fp-panel .draw{stroke-dashoffset:0}
+}
+</style>
+</head>
+<body>
+<div id="mg-fire">
+<section class="fp-sec" aria-labelledby="fp-title">
+ <div class="fp-wrap">
+  <header class="fp-head" data-rv>
+   <div>
+    <div class="fp-kicker"><i></i>Passive fire protection</div>
+    <h2 id="fp-title">Fire protection services, <span>system by system.</span></h2>
+   </div>
+   <p>Intumescent coatings, traditional fireproofing, thermal barriers, firewalls and partitions, and asbestos and vermiculite removal. Select a system to see how each layer works in the assembly.</p>
+  </header>
+
+  <div class="fp-explorer" data-rv style="--d:.12s">
+   <div>
+    <div class="fp-tabs" role="tablist" aria-label="Fire protection systems" aria-orientation="vertical">
+     <button class="fp-tab" role="tab" id="fp-t1" aria-controls="fp-p1" aria-selected="true"><span class="n">01</span><span><strong>Intumescent coatings</strong><small>Exposed steel</small></span><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+     <button class="fp-tab" role="tab" id="fp-t2" aria-controls="fp-p2" aria-selected="false" tabindex="-1"><span class="n">02</span><span><strong>Traditional fireproofing</strong><small>Fibrous · shotcrete · gypsum</small></span><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+     <button class="fp-tab" role="tab" id="fp-t3" aria-controls="fp-p3" aria-selected="false" tabindex="-1"><span class="n">03</span><span><strong>Thermal barriers</strong><small>Over spray foam</small></span><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+     <button class="fp-tab" role="tab" id="fp-t4" aria-controls="fp-p4" aria-selected="false" tabindex="-1"><span class="n">04</span><span><strong>Firewalls &amp; partitions</strong><small>Compartmentation</small></span><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+     <button class="fp-tab" role="tab" id="fp-t5" aria-controls="fp-p5" aria-selected="false" tabindex="-1"><span class="n">05</span><span><strong>Decontamination</strong><small>Asbestos &amp; vermiculite</small></span><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    </div>
+    <div class="fp-progress" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i><i></i></div>
+   </div>
+
+   <div class="fp-panels">
+    <!-- 01 -->
+    <article class="fp-panel go" role="tabpanel" id="fp-p1" aria-labelledby="fp-t1" tabindex="0">
+     <div class="fp-stage" aria-hidden="true">
+      <div class="fp-stage-cap"><span>Axon · steel W-shape</span><span><b>Dry film</b> → expanded char</span></div>
+      <svg viewBox="0 0 800 450" preserveAspectRatio="xMidYMid meet"><defs><filter id="p1-sh" x="-30%" y="-60%" width="160%" height="220%"><feGaussianBlur stdDeviation="9"/></filter><pattern id="p1-hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><path d="M0 0v6" stroke="rgba(22,49,58,.22)" stroke-width="1"/></pattern><linearGradient id="p1-top" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#dfe5e5"/><stop offset="1" stop-color="#a9b5b8"/></linearGradient><linearGradient id="p1-side" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8b999d"/><stop offset="1" stop-color="#5c6a6f"/></linearGradient><linearGradient id="p1-web" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#6f7d82"/><stop offset="1" stop-color="#4e5b60"/></linearGradient><radialGradient id="p1-glow"><stop offset="0" stop-color="#f08a3e" stop-opacity=".55"/><stop offset=".5" stop-color="#e0621c" stop-opacity=".18"/><stop offset="1" stop-color="#e0621c" stop-opacity="0"/></radialGradient><linearGradient id="p1-ft" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f6f2e7"/><stop offset="1" stop-color="#d9d2c0"/></linearGradient><linearGradient id="p1-fs" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#d2cab6"/><stop offset="1" stop-color="#aea38b"/></linearGradient><linearGradient id="p1-fw" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#b9af98"/><stop offset="1" stop-color="#978c74"/></linearGradient><linearGradient id="p1-ct" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5b534c"/><stop offset="1" stop-color="#2f2a26"/></linearGradient><linearGradient id="p1-cs" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#433c36"/><stop offset="1" stop-color="#221e1b"/></linearGradient><pattern id="p1-cell" width="14" height="12" patternUnits="userSpaceOnUse"><circle cx="4" cy="4" r="2.6" fill="rgba(255,255,255,.07)"/><circle cx="11" cy="9" r="1.8" fill="rgba(0,0,0,.25)"/><circle cx="10" cy="2" r="1" fill="rgba(240,138,62,.35)"/></pattern></defs><g class="a" style="--i:0"><g filter="url(#p1-sh)" opacity=".32"><polygon points="116.0,376.0 220.0,376.0 340.0,316.0 236.0,316.0" fill="#16313a" /><polygon points="465.0,379.0 591.0,379.0 711.0,319.0 585.0,319.0" fill="#16313a" /></g><ellipse cx="600" cy="372" rx="190" ry="54" fill="url(#p1-glow)"/></g><g class="a" style="--i:1"><polygon points="177.0,218.0 177.0,332.0 297.0,272.0 297.0,158.0" fill="url(#p1-fw)" /><polygon points="177.0,332.0 220.0,332.0 340.0,272.0 297.0,272.0" fill="url(#p1-ft)" /><polygon points="220.0,332.0 220.0,354.0 340.0,294.0 340.0,272.0" fill="url(#p1-fs)" /><polygon points="116.0,196.0 220.0,196.0 340.0,136.0 236.0,136.0" fill="url(#p1-ft)" /><polygon points="220.0,196.0 220.0,218.0 340.0,158.0 340.0,136.0" fill="url(#p1-fs)" /><polygon points="116.0,196.0 220.0,196.0 220.0,218.0 177.0,218.0 177.0,332.0 220.0,332.0 220.0,354.0 116.0,354.0 116.0,332.0 159.0,332.0 159.0,218.0 116.0,218.0" fill="#efe9da" /><polygon points="120.0,200.0 216.0,200.0 216.0,214.0 173.0,214.0 173.0,336.0 216.0,336.0 216.0,350.0 120.0,350.0 120.0,336.0 163.0,336.0 163.0,214.0 120.0,214.0" fill="#c3cbcc" /><polygon points="120.0,200.0 216.0,200.0 216.0,214.0 173.0,214.0 173.0,336.0 216.0,336.0 216.0,350.0 120.0,350.0 120.0,336.0 163.0,336.0 163.0,214.0 120.0,214.0" fill="url(#p1-hatch)" stroke="#5f6e73" stroke-width=".8"/><path d="M116.0 196.0H220.0l120 -60M220.0 332.0l120 -60" stroke="rgba(255,255,255,.75)" stroke-width="1.2" fill="none" stroke-linecap="round"/></g><g class="a" style="--i:2"><path d="M352 300h74" stroke="var(--ember)" stroke-width="2" stroke-linecap="round" stroke-dasharray="5 7"/><path d="M420 291l10 9-10 9" fill="none" stroke="var(--ember)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><text class="lb lb-e" x="356" y="284">Heat</text></g><g class="a" style="--i:3"><polygon points="533.0,214.0 533.0,336.0 653.0,276.0 653.0,154.0" fill="url(#p1-web)" /><polygon points="533.0,336.0 576.0,336.0 696.0,276.0 653.0,276.0" fill="url(#p1-top)" /><polygon points="576.0,336.0 576.0,350.0 696.0,290.0 696.0,276.0" fill="url(#p1-side)" /><polygon points="480.0,200.0 576.0,200.0 696.0,140.0 600.0,140.0" fill="url(#p1-top)" /><polygon points="576.0,200.0 576.0,214.0 696.0,154.0 696.0,140.0" fill="url(#p1-side)" /><polygon points="480.0,200.0 576.0,200.0 576.0,214.0 533.0,214.0 533.0,336.0 576.0,336.0 576.0,350.0 480.0,350.0 480.0,336.0 523.0,336.0 523.0,214.0 480.0,214.0" fill="" /></g><g class="a grow" style="--i:4"><polygon points="548.0,229.0 548.0,321.0 668.0,261.0 668.0,169.0" fill="url(#p1-cs)" stroke-linejoin="round"/><polygon points="548.0,321.0 591.0,321.0 711.0,261.0 668.0,261.0" fill="url(#p1-ct)" stroke-linejoin="round"/><polygon points="591.0,321.0 591.0,365.0 711.0,305.0 711.0,261.0" fill="url(#p1-cs)" stroke-linejoin="round"/><polygon points="465.0,185.0 591.0,185.0 711.0,125.0 585.0,125.0" fill="url(#p1-ct)" stroke-linejoin="round"/><polygon points="591.0,185.0 591.0,229.0 711.0,169.0 711.0,125.0" fill="url(#p1-cs)" stroke-linejoin="round"/><polygon points="465.0,185.0 591.0,185.0 591.0,229.0 548.0,229.0 548.0,321.0 591.0,321.0 591.0,365.0 465.0,365.0 465.0,321.0 508.0,321.0 508.0,229.0 465.0,229.0" fill="#3a342f" stroke-linejoin="round"/><polygon points="548.0,229.0 548.0,321.0 668.0,261.0 668.0,169.0" fill="url(#p1-cell)" stroke-linejoin="round"/><polygon points="548.0,321.0 591.0,321.0 711.0,261.0 668.0,261.0" fill="url(#p1-cell)" stroke-linejoin="round"/><polygon points="591.0,321.0 591.0,365.0 711.0,305.0 711.0,261.0" fill="url(#p1-cell)" stroke-linejoin="round"/><polygon points="465.0,185.0 591.0,185.0 711.0,125.0 585.0,125.0" fill="url(#p1-cell)" stroke-linejoin="round"/><polygon points="591.0,185.0 591.0,229.0 711.0,169.0 711.0,125.0" fill="url(#p1-cell)" stroke-linejoin="round"/><polygon points="465.0,185.0 591.0,185.0 591.0,229.0 548.0,229.0 548.0,321.0 591.0,321.0 591.0,365.0 465.0,365.0 465.0,321.0 508.0,321.0 508.0,229.0 465.0,229.0" fill="url(#p1-cell)" stroke-linejoin="round"/><path d="M465 185h126l120 -60" stroke="rgba(242,160,102,.55)" stroke-width="1.2" fill="none"/></g><g class="a" style="--i:5"><polygon points="480.0,200.0 576.0,200.0 576.0,214.0 533.0,214.0 533.0,336.0 576.0,336.0 576.0,350.0 480.0,350.0 480.0,336.0 523.0,336.0 523.0,214.0 480.0,214.0" fill="#c3cbcc" /><polygon points="480.0,200.0 576.0,200.0 576.0,214.0 533.0,214.0 533.0,336.0 576.0,336.0 576.0,350.0 480.0,350.0 480.0,336.0 523.0,336.0 523.0,214.0 480.0,214.0" fill="url(#p1-hatch)" stroke="#5f6e73" stroke-width=".8"/></g><g class="a" style="--i:6"><path class="ld" d="M230 170V104"/><text class="lb" x="120" y="96">Multi-layer coat</text><path class="ld" d="M118 357v37"/><text class="lb" x="110" y="414">Dry film</text><path class="ld" d="M610 150V104"/><text class="lb lb-e" x="480" y="96">Expanded char</text><path class="ld" d="M533 340v54"/><text class="lb lb-c" x="520" y="414">Steel</text><text class="nts" x="784" y="438" text-anchor="end">Illustrative · NTS</text></g></svg>
+     </div>
+     <div class="fp-body">
+      <div>
+       <span class="fp-idx">SYSTEM 01 / 05</span>
+       <h3>Intumescent coatings</h3>
+       <p class="fp-mat">Multi-layer protective paint · exposed steel</p>
+       <p class="fp-copy">A specialty paint applied in multiple layers. Under heat it forms a protective barrier, giving exposed steel beams up to three hours of fire resistance while the structure stays visible. One of Mongrain’s specialties.</p>
+      </div>
+      <ul class="fp-facts"><li>Up to 3 h fire resistance</li><li>Steel stays visible</li><li>Largest project in Canada</li></ul>
+     </div>
+    </article>
+
+    <!-- 02 -->
+    <article class="fp-panel" role="tabpanel" id="fp-p2" aria-labelledby="fp-t2" tabindex="0">
+     <div class="fp-stage" aria-hidden="true">
+      <div class="fp-stage-cap"><span>Axon · spray-applied beam</span><span>Selected <b>per specification</b></span></div>
+      <svg viewBox="0 0 800 450" preserveAspectRatio="xMidYMid meet"><defs><filter id="p2-sh" x="-30%" y="-60%" width="160%" height="220%"><feGaussianBlur stdDeviation="9"/></filter><pattern id="p2-hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><path d="M0 0v6" stroke="rgba(22,49,58,.22)" stroke-width="1"/></pattern><linearGradient id="p2-top" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#dfe5e5"/><stop offset="1" stop-color="#a9b5b8"/></linearGradient><linearGradient id="p2-side" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8b999d"/><stop offset="1" stop-color="#5c6a6f"/></linearGradient><linearGradient id="p2-web" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#6f7d82"/><stop offset="1" stop-color="#4e5b60"/></linearGradient><radialGradient id="p2-glow"><stop offset="0" stop-color="#f08a3e" stop-opacity=".55"/><stop offset=".5" stop-color="#e0621c" stop-opacity=".18"/><stop offset="1" stop-color="#e0621c" stop-opacity="0"/></radialGradient><linearGradient id="p2-ct" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#efe9dc"/><stop offset="1" stop-color="#cbc2ad"/></linearGradient><linearGradient id="p2-cs" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#c9bfa8"/><stop offset="1" stop-color="#9d927a"/></linearGradient><filter id="p2-rough" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency=".06" numOctaves="2" seed="4"/><feDisplacementMap in="SourceGraphic" scale="5"/></filter><pattern id="p2-spk" width="11" height="9" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.1" fill="rgba(110,96,70,.35)"/><circle cx="8" cy="6" r=".8" fill="rgba(255,255,255,.6)"/><circle cx="6" cy="1" r=".6" fill="rgba(110,96,70,.3)"/></pattern></defs><g class="a" style="--i:0"><g filter="url(#p2-sh)" opacity=".3"><polygon points="90.0,419.0 230.0,419.0 490.0,289.0 350.0,289.0" fill="#16313a" /></g></g><g class="a grow" style="--i:2"><g filter="url(#p2-rough)"><polygon points="268.7,217.4 268.7,299.4 445.5,211.0 445.5,129.0" fill="url(#p2-cs)" /><polygon points="268.7,299.4 313.2,299.4 490.0,211.0 445.5,211.0" fill="url(#p2-ct)" /><polygon points="313.2,299.4 313.2,353.4 490.0,265.0 490.0,211.0" fill="url(#p2-cs)" /><polygon points="173.2,163.4 313.2,163.4 490.0,75.0 350.0,75.0" fill="url(#p2-ct)" /><polygon points="313.2,163.4 313.2,217.4 490.0,129.0 490.0,75.0" fill="url(#p2-cs)" /><polygon points="173.2,163.4 313.2,163.4 313.2,217.4 268.7,217.4 268.7,299.4 313.2,299.4 313.2,353.4 173.2,353.4 173.2,299.4 217.7,299.4 217.7,217.4 173.2,217.4" fill="#e8e1d1" /><polygon points="268.7,217.4 268.7,299.4 445.5,211.0 445.5,129.0" fill="url(#p2-spk)" /><polygon points="268.7,299.4 313.2,299.4 490.0,211.0 445.5,211.0" fill="url(#p2-spk)" /><polygon points="313.2,299.4 313.2,353.4 490.0,265.0 490.0,211.0" fill="url(#p2-spk)" /><polygon points="173.2,163.4 313.2,163.4 490.0,75.0 350.0,75.0" fill="url(#p2-spk)" /><polygon points="313.2,163.4 313.2,217.4 490.0,129.0 490.0,75.0" fill="url(#p2-spk)" /><polygon points="173.2,163.4 313.2,163.4 313.2,217.4 268.7,217.4 268.7,299.4 313.2,299.4 313.2,353.4 173.2,353.4 173.2,299.4 217.7,299.4 217.7,217.4 173.2,217.4" fill="url(#p2-spk)" /></g><polygon points="193.2,183.4 293.2,183.4 293.2,197.4 248.7,197.4 248.7,319.4 293.2,319.4 293.2,333.4 193.2,333.4 193.2,319.4 237.7,319.4 237.7,197.4 193.2,197.4" fill="#c3cbcc" /><polygon points="193.2,183.4 293.2,183.4 293.2,197.4 248.7,197.4 248.7,319.4 293.2,319.4 293.2,333.4 193.2,333.4 193.2,319.4 237.7,319.4 237.7,197.4 193.2,197.4" fill="url(#p2-hatch)" stroke="#5f6e73" stroke-width=".8"/></g><g class="a" style="--i:1"><polygon points="165.5,239.0 165.5,361.0 248.7,319.4 248.7,197.4" fill="url(#p2-web)" /><polygon points="165.5,361.0 210.0,361.0 293.2,319.4 248.7,319.4" fill="url(#p2-top)" /><polygon points="210.0,361.0 210.0,375.0 293.2,333.4 293.2,319.4" fill="url(#p2-side)" /><polygon points="110.0,225.0 210.0,225.0 293.2,183.4 193.2,183.4" fill="url(#p2-top)" /><polygon points="210.0,225.0 210.0,239.0 293.2,197.4 293.2,183.4" fill="url(#p2-side)" /><polygon points="110.0,225.0 210.0,225.0 210.0,239.0 165.5,239.0 165.5,361.0 210.0,361.0 210.0,375.0 110.0,375.0 110.0,361.0 154.5,361.0 154.5,239.0 110.0,239.0" fill="" /><polygon points="110.0,225.0 210.0,225.0 210.0,239.0 165.5,239.0 165.5,361.0 210.0,361.0 210.0,375.0 110.0,375.0 110.0,361.0 154.5,361.0 154.5,239.0 110.0,239.0" fill="#c3cbcc" /><polygon points="110.0,225.0 210.0,225.0 210.0,239.0 165.5,239.0 165.5,361.0 210.0,361.0 210.0,375.0 110.0,375.0 110.0,361.0 154.5,361.0 154.5,239.0 110.0,239.0" fill="url(#p2-hatch)" stroke="#5f6e73" stroke-width=".8"/><path d="M110.0 225.0H210.0l83.2 -41.6M210.0 361.0l83.2 -41.6" stroke="rgba(255,255,255,.75)" stroke-width="1.2" fill="none" stroke-linecap="round"/></g><g class="a" style="--i:3" fill="none" stroke="var(--ember)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M612 170h-96M524 162l-10 8 10 8M612 215h-96M524 207l-10 8 10 8M612 260h-96M524 252l-10 8 10 8"/></g><g class="a" style="--i:4"><path class="dim" d="M293 369h20M293 363v12M313 363v12"/><path class="ld" d="M318 369h206"/><text class="lb" x="532" y="373">Specified thickness</text><path class="ld" d="M400 112l40-16h84"/><text class="lb" x="532" y="100">Fibrous · shotcrete</text><text class="lb" x="532" y="124">· gypsum</text><text class="lb lb-e" x="626" y="220">Heat</text><path class="ld" d="M140 362v40"/><text class="lb lb-c" x="60" y="422">Slows steel heating</text><text class="nts" x="784" y="438" text-anchor="end">Illustrative · NTS</text></g></svg>
+     </div>
+     <div class="fp-body">
+      <div>
+       <span class="fp-idx">SYSTEM 02 / 05</span>
+       <h3>Traditional fireproofing</h3>
+       <p class="fp-mat">Fibrous materials · shotcrete · gypsum</p>
+       <p class="fp-copy">Fibrous materials, shotcrete and gypsum are selected to the project specification. They raise the fire resistance of structural elements, keeping them below failure temperature so the building preserves its bearing capacity.</p>
+      </div>
+      <ul class="fp-facts"><li>Selected per specification</li><li>Columns · beams · decks</li><li>Bearing capacity preserved</li></ul>
+     </div>
+    </article>
+
+    <!-- 03 -->
+    <article class="fp-panel" role="tabpanel" id="fp-p3" aria-labelledby="fp-t3" tabindex="0">
+     <div class="fp-stage" aria-hidden="true">
+      <div class="fp-stage-cap"><span>Cutaway · wall assembly</span><span>Substrate · foam · <b>barrier</b></span></div>
+      <svg viewBox="0 0 800 450" preserveAspectRatio="xMidYMid meet"><defs><filter id="p3-sh" x="-30%" y="-60%" width="160%" height="220%"><feGaussianBlur stdDeviation="9"/></filter><pattern id="p3-hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><path d="M0 0v6" stroke="rgba(22,49,58,.22)" stroke-width="1"/></pattern><linearGradient id="p3-top" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#dfe5e5"/><stop offset="1" stop-color="#a9b5b8"/></linearGradient><linearGradient id="p3-side" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8b999d"/><stop offset="1" stop-color="#5c6a6f"/></linearGradient><linearGradient id="p3-web" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#6f7d82"/><stop offset="1" stop-color="#4e5b60"/></linearGradient><radialGradient id="p3-glow"><stop offset="0" stop-color="#f08a3e" stop-opacity=".55"/><stop offset=".5" stop-color="#e0621c" stop-opacity=".18"/><stop offset="1" stop-color="#e0621c" stop-opacity="0"/></radialGradient><linearGradient id="p3-sf" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#b9c2c2"/><stop offset="1" stop-color="#98a3a4"/></linearGradient><linearGradient id="p3-st" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#d6dcdb"/><stop offset="1" stop-color="#b2bbbb"/></linearGradient><linearGradient id="p3-ss" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8e9a9b"/><stop offset="1" stop-color="#6f7b7c"/></linearGradient><linearGradient id="p3-ff" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f0d995"/><stop offset="1" stop-color="#d9b968"/></linearGradient><linearGradient id="p3-ft" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#f6e4ae"/><stop offset="1" stop-color="#e2c57d"/></linearGradient><linearGradient id="p3-fs" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#d2b062"/><stop offset="1" stop-color="#b08e45"/></linearGradient><linearGradient id="p3-bf" x1="0" y1="0" x2="1" y2="0.3"><stop offset="0" stop-color="#f3a46a"/><stop offset="1" stop-color="#e6f0ee"/></linearGradient><linearGradient id="p3-bt" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#f2f7f5"/><stop offset="1" stop-color="#cfe2e1"/></linearGradient><linearGradient id="p3-bs" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8fc3c9"/><stop offset="1" stop-color="#5aa3ad"/></linearGradient><pattern id="p3-cell" width="16" height="14" patternUnits="userSpaceOnUse"><circle cx="5" cy="5" r="3.2" fill="rgba(160,120,40,.22)"/><circle cx="12" cy="11" r="2" fill="rgba(255,255,255,.4)"/></pattern><pattern id="p3-blk" width="80" height="40" patternUnits="userSpaceOnUse"><path d="M0 .5h80M.5 0v20M40.5 20v20M0 20.5h80" stroke="rgba(22,49,58,.18)" fill="none"/></pattern><filter id="p3-rough" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency=".05" numOctaves="2" seed="9"/><feDisplacementMap in="SourceGraphic" scale="7"/></filter></defs><g class="a" style="--i:0"><g filter="url(#p3-sh)" opacity=".3"><polygon points="140.0,388.0 664.0,388.0 752.0,344.0 228.0,344.0" fill="#16313a"/></g><ellipse cx="150" cy="330" rx="170" ry="120" fill="url(#p3-glow)"/></g><g class="a" style="--i:1"><polygon points="669.4,115.3 669.4,345.3 713.4,323.3 713.4,93.3" fill="url(#p3-ss)" /><polygon points="199.4,115.3 669.4,115.3 713.4,93.3 243.4,93.3" fill="url(#p3-st)" /><polygon points="199.4,115.3 669.4,115.3 669.4,345.3 199.4,345.3" fill="url(#p3-sf)" /><polygon points="199.4,115.3 669.4,115.3 669.4,345.3 199.4,345.3" fill="url(#p3-blk)" /></g><g class="a" style="--i:2"><g filter="url(#p3-rough)"><polygon points="511.0,139.5 511.0,369.5 559.4,345.3 559.4,115.3" fill="url(#p3-fs)" /><polygon points="151.0,139.5 511.0,139.5 559.4,115.3 199.4,115.3" fill="url(#p3-ft)" /><polygon points="151.0,139.5 511.0,139.5 511.0,369.5 151.0,369.5" fill="url(#p3-ff)" /><polygon points="151.0,139.5 511.0,139.5 511.0,369.5 151.0,369.5" fill="url(#p3-cell)" /></g></g><g class="a" style="--i:3"><polygon points="400.0,145.0 400.0,375.0 411.0,369.5 411.0,139.5" fill="url(#p3-bs)" /><polygon points="140.0,145.0 400.0,145.0 411.0,139.5 151.0,139.5" fill="url(#p3-bt)" /><polygon points="140.0,145.0 400.0,145.0 400.0,375.0 140.0,375.0" fill="url(#p3-bf)" /><path d="M140 145h260l11.0 -5.5" stroke="rgba(255,255,255,.9)" stroke-width="1.3" fill="none"/><path d="M400 145v230" stroke="var(--cyan)" stroke-width="1.4"/></g><g class="a" style="--i:4" fill="none" stroke="var(--ember)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M44 200l80 30M112 220l12 10-15 4M44 260l80 20M111 274l13 6-14 6M44 320l80 10M112 323l12 7-13 7"/><text class="lb lb-e" x="44" y="186" stroke="none">Heat</text></g><g class="a" style="--i:5"><path class="ld" d="M230 375v19"/><text class="lb lb-c" x="150" y="414">Thermal barrier</text><path class="ld" d="M455 370v24"/><text class="lb" x="408" y="414">Spray foam</text><path class="ld" d="M620 300v94"/><text class="lb" x="590" y="414">Substrate</text><text class="nts" x="784" y="440" text-anchor="end">Illustrative · NTS</text></g></svg>
+     </div>
+     <div class="fp-body">
+      <div>
+       <span class="fp-idx">SYSTEM 03 / 05</span>
+       <h3>Thermal barriers</h3>
+       <p class="fp-mat">Coating over spray foam insulation</p>
+       <p class="fp-copy">A specialized coating applied over spray foam insulation. It isolates the foam from heat and keeps it from igniting, so insulation and fire safety work together in the same assembly.</p>
+      </div>
+      <ul class="fp-facts"><li>Over spray foam</li><li>Isolates from heat</li><li>Prevents ignition</li></ul>
+     </div>
+    </article>
+
+    <!-- 04 -->
+    <article class="fp-panel" role="tabpanel" id="fp-p4" aria-labelledby="fp-t4" tabindex="0">
+     <div class="fp-stage" aria-hidden="true">
+      <div class="fp-stage-cap"><span>Axon · two compartments</span><span>Fire side · <b>separation</b> · protected</span></div>
+      <svg viewBox="0 0 800 450" preserveAspectRatio="xMidYMid meet"><defs><filter id="p4-sh" x="-30%" y="-60%" width="160%" height="220%"><feGaussianBlur stdDeviation="9"/></filter><pattern id="p4-hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><path d="M0 0v6" stroke="rgba(22,49,58,.22)" stroke-width="1"/></pattern><linearGradient id="p4-top" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#dfe5e5"/><stop offset="1" stop-color="#a9b5b8"/></linearGradient><linearGradient id="p4-side" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8b999d"/><stop offset="1" stop-color="#5c6a6f"/></linearGradient><linearGradient id="p4-web" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#6f7d82"/><stop offset="1" stop-color="#4e5b60"/></linearGradient><radialGradient id="p4-glow"><stop offset="0" stop-color="#f08a3e" stop-opacity=".55"/><stop offset=".5" stop-color="#e0621c" stop-opacity=".18"/><stop offset="1" stop-color="#e0621c" stop-opacity="0"/></radialGradient><linearGradient id="p4-fl" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#efece4"/><stop offset="1" stop-color="#dcd8cd"/></linearGradient><linearGradient id="p4-gx" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#e4ddcf"/><stop offset="1" stop-color="#c9c0ae"/></linearGradient><linearGradient id="p4-gt" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#f7f3ea"/><stop offset="1" stop-color="#e6dfd0"/></linearGradient><radialGradient id="p4-sm"><stop offset="0" stop-color="#6c7f83" stop-opacity=".45"/><stop offset="1" stop-color="#6c7f83" stop-opacity="0"/></radialGradient><linearGradient id="p4-fire" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#e0621c" stop-opacity=".75"/><stop offset=".6" stop-color="#f2a066" stop-opacity=".35"/><stop offset="1" stop-color="#f2a066" stop-opacity="0"/></linearGradient><filter id="p4-soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="6"/></filter><pattern id="p4-wool" width="8" height="6" patternUnits="userSpaceOnUse"><path d="M0 3q2-3 4 0t4 0" stroke="rgba(150,110,40,.45)" fill="none"/></pattern></defs><g class="a" style="--i:0"><g filter="url(#p4-sh)" opacity=".3"><polygon points="338.0,108.8 649.8,288.8 462.7,396.8 150.9,216.8" fill="#16313a" /></g><polygon points="649.8,274.4 462.7,382.4 462.7,368.0 649.8,260.0" fill="#b9b3a6" /><polygon points="150.9,202.4 462.7,382.4 462.7,368.0 150.9,188.0" fill="#cfc9bc" /><polygon points="338.0,80.0 649.8,260.0 462.7,368.0 150.9,188.0" fill="url(#p4-fl)" /></g><g class="a" style="--i:1"><polygon points="338.0,80.0 493.9,170.0 306.8,278.0 150.9,188.0" fill="rgba(224,98,28,.10)" /><polygon points="512.6,180.8 649.8,260.0 462.7,368.0 325.5,288.8" fill="rgba(15,147,167,.07)" /></g><g class="a" style="--i:2"><ellipse cx="294.4" cy="184.4" rx="110" ry="50" fill="url(#p4-glow)"/><g filter="url(#p4-soft)"><path d="M260.4 184.4c-6-50 20-70 30-110 14 40 40 64 36 110Z" fill="url(#p4-fire)"/></g><circle cx="400.4" cy="80.0" r="30" fill="url(#p4-sm)"/><circle cx="378.5" cy="103.4" r="36" fill="url(#p4-sm)"/><circle cx="322.4" cy="150.2" r="28" fill="url(#p4-sm)"/><circle cx="450.2" cy="62.0" r="26" fill="url(#p4-sm)"/></g><g class="a" style="--i:3"><polygon points="512.6,180.8 325.5,288.8 325.5,173.6 512.6,65.6" fill="url(#p4-gx)" /><polygon points="306.8,278.0 325.5,288.8 325.5,173.6 306.8,162.8" fill="#d8d0bf" /><polygon points="493.9,54.8 512.6,65.6 325.5,173.6 306.8,162.8" fill="url(#p4-gt)" /><path d="M475.2 202.4L475.2 87.2" stroke="rgba(22,49,58,.10)"/><path d="M437.8 224.0L437.8 108.8" stroke="rgba(22,49,58,.10)"/><path d="M362.9 267.2L362.9 152.0" stroke="rgba(22,49,58,.10)"/><polygon points="309.9,279.8 322.4,287.0 322.4,171.8 309.9,164.6" fill="#ead9a8" /><polygon points="309.9,279.8 322.4,287.0 322.4,171.8 309.9,164.6" fill="url(#p4-wool)" /><polygon points="314.6,282.5 317.7,284.3 317.7,169.1 314.6,167.3" fill="#8b999d" /><polygon points="497.0,56.6 509.5,63.8 322.4,171.8 309.9,164.6" fill="#ead9a8" /><path d="M306.8,162.8L325.5,173.6L512.6,65.6" stroke="rgba(255,255,255,.85)" stroke-width="1.2" fill="none"/></g><g class="a" style="--i:4"><polygon points="419.1,234.8 381.6,256.4 381.6,173.6 419.1,152.0" fill="#cdbfa8" stroke="var(--ember)" stroke-width="2" stroke-linejoin="round"/><circle cx="412.8" cy="198.8" r="2.4" fill="#5f6e73"/></g><g class="a" style="--i:5"><path class="ld" d="M219.5 198.8L199.5 258.8"/><text class="lb lb-e" x="110" y="279">Fire side</text><path class="ld" d="M512.6 274.4L589.6 322.4"/><text class="lb lb-c" x="596" y="332">Protected</text><path class="ld" d="M316.2 225.8L316.2 400.0"/><text class="lb" x="276" y="420">Fire-resistant boards</text><path class="ld" d="M387.9 184.4L537.9 184.4"/><text class="lb" x="546" y="188">Fire-rated door</text><text class="nts" x="784" y="438" text-anchor="end">Illustrative · NTS</text></g></svg>
+     </div>
+     <div class="fp-body">
+      <div>
+       <span class="fp-idx">SYSTEM 04 / 05</span>
+       <h3>Firewalls &amp; partitions</h3>
+       <p class="fp-mat">Fire-rated walls · doors · partitions</p>
+       <p class="fp-copy">Structural obstacles, fire-rated doors and partitions built from fire-resistant materials. They limit how flames and smoke spread from one section of a building to the next.</p>
+      </div>
+      <ul class="fp-facts"><li>Compartmentation</li><li>Fire-rated doors</li><li>Flame &amp; smoke control</li></ul>
+     </div>
+    </article>
+
+    <!-- 05 -->
+    <article class="fp-panel" role="tabpanel" id="fp-p5" aria-labelledby="fp-t5" tabindex="0">
+     <div class="fp-stage" aria-hidden="true">
+      <div class="fp-stage-cap"><span>Sequence · existing building</span><span>Assess · <b>remove</b> · rebuild</span></div>
+      <svg viewBox="0 0 800 450" preserveAspectRatio="xMidYMid meet"><defs><filter id="p5-sh" x="-30%" y="-60%" width="160%" height="220%"><feGaussianBlur stdDeviation="9"/></filter><pattern id="p5-hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><path d="M0 0v6" stroke="rgba(22,49,58,.22)" stroke-width="1"/></pattern><linearGradient id="p5-top" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#dfe5e5"/><stop offset="1" stop-color="#a9b5b8"/></linearGradient><linearGradient id="p5-side" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8b999d"/><stop offset="1" stop-color="#5c6a6f"/></linearGradient><linearGradient id="p5-web" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#6f7d82"/><stop offset="1" stop-color="#4e5b60"/></linearGradient><radialGradient id="p5-glow"><stop offset="0" stop-color="#f08a3e" stop-opacity=".55"/><stop offset=".5" stop-color="#e0621c" stop-opacity=".18"/><stop offset="1" stop-color="#e0621c" stop-opacity="0"/></radialGradient><linearGradient id="p5-t" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#eef0ea"/><stop offset="1" stop-color="#d9ddd5"/></linearGradient></defs><path class="a draw" style="--i:0;--len:520" d="M190 236h420" stroke="var(--ink-soft)" stroke-width="1.4" stroke-dasharray="4 6" fill="none"/><g class="a" style="--i:1"><g filter="url(#p5-sh)" opacity=".28"><polygon points="160.0,141.4 227.5,180.4 160.0,219.4 92.5,180.4" fill="#16313a" /></g><polygon points="227.5,170.0 160.0,209.0 160.0,196.0 227.5,157.0" fill="#b9bfba" /><polygon points="92.5,170.0 160.0,209.0 160.0,196.0 92.5,157.0" fill="#cdd2cc" /><polygon points="160.0,118.0 227.5,157.0 160.0,196.0 92.5,157.0" fill="url(#p5-t)" /><polygon points="182.5,132.3 117.2,170.0 117.2,164.3 182.5,126.6" fill="#a8946a" /><polygon points="99.9,160.0 117.2,170.0 117.2,164.3 99.9,154.3" fill="#b9a678" /><polygon points="165.2,116.6 182.5,126.6 117.2,164.3 99.9,154.3" fill="#cdb98a" /><polygon points="165.2,122.3 99.9,160.0 99.9,149.6 165.2,111.9" fill="#9c8466" /><polygon points="97.2,158.4 99.9,160.0 99.9,149.6 97.2,148.0" fill="#b59c79" /><polygon points="162.5,110.3 165.2,111.9 99.9,149.6 97.2,148.0" fill="#d8c3a0" /><polygon points="201.7,143.3 136.4,181.1 136.4,175.3 201.7,137.6" fill="#a8946a" /><polygon points="119.0,171.0 136.4,181.1 136.4,175.3 119.0,165.3" fill="#b9a678" /><polygon points="184.3,127.6 201.7,137.6 136.4,175.3 119.0,165.3" fill="#cdb98a" /><polygon points="184.3,133.3 119.0,171.0 119.0,160.6 184.3,122.9" fill="#9c8466" /><polygon points="116.3,169.5 119.0,171.0 119.0,160.6 116.3,159.1" fill="#b59c79" /><polygon points="181.6,121.4 184.3,122.9 119.0,160.6 116.3,159.1" fill="#d8c3a0" /><polygon points="220.8,154.4 155.5,192.1 155.5,186.4 220.8,148.7" fill="#a8946a" /><polygon points="138.2,182.1 155.5,192.1 155.5,186.4 138.2,176.4" fill="#b9a678" /><polygon points="203.5,138.7 220.8,148.7 155.5,186.4 138.2,176.4" fill="#cdb98a" /><polygon points="203.5,144.4 138.2,182.1 138.2,171.7 203.5,134.0" fill="#9c8466" /><polygon points="135.5,180.5 138.2,182.1 138.2,171.7 135.5,170.1" fill="#b59c79" /><polygon points="200.8,132.4 203.5,134.0 138.2,171.7 135.5,170.1" fill="#d8c3a0" /><polygon points="239.9,165.4 174.6,203.2 174.6,197.4 239.9,159.7" fill="#a8946a" /><polygon points="157.3,193.1 174.6,203.2 174.6,197.4 157.3,187.4" fill="#b9a678" /><polygon points="222.6,149.7 239.9,159.7 174.6,197.4 157.3,187.4" fill="#cdb98a" /><polygon points="222.6,155.4 157.3,193.1 157.3,182.7 222.6,145.0" fill="#9c8466" /><polygon points="154.6,191.6 157.3,193.1 157.3,182.7 154.6,181.2" fill="#b59c79" /><polygon points="219.9,143.5 222.6,145.0 157.3,182.7 154.6,181.2" fill="#d8c3a0" /><circle cx="155.5" cy="130.0" r="1.6" fill="#8e7d55"/><circle cx="148.7" cy="154.7" r="1.6" fill="#8e7d55"/><circle cx="187.0" cy="156.0" r="1.6" fill="#8e7d55"/><circle cx="126.2" cy="154.7" r="1.6" fill="#8e7d55"/><circle cx="153.2" cy="172.9" r="1.6" fill="#8e7d55"/><circle cx="160.0" cy="115.4" r="20" fill="rgba(249,250,247,.55)" stroke="var(--ink)" stroke-width="2"/><path d="M174.0 129.4l14 14" stroke="var(--ink)" stroke-width="3" stroke-linecap="round"/><text class="lb" x="116" y="285">01 Assess</text></g><g class="a" style="--i:3"><g filter="url(#p5-sh)" opacity=".28"><polygon points="400.0,141.4 467.5,180.4 400.0,219.4 332.5,180.4" fill="#16313a" /></g><polygon points="467.5,170.0 400.0,209.0 400.0,196.0 467.5,157.0" fill="#b9bfba" /><polygon points="332.5,170.0 400.0,209.0 400.0,196.0 332.5,157.0" fill="#cdd2cc" /><polygon points="400.0,118.0 467.5,157.0 400.0,196.0 332.5,157.0" fill="url(#p5-t)" /><polygon points="405.2,122.3 339.9,160.0 339.9,149.6 405.2,111.9" fill="#9c8466" /><polygon points="337.2,158.4 339.9,160.0 339.9,149.6 337.2,148.0" fill="#b59c79" /><polygon points="402.5,110.3 405.2,111.9 339.9,149.6 337.2,148.0" fill="#d8c3a0" /><polygon points="424.3,133.3 359.0,171.0 359.0,160.6 424.3,122.9" fill="#9c8466" /><polygon points="356.3,169.5 359.0,171.0 359.0,160.6 356.3,159.1" fill="#b59c79" /><polygon points="421.6,121.4 424.3,122.9 359.0,160.6 356.3,159.1" fill="#d8c3a0" /><polygon points="443.5,144.4 378.2,182.1 378.2,171.7 443.5,134.0" fill="#9c8466" /><polygon points="375.5,180.5 378.2,182.1 378.2,171.7 375.5,170.1" fill="#b59c79" /><polygon points="440.8,132.4 443.5,134.0 378.2,171.7 375.5,170.1" fill="#d8c3a0" /><polygon points="462.6,155.4 397.3,193.1 397.3,182.7 462.6,145.0" fill="#9c8466" /><polygon points="394.6,191.6 397.3,193.1 397.3,182.7 394.6,181.2" fill="#b59c79" /><polygon points="459.9,143.5 462.6,145.0 397.3,182.7 394.6,181.2" fill="#d8c3a0" /><path d="M438.8 173.7q0-30 12-36h28q12 6 12 36q0 12-26 12t-26-12Z" fill="#e7e2d6" stroke="var(--ember)" stroke-width="1.6"/><path d="M448.8 137.7h30" stroke="var(--ember)" stroke-width="2" stroke-linecap="round"/><circle cx="450.8" cy="161.7" r="1.6" fill="#b9a678"/><circle cx="458.8" cy="169.7" r="1.6" fill="#b9a678"/><circle cx="468.8" cy="159.7" r="1.6" fill="#b9a678"/><circle cx="476.8" cy="167.7" r="1.6" fill="#b9a678"/><circle cx="462.8" cy="153.7" r="1.6" fill="#b9a678"/><text class="lb lb-e" x="356" y="285">02 Remove</text></g><g class="a" style="--i:5"><g filter="url(#p5-sh)" opacity=".28"><polygon points="640.0,141.4 707.5,180.4 640.0,219.4 572.5,180.4" fill="#16313a" /></g><polygon points="707.5,170.0 640.0,209.0 640.0,196.0 707.5,157.0" fill="#b9bfba" /><polygon points="572.5,170.0 640.0,209.0 640.0,196.0 572.5,157.0" fill="#cdd2cc" /><polygon points="640.0,118.0 707.5,157.0 640.0,196.0 572.5,157.0" fill="url(#p5-t)" /><polygon points="662.5,132.3 597.2,170.0 597.2,162.2 662.5,124.5" fill="#c9ab5e" /><polygon points="579.9,160.0 597.2,170.0 597.2,162.2 579.9,152.2" fill="#dcbf72" /><polygon points="645.2,114.5 662.5,124.5 597.2,162.2 579.9,152.2" fill="#ecd590" /><polygon points="645.2,122.3 579.9,160.0 579.9,149.6 645.2,111.9" fill="#9c8466" /><polygon points="577.2,158.4 579.9,160.0 579.9,149.6 577.2,148.0" fill="#b59c79" /><polygon points="642.5,110.3 645.2,111.9 579.9,149.6 577.2,148.0" fill="#d8c3a0" /><polygon points="681.7,143.3 616.4,181.1 616.4,173.2 681.7,135.5" fill="#c9ab5e" /><polygon points="599.0,171.0 616.4,181.1 616.4,173.2 599.0,163.2" fill="#dcbf72" /><polygon points="664.3,125.5 681.7,135.5 616.4,173.2 599.0,163.2" fill="#ecd590" /><polygon points="664.3,133.3 599.0,171.0 599.0,160.6 664.3,122.9" fill="#9c8466" /><polygon points="596.3,169.5 599.0,171.0 599.0,160.6 596.3,159.1" fill="#b59c79" /><polygon points="661.6,121.4 664.3,122.9 599.0,160.6 596.3,159.1" fill="#d8c3a0" /><polygon points="700.8,154.4 635.5,192.1 635.5,184.3 700.8,146.6" fill="#c9ab5e" /><polygon points="618.2,182.1 635.5,192.1 635.5,184.3 618.2,174.3" fill="#dcbf72" /><polygon points="683.5,136.6 700.8,146.6 635.5,184.3 618.2,174.3" fill="#ecd590" /><polygon points="683.5,144.4 618.2,182.1 618.2,171.7 683.5,134.0" fill="#9c8466" /><polygon points="615.5,180.5 618.2,182.1 618.2,171.7 615.5,170.1" fill="#b59c79" /><polygon points="680.8,132.4 683.5,134.0 618.2,171.7 615.5,170.1" fill="#d8c3a0" /><polygon points="719.9,165.4 654.6,203.2 654.6,195.3 719.9,157.6" fill="#c9ab5e" /><polygon points="637.3,193.1 654.6,203.2 654.6,195.3 637.3,185.3" fill="#dcbf72" /><polygon points="702.6,147.6 719.9,157.6 654.6,195.3 637.3,185.3" fill="#ecd590" /><polygon points="702.6,155.4 637.3,193.1 637.3,182.7 702.6,145.0" fill="#9c8466" /><polygon points="634.6,191.6 637.3,193.1 637.3,182.7 634.6,181.2" fill="#b59c79" /><polygon points="699.9,143.5 702.6,145.0 637.3,182.7 634.6,181.2" fill="#d8c3a0" /><path d="M641.1,111.1L704.2,147.5L638.9,185.2" stroke="var(--cyan)" stroke-width="2.2" fill="none" stroke-linecap="round"/><text class="lb lb-c" x="596" y="285">03 Rebuild</text></g><g class="a" style="--i:7"><rect x="150" y="330" width="500" height="54" rx="12" fill="rgba(22,49,58,.05)"/><g fill="#b9a678"><circle cx="180" cy="357" r="5"/><circle cx="196" cy="350" r="3.6"/><circle cx="208" cy="362" r="4.2"/><circle cx="224" cy="352" r="3"/></g><text class="lb" x="250" y="362">Vermiculite · plaster · cement · pre-1980</text><text class="nts" x="784" y="438" text-anchor="end">Illustrative · NTS</text></g></svg>
+     </div>
+     <div class="fp-body">
+      <div>
+       <span class="fp-idx">SYSTEM 05 / 05</span>
+       <h3>Decontamination</h3>
+       <p class="fp-mat">Asbestos &amp; vermiculite removal</p>
+       <p class="fp-copy">Asbestos was used for insulation in construction until 1980. Work begins with an assessment of the structures; Mongrain then recommends the safest removal method for asbestos in vermiculite insulation, plaster and cement, before new insulation or fire barriers go in.</p>
+      </div>
+      <ul class="fp-facts"><li>Pre-1980 buildings</li><li>Assessment first</li><li>Vermiculite · plaster · cement</li></ul>
+     </div>
+    </article>
+   </div>
+  </div>
+ </div>
+</section>
+</div>
+<script>
+(function(){
+  'use strict';
+  var root=document.getElementById('mg-fire');
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  root.classList.add('fp-js');
+  function $$(s){return Array.prototype.slice.call(root.querySelectorAll(s));}
+  var tabs=$$('.fp-tab'),bars=$$('.fp-progress i');
+  var mq=window.matchMedia('(max-width:980px)');
+  var list=root.querySelector('.fp-tabs');
+  function orient(){list.setAttribute('aria-orientation',mq.matches?'horizontal':'vertical');}
+  orient(); if(mq.addEventListener) mq.addEventListener('change',orient);
+  tabs.forEach(function(t,j){ if(j) document.getElementById(t.getAttribute('aria-controls')).hidden=true; });
+  var cur=0;
+  function select(i,focus){
+    if(i===cur){ if(focus) tabs[i].focus(); return; }
+    tabs.forEach(function(t,j){
+      var on=i===j,p=document.getElementById(t.getAttribute('aria-controls'));
+      t.setAttribute('aria-selected',on); t.tabIndex=on?0:-1; p.hidden=!on;
+      if(on){ p.classList.remove('go'); void p.offsetWidth; requestAnimationFrame(function(){p.classList.add('go');}); }
+      if(bars[j]) bars[j].classList.toggle('on',j<=i);
+    });
+    cur=i;
+    if(focus) tabs[i].focus();
+    if(tabs[i].scrollIntoView&&mq.matches) tabs[i].scrollIntoView({block:'nearest',inline:'center',behavior:reduce?'auto':'smooth'});
+  }
+  tabs.forEach(function(t,i){
+    t.addEventListener('click',function(){select(i);});
+    t.addEventListener('keydown',function(e){var k=e.key,n=null,L=tabs.length;
+      if(k==='ArrowDown'||k==='ArrowRight')n=(i+1)%L;else if(k==='ArrowUp'||k==='ArrowLeft')n=(i-1+L)%L;else if(k==='Home')n=0;else if(k==='End')n=L-1;
+      if(n!==null){e.preventDefault();select(n,true);}});
+  });
+  var rv=$$('[data-rv]');
+  if(!('IntersectionObserver' in window)||reduce){rv.forEach(function(e){e.classList.add('is-in');});}
+  else{
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('is-in');io.unobserve(e.target);}});},{threshold:.12});
+    rv.forEach(function(e){io.observe(e);});
+    setTimeout(function(){rv.forEach(function(e){e.classList.add('is-in');});},4000);
+  }
+})();
+</script>
+</body>
+</html>
