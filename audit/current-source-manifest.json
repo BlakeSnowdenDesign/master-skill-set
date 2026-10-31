@@ -19374,7 +19374,8 @@
     },
     {
       "project": "Blue Valley Acres",
-      "reason": "Exact repository URL/access not established"
+      "reason": "User-confirmed repository reachable but empty on 2026-10-31; no refs or source commits available",
+      "repository_url": "https://github.com/BlakeSnowdenDesign/Blue_Valley_Acres.git"
     },
     {
       "project": "LimeTreeSocial",

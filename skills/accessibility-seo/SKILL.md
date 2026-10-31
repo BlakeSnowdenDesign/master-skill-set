@@ -16,3 +16,16 @@ description: Use for contextual image alt, accessible iframe names, native Wix c
 7. Verify current documentation when platform behavior matters; these sources are inherited guidance, not a new indexing audit. Separate training-crawler policy from search visibility; no blanket training opt-in.
 
 Read [examples and sources](references/labels-and-search.md). Report screen-reader, Search Console and indexing checks only if actually performed.
+
+## User-supplied keyword briefs
+
+Preserve the original inventory and distinguish identity terms from seed phrases.
+Group seeds by visitor intent and map them across relevant pages; track coverage
+without keyword stuffing or inventing services. Seeds are not measured volumes
+or evidence of ranking. Avoid ranking promises and meta-keywords tactics.
+For GEO, favor clear factual service explanations, consistent entity details
+and crawlable content; no markup guarantees AI citations.
+
+The [Snowden prompt guide](../../projects/snowden-design-prompts.md) records
+50 supplied Denver phrases and exact Home copy. Those terms and place names
+belong to Snowden, not every project using this shared module.

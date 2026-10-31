@@ -9,6 +9,7 @@ Load the smallest relevant module, then use [the section index](SECTION-INDEX.md
 | Metallic and glass controls | [Reflective controls](skills/reflective-controls/SKILL.md) |
 | Wix parent/iframe delivery | [Wix delivery](skills/wix-delivery/SKILL.md) |
 | Native SEO, iframe names, contextual alt | [Accessibility and SEO](skills/accessibility-seo/SKILL.md) |
+| Supplied creative prompts, Home copy and Denver keyword seeds | [Prompt library](prompts/README.md) |
 | Media loading, existing viewers, fallbacks | [Media and 3D](skills/media-3d/SKILL.md) |
 | Owner preview, Copy HTML and downloads | [Review and export](skills/review-export/SKILL.md) |
 | Reversible selection and camera state | [3D interaction contract](skills/3d-interaction-contract/SKILL.md) |

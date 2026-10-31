@@ -14,11 +14,22 @@ The exact refs, revisions, file hashes and exclusions are recorded in [current-s
 
 ## Incomplete
 
-- **Reverie** and **Blue Valley Acres** — repository URLs/access have not been established. Attempts using the literal names were rejected. No source has been invented or attributed to them.
+- **Reverie** — repository URL/access has not been established. No source has been invented or attributed to it.
+- **Blue Valley Acres** — user-confirmed URL is https://github.com/BlakeSnowdenDesign/Blue_Valley_Acres.git. On 2026-10-31 Git advertised no refs/commits and public repository metadata reported size 0. Read access is established, but there is no source revision, section HTML or supporting code to import.
 - **LimeTreeSocial** — public inventory entry exists, but its remote returned no refs. Lime Tree Hospitality case-study code was collected from Home Refresh instead and remains separately identified.
 - Public account listing returned five repositories in one page. It is not a private-repository account-wide inventory. Home Refresh access was established separately through the configured Git remote.
 
-## Collection boundaries
+## User-supplied prompts
+
+The [prompt library](../prompts/README.md) preserves the user's original Snowden
+Design creative brief, Home copy and 50 Denver keyword phrases. The separate
+[upload manifest](prompt-source-manifest.json) records exact bytes and SHA-256,
+not a Git source revision. The [usage guide](../projects/snowden-design-prompts.md)
+separates project-specific copy and motion values from reusable methods in the
+existing SEO and background-motion modules. These seeds are not measured search
+data, proof of awards or ranking guarantees. This is not Blue Valley Acres code.
+
+## Source and verification limits
 
 This is a code-and-technique compendium, not a byte-for-byte backup of every repository. It excludes agent memories, private profiles, environment files, dependency directories, binary media and text exports larger than 5 MB. Asset paths and URLs remain in the collected source. Large generated outputs should be rebuilt from their original project.
 

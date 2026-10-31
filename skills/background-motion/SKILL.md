@@ -7,6 +7,12 @@ description: Build restrained Ken Burns photo loops and geometric gradient backg
 
 Use for photo-led HTML sections, slow organic geometry and subtle moving gradients.
 
+For exact user-supplied motion prompts, retain scale endpoints, rotation and
+duration in a project profile rather than making them global defaults.
+Distinguish specified values from unprovided easing, rotation sign or repeat
+behavior. See the [Snowden prompt guide](../../projects/snowden-design-prompts.md);
+its 22-second values are a supplied brief, not a site-wide implementation change.
+
 ## Photo workflow
 
 1. Inspect the intrinsic image ratio and the user's required visible subject. `object-fit:cover` clips; use the intrinsic aspect ratio and `contain` when the entire computer or subject must appear at full zoom-out.

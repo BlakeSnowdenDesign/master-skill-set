@@ -94,7 +94,9 @@ def main():
                 "repositories": repositories, "files": records, "excluded": exclusions,
                 "missing": [
                     {"project": "Reverie", "reason": "Exact repository URL/access not established"},
-                    {"project": "Blue Valley Acres", "reason": "Exact repository URL/access not established"},
+                    {"project": "Blue Valley Acres",
+                     "reason": "User-confirmed repository reachable but empty on 2026-10-31; no refs or source commits available",
+                     "repository_url": "https://github.com/BlakeSnowdenDesign/Blue_Valley_Acres.git"},
                     {"project": "LimeTreeSocial", "reason": "Remote returned no refs; no source code available"}
                 ],
                 "media_policy": "Binary media not duplicated; original URLs and source paths retained. Dependencies may require original repository assets.",
@@ -102,6 +104,10 @@ def main():
     (BASE / "audit/current-source-manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
 
     rows = ["# Section and implementation index", "",
+            "## User-supplied prompts and keywords", "",
+            "See the [prompt library](prompts/README.md) for the original Snowden Design brief,",
+            "Home copy and all 50 Denver keyword phrases. These are creative references, not",
+            "recovered HTML or Blue Valley Acres implementation code.", "",
             "Exact text snapshots grouped by project and source branch. Files are evidence and reusable examples, not instructions to execute blindly.",
             "Branding, client names, technical claims and media rights remain project-specific.",
             "Source revisions and SHA-256 checksums are in [the current manifest](audit/current-source-manifest.json).",
@@ -120,7 +126,7 @@ def main():
              "The empty LimeTreeSocial repository is not evidence that Lime Tree Hospitality and Lime Tree Social are the same project.",
              "", "## Not yet collected", "",
              "- Reverie — exact repository URL/access needed.",
-             "- Blue Valley Acres — exact repository URL/access needed.",
+             "- Blue Valley Acres — confirmed [repository](https://github.com/BlakeSnowdenDesign/Blue_Valley_Acres.git) is reachable but empty as checked 2026-10-31; no refs or source to collect.",
              "- LimeTreeSocial — no remote refs or files available.",
              "- Binary photos, videos, fonts and generated bundles over 5 MB — use original assets and rebuild instructions; see exclusions in the manifest.",
              ""]

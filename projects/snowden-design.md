@@ -1,5 +1,9 @@
 # Snowden Design
 
+User-supplied [creative prompts, Home copy and 50 Denver keyword seeds](snowden-design-prompts.md)
+are preserved separately from implementation evidence. Consult their scope and
+provenance before use; their addition does not change the live site.
+
 **Evidence:** C02/C09/C10/C12; S01/S02/S06/S07/S09/S10/S17. Local decisions and implementation snapshot; upstream approval unavailable.
 
 ## Identity and authority

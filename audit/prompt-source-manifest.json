@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "scope": "User-supplied creative briefs, separate from repository implementation snapshots",
+  "files": [
+    {
+      "project": "Snowden Design",
+      "source_kind": "user-upload",
+      "original_filename": "Pasted--You-are-and-award-winning-digital-design-agency-UX-dir_1793471668357.txt",
+      "stored_path": "prompts/snowden-design-original.txt",
+      "sha256": "3c1d95c8b3f84a4ed52e588a7162e9b33e4a0db14c215359fec500effacbcd16",
+      "bytes": 3747,
+      "revision": null,
+      "keyword_phrases": 50,
+      "permission": "User explicitly requested adding this upload to the master skill set on GitHub",
+      "limitations": "Creative brief and keyword seeds, not verified awards, search measurements, implementation code or ranking guarantees"
+    }
+  ]
+}
