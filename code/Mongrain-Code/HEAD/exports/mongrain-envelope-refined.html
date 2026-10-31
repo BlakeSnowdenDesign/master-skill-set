@@ -1,0 +1,977 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mongrain — 03 Envelope assembly · BIM section</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400..700&family=Questrial&display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;padding:0;background:#EEF3F7}
+#mg-bim{
+  --mist:#EEF3F7;--ink:#0B1A28;--ink-2:#0E1F30;--graphite:#4A5868;--line:#D9E2EA;
+  --cyan:#19C6F5;--royal:#0B6FD6;--amber:#FF8A3D;--grad:linear-gradient(120deg,#19C6F5 0%,#0B6FD6 100%);
+  --f-display:'Space Grotesk',ui-sans-serif,system-ui,sans-serif;--f-body:'Questrial',ui-sans-serif,system-ui,sans-serif;--f-mono:'Space Grotesk',ui-sans-serif,system-ui,sans-serif;
+  --ease:cubic-bezier(.2,.7,.2,1);--spring:cubic-bezier(.34,1.56,.64,1);
+  --tx:0;--ty:0;--e:0;--mx:50%;--my:30%;
+  background:var(--mist);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased
+}
+#mg-bim *,#mg-bim *::before,#mg-bim *::after{box-sizing:border-box}
+#mg-bim a{color:inherit}
+#mg-bim :focus-visible{outline:2px solid var(--cyan);outline-offset:3px;border-radius:10px}
+#mg-bim .sec{padding:24px 0 96px}
+#mg-bim .stagewrap{width:min(1560px,calc(100vw - 32px));margin:0 auto;perspective:2400px}
+#mg-bim .rise{opacity:0;transform:translateY(60px) scale(.96);filter:blur(8px);transition:opacity 1.2s var(--ease),transform 1.4s var(--ease),filter 1.2s var(--ease)}
+#mg-bim.in .rise{opacity:1;transform:none;filter:none}
+
+/* Shell */
+#mg-bim .shell{position:relative;border-radius:30px;padding:1.5px;isolation:isolate;
+  transform:rotateX(calc(var(--e)*12deg + var(--ty)*-1.2deg)) rotateY(calc(var(--tx)*1.4deg)) scale(calc(1 - var(--e)*.05));transform-origin:50% 0;
+  transition:transform .6s var(--ease);
+  box-shadow:0 2px 6px rgba(11,26,40,.12),0 40px 80px -30px rgba(11,26,40,.55),0 90px 140px -60px rgba(11,111,214,.45)}
+#mg-bim .shell::before{content:"";position:absolute;inset:0;border-radius:inherit;z-index:-1;
+  background:conic-gradient(from var(--ang,0deg),rgba(25,198,245,.9),rgba(11,111,214,.35) 18%,rgba(11,26,40,.9) 40%,rgba(11,26,40,.9) 60%,rgba(11,111,214,.35) 82%,rgba(25,198,245,.9));animation:mgSpin 12s linear infinite}
+#mg-bim .cn{position:relative;border-radius:28.5px;background:var(--ink);color:#DDE8F1;overflow:hidden}
+
+/* Bar */
+#mg-bim .bar{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:64px;padding:10px 14px 10px 20px;border-bottom:1px solid rgba(255,255,255,.07);flex-wrap:wrap}
+#mg-bim .crumb{display:flex;align-items:center;gap:10px;color:#8FA6BA;min-width:0;white-space:nowrap;overflow:hidden;font:500 13px/1 var(--f-mono)}
+#mg-bim .crumb i{width:26px;height:26px;border-radius:9px;background:var(--grad);display:grid;place-items:center;color:#fff;font:700 13px/1 var(--f-display);font-style:normal;box-shadow:inset 0 1px 0 rgba(255,255,255,.45),0 6px 16px -6px rgba(25,198,245,.8);flex-shrink:0}
+#mg-bim .crumb em{font-style:normal;color:#E8F2F9}
+#mg-bim .crumb s{text-decoration:none;opacity:.4}
+#mg-bim .ctrls{display:flex;gap:8px;flex-wrap:wrap}
+#mg-bim .cbtn{display:inline-flex;align-items:center;gap:9px;height:40px;padding:0 16px;border-radius:999px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:#C5D6E4;font:500 12.5px/1 var(--f-mono);letter-spacing:.02em;cursor:pointer;
+  transition:border-color .3s,background .3s,color .3s,transform .5s var(--spring),box-shadow .4s}
+#mg-bim .cbtn:hover{border-color:rgba(255,255,255,.28);background:rgba(255,255,255,.08);color:#fff;transform:translateY(-1px)}
+#mg-bim .cbtn svg{width:14px;height:14px}
+#mg-bim .cbtn.primary{background:#fff;color:var(--ink);border-color:#fff;box-shadow:0 10px 24px -10px rgba(25,198,245,.7)}
+#mg-bim .cbtn.primary:hover{background:#E4F6FD;color:var(--ink)}
+#mg-bim .cbtn.on{border-color:rgba(25,198,245,.55);color:#9FE3FA;background:rgba(25,198,245,.1)}
+
+/* Body */
+#mg-bim .body{display:grid;grid-template-columns:minmax(0,1fr) 392px;height:720px}
+#mg-bim .stage{position:relative;overflow:hidden;cursor:grab;touch-action:pan-y;user-select:none;-webkit-user-select:none;
+  background:radial-gradient(ellipse 70% 60% at 50% 45%,#16304A 0%,#0E1F30 55%,#0A1726 100%)}
+#mg-bim .stage.drag{cursor:grabbing}
+#mg-bim .stage::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:linear-gradient(rgba(143,166,186,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(143,166,186,.06) 1px,transparent 1px);background-size:40px 40px;
+  -webkit-mask-image:radial-gradient(ellipse 70% 70% at 50% 50%,#000 30%,transparent 80%);mask-image:radial-gradient(ellipse 70% 70% at 50% 50%,#000 30%,transparent 80%)}
+#mg-bim .view{position:absolute;inset:0;perspective:2600px;perspective-origin:50% 45%}
+#mg-bim .cam{position:absolute;left:50%;top:50%;width:0;height:0;transform-style:preserve-3d}
+#mg-bim .model,#mg-bim .layer,#mg-bim .bx{position:absolute;left:0;top:0;transform-style:preserve-3d}
+#mg-bim .layer{--c:var(--base);transition:transform 1.1s cubic-bezier(.22,.9,.24,1)}
+#mg-bim .fc{position:absolute;left:0;top:0;transform-origin:0 0;backface-visibility:hidden;-webkit-backface-visibility:hidden;
+  box-shadow:inset 0 0 0 .6px rgba(255,255,255,.14);transition:background-color .45s,opacity .45s,box-shadow .45s}
+#mg-bim .f-fr{background-color:var(--c)}
+#mg-bim .f-rt,#mg-bim .f-lf{background-color:color-mix(in srgb,var(--c) 74%,#06111c)}
+#mg-bim .f-tp{background-color:color-mix(in srgb,var(--c) 78%,#fff)}
+#mg-bim .f-bk{background-color:color-mix(in srgb,var(--c) 66%,#06111c)}
+#mg-bim .f-bt{background-color:color-mix(in srgb,var(--c) 55%,#06111c)}
+#mg-bim .t-cut .f-fr{background-image:repeating-linear-gradient(45deg,rgba(11,26,40,.22) 0 1px,transparent 1px 7px)}
+#mg-bim .t-ins .fc{background-image:repeating-linear-gradient(0deg,rgba(11,26,40,.10) 0 1px,transparent 1px 5px)}
+#mg-bim .t-ins .f-fr{background-image:repeating-linear-gradient(-30deg,rgba(11,26,40,.16) 0 1px,transparent 1px 6px),repeating-linear-gradient(30deg,rgba(11,26,40,.16) 0 1px,transparent 1px 6px)}
+#mg-bim .t-dimple .fc{background-image:radial-gradient(circle,rgba(255,255,255,.22) 1.2px,transparent 1.6px);background-size:7px 7px}
+#mg-bim .t-panel .f-rt{background-image:linear-gradient(180deg,rgba(255,255,255,.10),transparent 40%,rgba(0,0,0,.12))}
+#mg-bim .t-perf .fc{background-image:radial-gradient(circle,rgba(6,17,28,.55) 1.1px,transparent 1.5px);background-size:6px 6px}
+#mg-bim .t-ghost .fc{background-color:rgba(25,198,245,.035)!important;box-shadow:inset 0 0 0 1px rgba(143,166,186,.22)}
+#mg-bim .layer.hl{--c:color-mix(in srgb,var(--base) 30%,#19C6F5)}
+#mg-bim .layer.hl .fc{box-shadow:inset 0 0 0 .8px rgba(190,240,255,.9)}
+#mg-bim .layer.hl.t-ghost .fc{background-color:rgba(25,198,245,.16)!important;box-shadow:inset 0 0 0 1px rgba(25,198,245,.8)}
+#mg-bim .model.focus .layer:not(.hl) .fc{opacity:.16}
+#mg-bim .layer.flash .fc{animation:mgFlash 1s ease-out}
+#mg-bim .grade{position:absolute;left:0;top:0;transform-style:preserve-3d}
+#mg-bim .grade .fc{background:rgba(143,166,186,.07);box-shadow:inset 0 0 0 1px rgba(143,166,186,.16)}
+
+/* HUD */
+#mg-bim .tag{position:absolute;left:20px;top:20px;z-index:2;display:inline-flex;align-items:center;gap:8px;padding:8px 13px;border-radius:999px;background:rgba(11,26,40,.6);border:1px solid rgba(255,255,255,.08);backdrop-filter:blur(10px);font:500 11px/1 var(--f-mono);letter-spacing:.06em;color:#8FA6BA;pointer-events:none}
+#mg-bim .tag::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--cyan);box-shadow:0 0 10px var(--cyan);animation:mgBlink 1.6s ease-in-out infinite}
+#mg-bim .hud{position:absolute;left:20px;right:20px;bottom:18px;z-index:2;display:flex;flex-direction:column;gap:10px;pointer-events:none}
+#mg-bim .now{font:500 12px/1.3 var(--f-mono);color:#C5D6E4;letter-spacing:.02em;min-height:16px;transition:opacity .3s}
+#mg-bim .now b{color:var(--cyan);font-weight:500}
+#mg-bim .phases{display:grid;grid-template-columns:8fr 10fr 6fr;gap:6px}
+#mg-bim .ph{display:flex;flex-direction:column;gap:7px;font:500 10px/1 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:#6B8196;transition:color .4s}
+#mg-bim .ph i{display:block;height:3px;border-radius:3px;background:rgba(255,255,255,.08);overflow:hidden}
+#mg-bim .ph i::after{content:"";display:block;height:100%;width:calc(var(--p,0)*100%);background:var(--grad);border-radius:3px;transition:width .3s linear}
+#mg-bim .ph.on{color:#DDE8F1}
+#mg-bim .hint{position:absolute;right:20px;top:22px;z-index:2;font:500 11px/1 var(--f-mono);color:#6B8196;pointer-events:none;transition:opacity .5s}
+#mg-bim .callout{position:absolute;left:0;top:0;z-index:4;width:270px;padding:14px 16px 15px;border-radius:18px;pointer-events:none;
+  background:rgba(14,31,48,.86);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(25,198,245,.35);
+  box-shadow:0 24px 50px -20px rgba(0,0,0,.8),0 0 0 6px rgba(25,198,245,.05);opacity:0;transform:translate(var(--cx,0),var(--cy,0)) scale(.94);transform-origin:0 0;
+  transition:opacity .25s var(--ease),transform .18s var(--ease)}
+#mg-bim .callout.show{opacity:1;transform:translate(var(--cx,0),var(--cy,0)) scale(1)}
+#mg-bim .callout .k{display:flex;justify-content:space-between;font:500 10.5px/1 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:#7FD8F7}
+#mg-bim .callout .k span+span{color:#6B8196}
+#mg-bim .callout h5{margin:9px 0 6px;font:600 16px/1.2 var(--f-display);letter-spacing:-.015em;color:#fff}
+#mg-bim .callout p{margin:0;font-size:12.5px;line-height:1.5;color:#A9BCCC}
+#mg-bim .callout .s{margin-top:10px;padding-top:9px;border-top:1px solid rgba(255,255,255,.08);font:500 11px/1.4 var(--f-mono);color:#DDE8F1}
+#mg-bim .callout .c{margin-top:8px;font:500 10px/1 var(--f-mono);letter-spacing:.06em;color:#6B8196;text-transform:uppercase}
+
+/* Sidebar */
+#mg-bim .side{display:flex;flex-direction:column;min-height:0;border-left:1px solid rgba(255,255,255,.07);background:linear-gradient(180deg,rgba(255,255,255,.025),transparent 50%)}
+#mg-bim .cap{font:500 10.5px/1 var(--f-mono);letter-spacing:.09em;text-transform:uppercase;color:#6B8196}
+#mg-bim .cats{padding:20px 20px 16px;border-bottom:1px solid rgba(255,255,255,.07)}
+#mg-bim .cgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+#mg-bim .cat{display:flex;flex-direction:column;align-items:flex-start;gap:9px;padding:12px 11px 11px;border-radius:16px;border:0;background:rgba(255,255,255,.035);color:#A9BCCC;cursor:pointer;text-align:left;font:500 11.5px/1.2 var(--f-body);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.06);transition:transform .5s var(--spring),background .3s,color .3s,box-shadow .4s}
+#mg-bim .cat svg{width:20px;height:20px;color:#7F97AC;transition:color .3s,transform .5s var(--spring)}
+#mg-bim .cat:hover{transform:translateY(-3px);background:rgba(255,255,255,.06);color:#fff;box-shadow:inset 0 0 0 1px rgba(255,255,255,.12),0 14px 26px -16px rgba(25,198,245,.6)}
+#mg-bim .cat:hover svg{transform:scale(1.12) rotate(-4deg);color:#BFEFFF}
+#mg-bim .cat[aria-pressed="true"]{background:rgba(25,198,245,.12);color:#fff;box-shadow:inset 0 0 0 1px rgba(25,198,245,.55),0 14px 30px -14px rgba(25,198,245,.7)}
+#mg-bim .cat[aria-pressed="true"] svg{color:var(--cyan)}
+#mg-bim .detail{padding:20px;border-bottom:1px solid rgba(255,255,255,.07);min-height:248px;display:flex;flex-direction:column}
+#mg-bim .detail .swap{transition:opacity .35s var(--ease),transform .45s var(--ease),filter .35s;transition-delay:calc(var(--k,0)*50ms)}
+#mg-bim .detail.out .swap{opacity:0;transform:translateY(8px);filter:blur(3px);transition-delay:0s}
+#mg-bim .dtop{display:flex;justify-content:space-between;align-items:center;gap:10px}
+#mg-bim .chip{display:inline-flex;align-items:center;gap:7px;height:26px;padding:0 11px;border-radius:999px;background:rgba(25,198,245,.12);color:#9FE3FA;font:500 10.5px/1 var(--f-mono);letter-spacing:.06em;text-transform:uppercase}
+#mg-bim .chip::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor;box-shadow:0 0 8px currentColor}
+#mg-bim .lock{font:500 10.5px/1 var(--f-mono);color:#6B8196;display:inline-flex;gap:6px;align-items:center}
+#mg-bim .detail h4{margin:14px 0 8px;font:600 21px/1.15 var(--f-display);letter-spacing:-.02em;color:#fff;text-wrap:balance}
+#mg-bim .detail p{margin:0;font-size:13.5px;line-height:1.55;color:#A9BCCC;text-wrap:pretty}
+#mg-bim .specs{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+#mg-bim .specs span{padding:6px 9px;border-radius:9px;background:rgba(255,255,255,.05);font:500 10.5px/1 var(--f-mono);color:#DDE8F1}
+#mg-bim .go{position:relative;overflow:hidden;align-self:flex-start;margin-top:auto;display:inline-flex;align-items:center;gap:10px;height:44px;padding:0 18px;border-radius:14px;background:#fff;color:var(--ink);font:500 13.5px/1 var(--f-body);text-decoration:none;
+  box-shadow:0 12px 26px -12px rgba(25,198,245,.6);transition:transform .5s var(--spring),box-shadow .4s,opacity .3s}
+#mg-bim .go::after{content:"";position:absolute;top:0;bottom:0;width:40%;left:-60%;background:linear-gradient(100deg,transparent,rgba(25,198,245,.35),transparent);transform:skewX(-20deg);transition:left .8s var(--ease)}
+#mg-bim .go:hover{box-shadow:0 18px 34px -12px rgba(25,198,245,.85)}
+#mg-bim .go:hover::after{left:130%}
+#mg-bim .go svg{transition:transform .4s var(--spring)}
+#mg-bim .go:hover svg{transform:translateX(4px)}
+#mg-bim .go[hidden]{display:none}
+#mg-bim .gowrap{margin-top:auto;padding-top:14px}
+#mg-bim .legend{flex:1;min-height:0;overflow:auto;padding:14px 12px 18px;scrollbar-width:thin;scrollbar-color:#2A4058 transparent}
+#mg-bim .grp{margin-top:8px}
+#mg-bim .grp .cap{display:flex;justify-content:space-between;padding:8px 10px}
+#mg-bim .li{display:flex;align-items:center;gap:11px;width:100%;padding:8px 10px;border:0;border-radius:11px;background:transparent;color:#A9BCCC;font:500 13px/1.25 var(--f-body);text-align:left;cursor:pointer;transition:background .25s,color .25s,transform .4s var(--spring)}
+#mg-bim .li i{width:12px;height:12px;flex-shrink:0;border-radius:4px;background:var(--base);box-shadow:inset 0 0 0 1px rgba(255,255,255,.2)}
+#mg-bim .li code{margin-left:auto;font:500 10px/1 var(--f-mono);color:#56708A}
+#mg-bim .li:hover{background:rgba(255,255,255,.05);color:#fff;transform:translateX(3px)}
+#mg-bim .li.hl{background:rgba(25,198,245,.1);color:#fff}
+#mg-bim .li.hl i{box-shadow:0 0 0 2px rgba(25,198,245,.6),0 0 10px rgba(25,198,245,.6)}
+#mg-bim .li.hl code{color:var(--cyan)}
+#mg-bim .li.dim{opacity:.4}
+
+/* lighting + materials */
+#mg-bim .fc::after{content:"";position:absolute;inset:0;pointer-events:none;transition:opacity .5s}
+#mg-bim .f-fr::after{background:linear-gradient(160deg,rgba(255,255,255,.18),rgba(255,255,255,0) 42%,rgba(0,0,0,.22))}
+#mg-bim .f-rt::after{background:linear-gradient(180deg,rgba(255,255,255,.10),rgba(255,255,255,0) 30%,rgba(0,0,0,.28))}
+#mg-bim .f-tp::after{background:linear-gradient(120deg,rgba(255,255,255,.26),rgba(255,255,255,0) 55%)}
+#mg-bim .f-tp{box-shadow:inset 0 0 0 .7px rgba(255,255,255,.34)}
+#mg-bim .t-panel .f-rt::after{background:linear-gradient(172deg,rgba(255,240,220,.30),rgba(255,255,255,0) 30%,rgba(0,0,0,.05) 60%,rgba(0,0,0,.32))}
+#mg-bim .layer.gone .fc{opacity:0!important}
+#mg-bim .layer.wire .fc{background-color:rgba(25,198,245,.035)!important;background-image:none!important;box-shadow:inset 0 0 0 .8px rgba(25,198,245,.75)!important}
+#mg-bim .layer.wire .fc::after{opacity:0}
+#mg-bim .fc{transition:background-color .7s,opacity .6s,box-shadow .7s}
+/* context */
+#mg-bim .soil,#mg-bim .shadow,#mg-bim .scan,#mg-bim .lvl,#mg-bim .gline{position:absolute;left:0;top:0;transform-style:preserve-3d;pointer-events:none}
+#mg-bim .soil .fc{background-color:rgba(120,145,170,.045)!important;box-shadow:none;transition:opacity .9s}
+#mg-bim .soil .fc::after{display:none}
+#mg-bim .soil .f-fr{background-image:repeating-linear-gradient(45deg,rgba(143,166,186,.10) 0 1px,transparent 1px 10px)}
+#mg-bim .soil .f-tp{background:linear-gradient(90deg,rgba(25,198,245,.12),rgba(25,198,245,0) 80%)!important}
+#mg-bim .shadow .fc{background:radial-gradient(ellipse 50% 46% at 42% 50%,rgba(0,6,14,.75),rgba(0,6,14,0) 70%);box-shadow:none}
+#mg-bim .shadow .fc::after{display:none}
+#mg-bim .gline{width:420px;height:1.5px;background:linear-gradient(90deg,rgba(25,198,245,.9),rgba(25,198,245,0));box-shadow:0 0 10px rgba(25,198,245,.7);transition:opacity .9s}
+#mg-bim .lvl{transition:opacity .9s}
+#mg-bim .lvl i{display:block;height:0;border-top:1px dashed rgba(143,166,186,.38)}
+#mg-bim .lvl i::before{content:"";position:absolute;left:-3px;top:-3.5px;width:6px;height:6px;border-radius:50%;border:1px solid rgba(143,166,186,.7)}
+#mg-bim .lvl span{position:absolute;left:8px;bottom:5px;white-space:nowrap;font:500 9px/1 var(--f-mono);letter-spacing:.08em;color:#6B8196}
+#mg-bim .lvl b{color:#B4C6D6;font-weight:500;margin-right:4px}
+#mg-bim .model.exploded .lvl,#mg-bim .model.exploded .gline,#mg-bim .model.exploded .soil .fc{opacity:0}
+#mg-bim .scan{opacity:0;transition:opacity .6s}
+#mg-bim .scan.on{opacity:1}
+#mg-bim .scan .fc{background:radial-gradient(ellipse 48% 44% at 50% 50%,rgba(25,198,245,.26),rgba(25,198,245,.05) 55%,rgba(25,198,245,0) 70%);box-shadow:none}
+#mg-bim .scan .fc::after{display:none}
+#mg-bim .stage::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;opacity:.08;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+#mg-bim .vig{position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse 80% 75% at 50% 48%,transparent 55%,rgba(4,10,18,.55))}
+#mg-bim .pin{position:absolute;left:0;top:0;transform-style:flat;cursor:pointer;transition:transform var(--camt,0ms) var(--came,linear)}
+#mg-bim .pin b{position:absolute;left:-15px;top:-15px;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;
+  background:rgba(11,26,40,.82);border:1px solid rgba(25,198,245,.55);color:#BFEFFF;font:500 11px/1 var(--f-mono);
+  box-shadow:0 8px 18px -6px rgba(0,0,0,.7),0 0 0 4px rgba(25,198,245,.08);opacity:0;transform:scale(.4);
+  transition:opacity .45s var(--ease),transform .55s var(--spring),background .3s,color .3s,box-shadow .3s}
+#mg-bim .model.exploded .pin b{opacity:1;transform:scale(var(--ps,1))}
+#mg-bim .model.exploded .layer.gone .pin b,#mg-bim .model.exploded .layer.wire .pin b{opacity:0;transform:scale(.4)}
+#mg-bim .layer.hl .pin b{opacity:1;transform:scale(calc(var(--ps,1)*1.12));background:#19C6F5;color:#0B1A28;border-color:#BFEFFF;box-shadow:0 0 0 6px rgba(25,198,245,.22),0 10px 24px -6px rgba(25,198,245,.8)}
+#mg-bim .model.focus .layer:not(.hl) .pin b{opacity:.25}
+#mg-bim .pin:hover b{transform:scale(calc(var(--ps,1)*1.2))}
+#mg-bim .links{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;margin-top:auto;padding-top:14px}
+#mg-bim .links .gowrap{margin:0;padding:0}
+#mg-bim .ext{display:inline-flex;align-items:center;gap:7px;font:500 12px/1 var(--f-mono);color:#8FA6BA;text-decoration:none;padding:6px 0;border-bottom:1px solid rgba(143,166,186,.3);transition:color .25s,border-color .25s}
+#mg-bim .ext:hover{color:#BFEFFF;border-color:#19C6F5}
+#mg-bim .ext[hidden]{display:none}
+#mg-bim .idx{font:500 10.5px/1 var(--f-mono);color:#56708A;margin-left:8px}
+/* buttons: shadow + full highlight */
+#mg-bim .cbtn{font-family:var(--f-display);font-weight:500;letter-spacing:.01em;box-shadow:0 1px 0 rgba(255,255,255,.06) inset,0 10px 22px -10px rgba(0,0,0,.85),0 2px 6px rgba(0,0,0,.35)}
+#mg-bim .cbtn:hover{background:#19C6F5;border-color:#19C6F5;color:#0B1A28;box-shadow:0 14px 30px -10px rgba(25,198,245,.85),0 2px 6px rgba(0,0,0,.35)}
+#mg-bim .cbtn.primary{box-shadow:0 12px 28px -10px rgba(25,198,245,.7),0 2px 6px rgba(0,0,0,.35)}
+#mg-bim .cbtn.primary:hover{background:#19C6F5;color:#0B1A28;border-color:#19C6F5}
+#mg-bim .cbtn.on:hover{color:#0B1A28}
+#mg-bim .cat{font-family:var(--f-body);box-shadow:inset 0 0 0 1px rgba(255,255,255,.06),0 10px 22px -12px rgba(0,0,0,.9),0 2px 5px rgba(0,0,0,.3)}
+#mg-bim .cat:hover{background:#19C6F5;color:#0B1A28;box-shadow:0 16px 32px -12px rgba(25,198,245,.85),0 2px 6px rgba(0,0,0,.3)}
+#mg-bim .cat:hover svg{color:#0B1A28}
+#mg-bim .cat[aria-pressed="true"]:hover{background:#19C6F5;color:#0B1A28}
+#mg-bim .li{font-family:var(--f-body);box-shadow:0 0 0 rgba(0,0,0,0);transition:background .25s,color .25s,transform .4s var(--spring),box-shadow .3s}
+#mg-bim .li:hover{background:#19C6F5;color:#0B1A28;box-shadow:0 10px 22px -10px rgba(25,198,245,.8),0 2px 5px rgba(0,0,0,.3)}
+#mg-bim .li:hover code{color:#0B1A28}
+#mg-bim .li:hover i{box-shadow:0 0 0 1.5px #0B1A28}
+#mg-bim .go{font-family:var(--f-display);font-weight:500;box-shadow:0 12px 26px -10px rgba(25,198,245,.6),0 2px 6px rgba(0,0,0,.35)}
+#mg-bim .go:hover{background:#19C6F5;color:#0B1A28;box-shadow:0 18px 34px -10px rgba(25,198,245,.9),0 2px 6px rgba(0,0,0,.35)}
+#mg-bim .ext{font-family:var(--f-display);padding:9px 14px;border:1px solid rgba(143,166,186,.25);border-radius:12px;background:rgba(255,255,255,.04);box-shadow:0 10px 22px -12px rgba(0,0,0,.9),0 2px 5px rgba(0,0,0,.3);transition:background .25s,color .25s,border-color .25s,box-shadow .3s,transform .5s var(--spring)}
+#mg-bim .ext:hover{background:#19C6F5;color:#0B1A28;border-color:#19C6F5;box-shadow:0 14px 28px -10px rgba(25,198,245,.85);transform:translateY(-1px)}
+#mg-bim .pin b{font-family:var(--f-display)}
+#mg-bim .detail h4,#mg-bim .callout h5{font-family:var(--f-display)}
+#mg-bim .detail p,#mg-bim .callout p{font-family:var(--f-body)}
+@keyframes mgSpin{to{--ang:360deg}}
+@property --ang{syntax:'<angle>';inherits:false;initial-value:0deg}
+@keyframes mgBlink{0%,100%{opacity:1}50%{opacity:.35}}
+@keyframes mgFlash{0%{box-shadow:inset 0 0 0 1px rgba(255,255,255,1),0 0 0 rgba(25,198,245,0)}100%{box-shadow:inset 0 0 0 .6px rgba(255,255,255,.14)}}
+
+@media (max-width:1060px){
+  #mg-bim .body{grid-template-columns:minmax(0,1fr);height:auto}
+  #mg-bim .stage{height:560px}
+  #mg-bim .side{border-left:0;border-top:1px solid rgba(255,255,255,.07)}
+  #mg-bim .legend{max-height:420px}
+}
+@media (max-width:640px){
+  #mg-bim .sec{padding:12px 0 64px}
+  #mg-bim .stagewrap{width:calc(100vw - 20px)}
+  #mg-bim .shell{border-radius:24px}#mg-bim .cn{border-radius:22.5px}
+  #mg-bim .crumb .hide-sm{display:none}
+  #mg-bim .stage{height:460px}
+  #mg-bim .hint,#mg-bim .callout{display:none}
+  #mg-bim .cbtn{height:36px;padding:0 12px}
+  #mg-bim .cgrid{grid-template-columns:repeat(2,1fr)}
+}
+@media (prefers-reduced-motion:reduce){
+  #mg-bim *,#mg-bim *::before,#mg-bim *::after{animation:none!important;transition:none!important}
+  #mg-bim .rise{opacity:1;transform:none;filter:none}
+  #mg-bim .shell{transform:none}
+}
+
+/* Refined viewer: preserve the material language, remove competing effects. */
+#mg-bim [hidden]{display:none!important}
+#mg-bim .sec{padding:24px 0 42px}
+#mg-bim .stagewrap{width:min(1760px,calc(100% - 32px));perspective:none}
+#mg-bim .shell{padding:0;transform:none;box-shadow:0 20px 60px -24px #0b1a2830;border:1px solid #d9e2ea;border-radius:24px;isolation:auto}
+#mg-bim .shell::before{display:none}
+#mg-bim .cn{border-radius:23px;background:#0e1f30}
+#mg-bim .bar{padding:20px 24px;min-height:88px;background:#102437;gap:20px}
+#mg-bim .crumb{overflow:visible;white-space:normal;gap:12px}
+#mg-bim .crumb i{width:36px;height:36px;border-radius:11px;font-size:16px;box-shadow:none}
+#mg-bim .crumb em{font:600 20px/1.2 var(--f-display);letter-spacing:-.025em}
+#mg-bim .crumb small{display:block;color:#a9bccc;font:13px/1.5 var(--f-body);margin-top:4px}
+#mg-bim .cbtn{height:42px;border-radius:10px;padding:0 16px;background:transparent;box-shadow:none;font-size:13px;color:#d9e5ef}
+#mg-bim .cbtn:hover{transform:none;box-shadow:none;background:#ffffff0d;color:#fff;border-color:#7b97ad}
+#mg-bim .cbtn.primary{background:#19c6f5;border-color:#19c6f5;color:#0b1a28;box-shadow:none}
+#mg-bim .cbtn.primary:hover{background:#65daff;border-color:#65daff}
+#mg-bim .workspacebar{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:12px 24px;background:#142b3f;border-bottom:1px solid #ffffff0c}
+#mg-bim .scope-controls{display:flex;gap:5px;flex-wrap:wrap}
+#mg-bim .scope-controls button{display:inline-flex;align-items:center;gap:9px;background:none;color:#aec0cf;border:1px solid transparent;padding:10px 12px;font:500 13px/1 var(--f-display);border-radius:9px;cursor:pointer}
+#mg-bim .scope-controls button:hover{background:#ffffff08;color:white}
+#mg-bim .scope-controls button[aria-pressed=true]{color:white;background:#ffffff10;border-color:#ffffff18}
+#mg-bim .scope-controls span{font:11px/1 var(--f-body);color:#9fb6c8}
+#mg-bim .workspace-note{color:#9bb1c3;font-size:11px;white-space:nowrap}
+#mg-bim .body{grid-template-columns:minmax(0,1fr) 334px;height:820px}
+#mg-bim .stage{background:radial-gradient(ellipse at 48% 44%,#223e55,#122a3d 56%,#0e2133);touch-action:pan-y;min-width:0}
+#mg-bim .stage::before{background-size:52px 52px;opacity:.65}
+#mg-bim .stage::after{display:none}
+#mg-bim .view{perspective:3000px}
+#mg-bim .stage-top{position:absolute;top:20px;left:22px;right:22px;z-index:5;display:flex;align-items:center;justify-content:space-between;gap:10px;pointer-events:none}
+#mg-bim .tag{position:static;border:none;padding:0;background:none;backdrop-filter:none;color:#c5d6e4;font:500 12px/1.3 var(--f-display);text-transform:none;letter-spacing:.025em}
+#mg-bim .tag::before{display:none}
+#mg-bim .space-button{pointer-events:auto;border:1px solid #ffffff1c;border-radius:9px;color:#c5d6e4;background:#102437c9;padding:9px 12px;cursor:pointer;font:12px/1.2 var(--f-body)}
+#mg-bim .space-button:hover{background:#1d3b51;color:#fff}
+#mg-bim .viewer-dock{position:absolute;left:22px;right:22px;bottom:42px;z-index:5;display:flex;align-items:center;justify-content:space-between;gap:16px;pointer-events:none}
+#mg-bim .spread-control{background:#0d2135ed;border:1px solid #ffffff18;border-radius:13px;padding:13px 17px;max-width:340px;flex:1;pointer-events:auto;box-shadow:0 8px 30px #00000016}
+#mg-bim .spread-control label{display:flex;justify-content:space-between;color:#edf6fc;font:500 12px/1 var(--f-display);gap:15px}
+#mg-bim .spread-control output{color:#78dcfb;font-weight:400}
+#mg-bim input[type=range]{appearance:none;width:100%;margin:15px 0 9px;height:4px;border-radius:9px;background:linear-gradient(90deg,#19c6f5 var(--fill,0%),#354f65 var(--fill,0%));cursor:pointer;display:block}
+#mg-bim input[type=range]::-webkit-slider-thumb{appearance:none;width:18px;height:18px;background:#fff;border:3px solid #19c6f5;border-radius:50%;box-shadow:0 0 0 5px #19c6f517}
+#mg-bim input[type=range]::-moz-range-thumb{width:13px;height:13px;background:#fff;border:3px solid #19c6f5;border-radius:50%}
+#mg-bim .range-labels{display:flex;justify-content:space-between;font:10px/1.3 var(--f-body);color:#9eb5c7}
+#mg-bim .camera-tools{display:flex;align-items:center;pointer-events:auto;border:1px solid #ffffff18;border-radius:11px;background:#0d2135ed;padding:4px}
+#mg-bim .camera-tools button{border:0;border-radius:7px;background:none;color:#e5eff7;width:36px;height:36px;font:20px/1 var(--f-display);cursor:pointer}
+#mg-bim .camera-tools button:hover{background:#ffffff12}
+#mg-bim .camera-tools button:disabled{opacity:.35;cursor:default}
+#mg-bim .camera-tools #fit-view{font-size:12px;width:42px;border-left:1px solid #ffffff15;border-radius:0 7px 7px 0}
+#mg-bim .camera-tools output{min-width:46px;text-align:center;font:11px/1 var(--f-display);color:#adbed0}
+#mg-bim .gesture-hint{position:absolute;left:22px;right:22px;bottom:12px;margin:0;text-align:center;font:11px/1.3 var(--f-body);color:#9bb1c3;pointer-events:none}
+#mg-bim .gesture-hint span{padding:0 6px}
+#mg-bim .selected-caption{position:absolute;top:57px;left:22px;right:22px;z-index:5;pointer-events:none;color:#9fe3fa;font:500 12px/1.4 var(--f-display)}
+#mg-bim .side{background:#f8fafc;border-color:#d9e2ea;color:#0b1a28;overflow:hidden}
+#mg-bim .detail{padding:23px 22px;min-height:235px;border-color:#e1e8ef;flex-shrink:0}
+#mg-bim .detail h4{color:#0b1a28;font-size:23px;line-height:1.15;margin:17px 0 11px}
+#mg-bim .detail p{color:#4a5868;font-size:14px;line-height:1.65}
+#mg-bim .chip{background:#eaf4ff;color:#1f5b8f;font-size:10px;letter-spacing:.03em;text-transform:none}
+#mg-bim .chip::before{box-shadow:none;width:5px;height:5px}
+#mg-bim #clear-selection{border:0;background:none;color:#1f5b8f;font:12px var(--f-body);padding:8px;cursor:pointer}
+#mg-bim .specs span{background:#eaf0f5;color:#465970;font-size:10px}
+#mg-bim .links{padding-top:12px;gap:8px}
+#mg-bim .go{height:auto;padding:8px 0;background:none;color:#0b6fd6;border-radius:0;box-shadow:none;font:500 12px/1.5 var(--f-display)}
+#mg-bim .go::after{display:none}
+#mg-bim .go:hover{background:none;color:#0b4f9e;box-shadow:none;transform:none}
+#mg-bim .ext{border:0;background:none;padding:5px 0;font:12px/1.5 var(--f-body);color:#53667a;box-shadow:none}
+#mg-bim .ext:hover{background:none;color:#0b6fd6;box-shadow:none;transform:none}
+#mg-bim #isolate{margin-top:14px;align-self:flex-start;border:1px solid #d1dfec;background:#fff;color:#1f5b8f;border-radius:9px;padding:9px 12px;font:12px/1.3 var(--f-display);cursor:pointer}
+#mg-bim #isolate[aria-pressed=true]{background:#eaf4ff;border-color:#0b6fd6}
+#mg-bim .inspector-tabs{display:flex;padding:0 22px;border-bottom:1px solid #e1e8ef;gap:22px;flex-shrink:0}
+#mg-bim .inspector-tabs button{border:0;border-bottom:2px solid transparent;padding:13px 0;background:none;font:500 13px/1 var(--f-display);color:#627285;cursor:pointer}
+#mg-bim .inspector-tabs button[aria-selected=true]{color:#0b1a28;border-color:#0b6fd6}
+#mg-bim .inspector-tabs span{color:#758697;font-size:11px;margin-left:4px}
+#mg-bim .layers-panel{display:flex;flex-direction:column;overflow:hidden;min-height:0;flex:1;padding:16px 12px 14px}
+#mg-bim .search-label{font:11px/1 var(--f-display);color:#627285;padding:0 10px;margin-bottom:9px}
+#mg-bim #layer-search{margin:0 8px 10px;width:calc(100% - 16px);padding:11px 12px;background:white;border:1px solid #d9e2ea;border-radius:9px;font:12px var(--f-body);color:#0b1a28}
+#mg-bim .legend{padding:0;scrollbar-color:#bfcedb transparent;overflow:auto;min-height:0;flex:1}
+#mg-bim .grp{margin:0 0 9px}
+#mg-bim .grp .cap{color:#64788b;font:500 11px/1.4 var(--f-display);padding:12px 10px 7px;text-transform:none;letter-spacing:0}
+#mg-bim .li{box-shadow:none;color:#475b70;padding:10px;border-radius:8px;font:13px/1.3 var(--f-body);min-height:42px}
+#mg-bim .li code{color:#7b8b9b}
+#mg-bim .li:hover{color:#0b1a28;background:#edf3f9;transform:none;box-shadow:none}
+#mg-bim .li:hover code{color:#1f5b8f}
+#mg-bim .li.hl{background:#e1effb;color:#103b5d}
+#mg-bim .li.hl code{color:#0b6fd6}
+#mg-bim .li.hl i{box-shadow:0 0 0 2px #0b6fd633}
+#mg-bim .li.dim{opacity:.65}
+#mg-bim .no-results{padding:10px;color:#627285;font-size:13px}
+#mg-bim #performance-panel{padding:19px 20px;overflow:auto}
+#mg-bim .performance-help{margin:0;color:#4a5868;font-size:13px;line-height:1.6}
+#mg-bim .cgrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:17px}
+#mg-bim .cat{background:#fff;color:#475b70;box-shadow:none;border:1px solid #d9e2ea;border-radius:10px;min-height:90px;padding:13px;font-size:12px}
+#mg-bim .cat svg{color:#466c8c}
+#mg-bim .cat:hover{transform:none;background:#eef6fd;color:#0b1a28;box-shadow:none}
+#mg-bim .cat:hover svg{transform:none;color:#0b6fd6}
+#mg-bim .cat[aria-pressed=true]{background:#e1effb;color:#103b5d;border-color:#0b6fd6;box-shadow:none}
+#mg-bim .cat[aria-pressed=true] svg{color:#0b6fd6}
+#mg-bim .cat[aria-pressed=true]:hover{background:#e1effb;color:#103b5d}
+#mg-bim .layer{transition:transform .5s cubic-bezier(.22,1,.36,1)}
+#mg-bim .layer.scope-hidden{display:none}
+#mg-bim .model.focus .layer:not(.hl) .fc{opacity:.28}
+#mg-bim .model.isolate .layer:not(.hl){display:none}
+#mg-bim .layer .pin{pointer-events:none}
+#mg-bim .layer .pin{display:none}
+#mg-bim .annotation-overlay{position:absolute;inset:0;z-index:4;pointer-events:none}
+#mg-bim .annotation-overlay svg{width:100%;height:100%;position:absolute;inset:0;overflow:hidden}
+#mg-bim .annotation-overlay line{stroke:#87b4c7;stroke-width:1;opacity:.7}
+#mg-bim .layer-marker{position:absolute;width:30px;height:30px;border-radius:50%;border:1px solid #99bfd5;background:#122a3df5;color:#eaf4ff;font:500 10px/1 var(--f-display);padding:0;transform:translate(-50%,-50%);cursor:pointer;pointer-events:auto;box-shadow:0 3px 12px #00000025;transition:left .35s var(--ease),top .35s var(--ease),background .2s}
+#mg-bim .layer-marker:hover,#mg-bim .layer-marker[aria-pressed=true]{background:#19c6f5;color:#0b1a28;border-color:#d5f4ff}
+#mg-bim .pin b{border-color:#9fcee0;background:#102437;color:#dceaf4;box-shadow:none;font-size:10px;width:26px;height:26px;left:-13px;top:-13px}
+#mg-bim .model.exploded .pin b{transform:scale(var(--ps,1));opacity:.9}
+#mg-bim .layer.hl .pin b{background:#19c6f5;color:#0b1a28;transform:scale(var(--ps,1));box-shadow:0 0 0 4px #19c6f525}
+#mg-bim .model.focus .layer:not(.hl) .pin b{opacity:.4}
+#mg-bim .viewer-footer{padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:15px;background:#102437;border-top:1px solid #ffffff0c;font:11px/1.5 var(--f-body);color:#9ab1c3}
+#mg-bim #now{color:#dbeaf4}
+#mg-bim.wide .body{grid-template-columns:1fr}
+#mg-bim.wide .side{display:none}
+#mg-bim.wide .body{height:min(900px,90vh);min-height:650px}
+@media(max-width:1100px){
+  #mg-bim .body{grid-template-columns:minmax(0,1fr) 300px;height:760px}
+  #mg-bim .workspace-note{display:none}
+  #mg-bim .detail{padding:20px}
+}
+@media(max-width:820px){
+  #mg-bim .body{grid-template-columns:1fr;height:auto}
+  #mg-bim .stage{height:660px}
+  #mg-bim .side{border-left:0;border-top:1px solid #d9e2ea}
+  #mg-bim .detail{min-height:0}
+  #mg-bim .legend{max-height:310px}
+  #mg-bim .layers-panel{min-height:220px}
+  #mg-bim .cgrid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  #mg-bim .bar{padding:18px;align-items:flex-start}
+  #mg-bim .viewer-footer{align-items:flex-start}
+  #mg-bim.wide .body{height:auto;min-height:0}
+  #mg-bim.wide .stage{height:760px}
+}
+@media(max-width:540px){
+  #mg-bim .sec{padding:12px 0 24px}
+  #mg-bim .stagewrap{width:calc(100% - 20px)}
+  #mg-bim .shell{border-radius:18px}
+  #mg-bim .cn{border-radius:17px}
+  #mg-bim .bar{padding:17px 14px;gap:15px}
+  #mg-bim .crumb em{font-size:19px}
+  #mg-bim .crumb small{font-size:12px}
+  #mg-bim .ctrls{width:100%;gap:6px}
+  #mg-bim .cbtn{height:40px;padding:0 10px;font-size:11px;flex:1;justify-content:center}
+  #mg-bim .workspacebar{padding:10px}
+  #mg-bim .scope-controls{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:100%;gap:4px}
+  #mg-bim .scope-controls button{padding:10px;font-size:12px;justify-content:space-between}
+  #mg-bim .stage{height:580px}
+  #mg-bim .stage-top{left:15px;right:15px;top:16px}
+  #mg-bim .space-button{font-size:10px;padding:8px}
+  #mg-bim .tag{font-size:11px}
+  #mg-bim .viewer-dock{left:13px;right:13px;bottom:45px;align-items:stretch;gap:8px}
+  #mg-bim .spread-control{padding:12px;min-width:0}
+  #mg-bim .spread-control label{font-size:10px;gap:5px}
+  #mg-bim .camera-tools{display:grid;grid-template-columns:repeat(2,30px);padding:4px;align-content:center}
+  #mg-bim .camera-tools button{width:30px;height:30px}
+  #mg-bim .camera-tools output{grid-column:1/-1;grid-row:2;min-width:0;font-size:10px}
+  #mg-bim .camera-tools #fit-view{grid-column:1/-1;width:60px;border:0;height:25px}
+  #mg-bim .gesture-hint{font-size:10px;bottom:15px}
+  #mg-bim .selected-caption{left:15px;right:15px}
+  #mg-bim .cgrid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  #mg-bim .viewer-footer{flex-direction:column;padding:12px 16px;gap:4px;font-size:10px}
+  #mg-bim.wide .stage{height:640px}
+}
+</style><style id="hospital-palette">
+/* Hospital explorer palette; preserve refined viewer geometry and materials. */
+html,body{background:#E8EBEC}
+#mg-bim{
+  --mist:#E8EBEC;--ink:#132027;--ink-2:#243B46;--graphite:#55646D;
+  --line:#C5CED2;--cyan:#12B5D1;--royal:#0C9CAE;
+  --grad:linear-gradient(120deg,#12B5D1,#0C9CAE);
+}
+#mg-bim .cn{background:#E8EBEC;color:var(--ink)}
+#mg-bim .shell{box-shadow:0 24px 60px -28px rgba(18,52,62,.4)}
+#mg-bim .shell::before{background:rgba(255,255,255,.7);animation:none}
+#mg-bim .bar,#mg-bim .workspacebar,#mg-bim .viewer-footer{
+  background:rgba(247,250,250,.72);border-color:var(--line);color:var(--graphite);
+  backdrop-filter:blur(18px) saturate(1.2);-webkit-backdrop-filter:blur(18px) saturate(1.2);
+}
+#mg-bim .stage{background:radial-gradient(ellipse at 50% 45%,#E8EBEC 55%,#D8DFE2 100%)}
+#mg-bim .stage::before{background-image:linear-gradient(rgba(85,100,109,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(85,100,109,.045) 1px,transparent 1px)}
+#mg-bim .crumb,#mg-bim .crumb em,#mg-bim .tag,#mg-bim #now{color:var(--ink)}
+#mg-bim .crumb i{background:var(--cyan);color:white;box-shadow:none}
+#mg-bim .workspace-note,#mg-bim .scope-controls span,#mg-bim .gesture-hint,#mg-bim .range-labels,#mg-bim .camera-tools output{color:var(--graphite)}
+#mg-bim .cbtn,#mg-bim .space-button,#mg-bim .scope-controls button{
+  color:var(--ink);background:rgba(247,250,250,.72);border-color:var(--line);box-shadow:none;
+}
+#mg-bim .cbtn:hover,#mg-bim .space-button:hover,#mg-bim .scope-controls button:hover{
+  color:var(--ink);background:rgba(255,255,255,.9);border-color:#98B0B9;
+}
+#mg-bim .cbtn.primary{background:var(--cyan);border-color:var(--cyan);color:#06242B}
+#mg-bim .cbtn.primary:hover{background:#43C5DA;border-color:#43C5DA}
+#mg-bim .cbtn.on,#mg-bim .scope-controls button[aria-pressed=true]{
+  background:rgba(18,181,209,.15);border-color:rgba(18,181,209,.4);color:var(--ink);
+}
+#mg-bim .spread-control,#mg-bim .camera-tools{
+  background:rgba(247,250,250,.82);border-color:rgba(255,255,255,.7);
+  color:var(--ink);box-shadow:0 24px 60px -28px rgba(18,52,62,.4);
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+}
+#mg-bim .spread-control label,#mg-bim .camera-tools button{color:var(--ink)}
+#mg-bim .spread-control output{color:#0C9CAE}
+#mg-bim .camera-tools button:hover{background:rgba(18,181,209,.12)}
+#mg-bim .camera-tools #fit-view{border-color:var(--line)}
+#mg-bim input[type=range]{background:linear-gradient(90deg,var(--cyan) var(--fill,0%),#C5CED2 var(--fill,0%))}
+#mg-bim input[type=range]::-webkit-slider-thumb{border-color:var(--cyan);box-shadow:0 0 0 5px rgba(18,181,209,.1)}
+#mg-bim input[type=range]::-moz-range-thumb{border-color:var(--cyan)}
+#mg-bim .side,#mg-bim .detail,#mg-bim .layers-panel,#mg-bim #performance-panel{
+  background:rgba(247,250,250,.72);border-color:var(--line);color:var(--ink);
+}
+#mg-bim .detail h4,#mg-bim .performance-help,#mg-bim .detail p{color:var(--ink)}
+#mg-bim .detail p,#mg-bim .performance-help{color:var(--graphite)}
+#mg-bim .chip{background:rgba(18,181,209,.13);color:#087C8E}
+#mg-bim .inspector-tabs{border-color:var(--line)}
+#mg-bim .inspector-tabs button,#mg-bim .inspector-tabs span,#mg-bim .grp .cap,#mg-bim .li,#mg-bim .li code,#mg-bim .no-results{color:var(--graphite)}
+#mg-bim .inspector-tabs button[aria-selected=true]{color:var(--ink);border-color:var(--cyan)}
+#mg-bim input[type=search]{background:rgba(255,255,255,.72);border-color:var(--line);color:var(--ink)}
+#mg-bim .li:hover,#mg-bim .cat:hover{background:rgba(255,255,255,.9);color:var(--ink)}
+#mg-bim .li.hl,#mg-bim .cat[aria-pressed=true],#mg-bim .cat[aria-pressed=true]:hover{background:rgba(18,181,209,.15);color:var(--ink);border-color:var(--cyan)}
+#mg-bim .li.hl code,#mg-bim .li:hover code,#mg-bim .cat svg,#mg-bim .cat:hover svg,#mg-bim .cat[aria-pressed=true] svg{color:#087C8E}
+#mg-bim .li.hl i{box-shadow:0 0 0 2px rgba(18,181,209,.2)}
+#mg-bim .cat{background:rgba(247,250,250,.82);border-color:var(--line);color:var(--graphite)}
+#mg-bim .annotation-overlay line{stroke:#0C9CAE;opacity:.65}
+#mg-bim .layer-marker,#mg-bim .pin b{
+  background:rgba(247,250,250,.95);border-color:#98B0B9;color:var(--ink);
+  box-shadow:0 4px 16px rgba(18,52,62,.12);
+}
+#mg-bim .layer-marker:hover,#mg-bim .layer-marker[aria-pressed=true],#mg-bim .layer.hl .pin b{
+  background:var(--cyan);color:#06242B;border-color:var(--cyan);
+}
+#mg-bim .layer.hl{--c:color-mix(in srgb,var(--base) 30%,#12B5D1)}
+#mg-bim .layer.hl .fc{box-shadow:inset 0 0 0 .8px rgba(18,181,209,.9)}
+#mg-bim .layer.hl.t-ghost .fc{background-color:rgba(18,181,209,.16)!important}
+#mg-bim .legend{scrollbar-color:#AABAC0 transparent}
+#mg-bim .selected-caption,#mg-bim #clear-selection,#mg-bim .go,#mg-bim .go:hover,#mg-bim .ext:hover{color:#087C8E}
+#mg-bim .ext,#mg-bim .cap,#mg-bim .lock,#mg-bim .search-label{color:var(--graphite)}
+#mg-bim .specs span{background:#DEE7E9;color:var(--graphite)}
+#mg-bim #isolate{background:rgba(247,250,250,.82);color:var(--ink);border-color:var(--line)}
+#mg-bim #isolate[aria-pressed=true]{background:rgba(18,181,209,.15);border-color:var(--cyan)}
+#mg-bim .callout{
+  background:rgba(247,250,250,.92);border-color:rgba(18,181,209,.4);
+  box-shadow:0 24px 60px -28px rgba(18,52,62,.4);
+}
+#mg-bim .callout h5,#mg-bim .callout .s{color:var(--ink)}
+#mg-bim .callout p,#mg-bim .callout .c,#mg-bim .callout .k span+span{color:var(--graphite)}
+#mg-bim .callout .k{color:#087C8E}
+#mg-bim .callout .s{border-color:var(--line)}
+#mg-bim .crumb small{color:var(--graphite)}
+
+</style></head><body><div id="mg-bim"><section class="sec" aria-label="Interactive building envelope assembly"><div class="stagewrap">
+<div class="shell" id="shell"><div class="cn">
+<header class="bar">
+  <div class="crumb"><i aria-hidden="true">M</i><div><em>Envelope explorer</em><small>Foundation to roof. Every layer connected.</small></div></div>
+  <div class="ctrls">
+    <button class="cbtn primary" type="button" id="b-explode" aria-pressed="false"><span>Exploded view</span><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2 6V2h4M14 6V2h-4M2 10v4h4M14 10v4h-4"/></svg></button>
+    <button class="cbtn" type="button" id="b-play" aria-pressed="false"><span>Play assembly</span></button>
+    <button class="cbtn" type="button" id="b-reset">Reset view</button>
+  </div>
+</header>
+<nav class="workspacebar" aria-label="Assembly areas">
+  <div class="scope-controls" role="group" aria-label="Choose assembly area">
+    <button type="button" data-scope="All" aria-pressed="true">Whole envelope <span>24</span></button>
+    <button type="button" data-scope="Wall" aria-pressed="false">Wall <span>10</span></button>
+    <button type="button" data-scope="Roof" aria-pressed="false">Roof <span>6</span></button>
+    <button type="button" data-scope="Foundation" aria-pressed="false">Foundation <span>8</span></button>
+  </div>
+  <span class="workspace-note">Illustrative assembly · not a construction detail</span>
+</nav>
+<div class="body">
+  <div class="stage" id="stage" tabindex="0" aria-label="Interactive 3D envelope. Drag horizontally to rotate. Arrow keys rotate; plus and minus zoom; Home resets the camera.">
+    <div class="stage-top"><span class="tag" id="view-label">Whole envelope</span><button type="button" class="space-button" id="b-space" aria-expanded="false" aria-controls="inspector">More model space ↗</button></div>
+    <div class="view"><div class="cam" id="cam"><div class="model" id="model"></div></div></div>
+    <div class="selected-caption" id="selected-caption" hidden></div>
+    <div class="viewer-dock">
+      <div class="spread-control"><label for="spread">Layer separation <output id="spread-value" for="spread">0%</output></label><input id="spread" type="range" min="0" max="100" step="1" value="0" aria-label="Layer separation"><div class="range-labels"><span>Assembled</span><span>Exploded</span></div></div>
+      <div class="camera-tools" role="group" aria-label="Camera controls"><button type="button" id="zoom-out" aria-label="Zoom out">−</button><output id="zoom-value">100%</output><button type="button" id="zoom-in" aria-label="Zoom in">+</button><button type="button" id="fit-view">Fit</button></div>
+    </div>
+    <p class="gesture-hint">Drag to rotate <span>·</span> Select a layer to inspect</p>
+  </div>
+  <aside class="side" id="inspector" aria-label="Assembly inspector">
+    <div class="detail" id="detail" aria-live="polite">
+      <div class="dtop"><span class="chip" data-d="chip">Envelope</span><button type="button" id="clear-selection" hidden>Clear</button></div>
+      <h4 data-d="title">24 layers.<br>One continuous envelope.</h4>
+      <p data-d="desc">Start with an area above. Separate the layers, then select a material in the model or the list to understand its role.</p>
+      <div class="specs" data-d="specs"></div>
+      <div class="links"><a class="go" data-d="link" target="_top" href="#" hidden><span data-d="linkText">Explore service</span> ↗</a><a class="ext" data-d="ext" target="_blank" rel="noopener" href="#" hidden>SOPREMA product data ↗</a></div>
+      <button type="button" id="isolate" aria-pressed="false" hidden>Show only this layer</button>
+    </div>
+    <div class="inspector-tabs" role="tablist" aria-label="Inspector mode"><button type="button" role="tab" id="layers-tab" aria-selected="true" aria-controls="layers-panel" tabindex="0">Layers <span id="layer-count">24</span></button><button type="button" role="tab" id="performance-tab" aria-selected="false" aria-controls="performance-panel" tabindex="-1">Performance</button></div>
+    <div id="layers-panel" class="layers-panel" role="tabpanel" aria-labelledby="layers-tab"><label class="search-label" for="layer-search">Find a layer</label><input type="search" id="layer-search" placeholder="Search materials or layer codes…" autocomplete="off"><div class="legend" id="legend" aria-label="Layer list"></div><p class="no-results" id="no-results" hidden>No matching layers.</p></div>
+    <div id="performance-panel" role="tabpanel" aria-labelledby="performance-tab" hidden><p class="performance-help">Highlight the materials that contribute to each performance category.</p><div class="cgrid" id="cats"></div></div>
+  </aside>
+</div>
+<footer class="viewer-footer"><span id="now" role="status">Assembled · 24 layers</span><span>Conceptual section · verify project specifications and product suitability</span></footer>
+</div></div></div></section></div>
+<script>
+(function(){
+  /* ---------- Edit links here ---------- */
+  var SITE='https://snowden-design.wixstudio.com/mongrain-new';
+  var LINKS={Foundation:'/services',Wall:'/services',Roof:'/services',weather:'/services',thermal:'/services',structural:'/services',fire:'/services',sound:'/services',health:'/services'};
+  var PLAY_ON_LOAD=false;
+  var SP='https://www.soprema.ca/en/';
+  var PRODUCT={
+    'f-struct':SP+'foundations','f-blind':SP+'products-systems/building-components/foundations/blindside-waterproofing',
+    'f-prot':SP+'products-systems/building-components/foundations/accessories','f-ins':SP+'products-systems/sopra-xps-60',
+    'f-drain':SP+'products-systems/sopradrain-10-g','f-pdrain':SP+'foundations','f-pen':SP+'products-systems/building-components/foundations/accessories',
+    'f-trans':SP+'products-systems/building-components/foundations/accessories',
+    'w-struct':SP+'build-better-walls-assemblies','w-sheath':SP+'build-better-walls-assemblies','w-air':SP+'products-systems/sopraseal-stick-avb-at',
+    'w-vap':SP+'products-systems/building-components/walls/vapour-barrier','w-ci':SP+'products-systems/building-components/walls/insulation',
+    'w-clip':SP+'acs-calculator','w-cav':SP+'build-better-walls-assemblies','w-girt':SP+'build-better-walls-assemblies',
+    'w-clad':SP+'build-better-walls-assemblies','w-flash':SP+'products-systems/building-components/walls/accessories',
+    'r-deck':SP+'csa-a12321-roof-assemblies','r-vap':SP+'products-systems/building-components/roofs/sbs-modified-bitumen',
+    'r-ins':SP+'products-systems/sopra-iso','r-cover':SP+'products-systems/2-1-soprasmart-iso-hd',
+    'r-memb':SP+'products-systems/building-components/roofs/sbs-modified-bitumen','r-edge':SP+'products-systems/building-components/roofs/accessories',
+    weather:SP+'waterproofing',thermal:SP+'insulation',sound:SP+'soundproofing',structural:SP+'civil-engineering-structures',health:SP+'learning-centre/blog/greenguard-certification'
+  };
+
+  var root=document.getElementById('mg-bim'),$=function(s){return root.querySelector(s)};
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches,fine=matchMedia('(hover:hover) and (pointer:fine)').matches;
+  var Z=220;
+  function B(x0,x1,y0,y1,z0,z1){return [x0,x1,y0,y1,z0==null?0:z0,z1==null?Z:z1];}
+  function each(zs,f){var o=[];zs.forEach(function(z){o.push(f(z));});return o;}
+  var ZS=[34,110,186];
+
+  var CATS=[
+    {id:'weather',name:'Weather / Waterproofing',icon:'<path d="M12 3.5s6 6.4 6 10.7a6 6 0 0 1-12 0C6 9.9 12 3.5 12 3.5z"/>',
+     desc:'Every membrane, board and flashing that keeps bulk water, vapour drive and wind out, from the footing drain to the parapet cap.'},
+    {id:'thermal',name:'Thermal Insulation',icon:'<path d="M10 14.5V5a2 2 0 1 1 4 0v9.5a4 4 0 1 1-4 0z"/><path d="M12 9v8"/>',
+     desc:'Continuous insulation with thermally broken supports, so the effective R-value matches the energy model.'},
+    {id:'structural',name:'Structural Protection',icon:'<path d="M4 4.5h16M4 19.5h16M12 4.5v15"/><path d="M8 4.5v0M16 19.5v0"/>',
+     desc:'The concrete, deck and supports the envelope relies on, protected from water, salts and movement.'},
+    {id:'fire',name:'Fireproofing',icon:'<path d="M12 3c1 4 5 5.5 5 10a5 5 0 0 1-10 0c0-2.6 1.5-4.1 2.6-5.1.2 2 1.2 3 2.4 3-.9-3 0-5.8 0-7.9z"/>',
+     desc:'Non-combustible assemblies and fire-rated protection for the structure and the wall build-up.'},
+    {id:'sound',name:'Soundproofing / Vibration',icon:'<path d="M4 10v4M8 7v10M12 4v16M16 7v10M20 10v4"/>',
+     desc:'Mass, decoupling and dense insulation that reduce airborne noise and isolate structural vibration.'},
+    {id:'health',name:'Health / Mould Protection',icon:'<path d="M12 3l7 3v6c0 4.5-3 7.6-7 9-4-1.4-7-4.5-7-9V6z"/><path d="M9 12l2.2 2.2L15 10.4"/>',
+     desc:'Controlled air and vapour movement plus drainage and drying paths, so moisture never gets the chance to grow mould.'}
+  ];
+
+  var L=[
+    /* Foundation */
+    {id:'f-struct',g:'Foundation',code:'FD-01',name:'Foundation structure',base:'#A3ABB2',t:'t-cut',cats:['structural'],
+     desc:'Cast-in-place foundation wall and footing that carry the building and receive the below-grade membrane system.',spec:['Reinforced concrete','Strip footing'],
+     boxes:[B(-40,0,-180,0),B(-84,44,-212,-180)]},
+    {id:'f-blind',g:'Foundation',code:'FD-02',name:'Blindside waterproofing membrane',base:'#1D3B5C',cats:['weather','health'],
+     desc:'Pre-applied membrane placed against the shoring before the pour, bonding to the concrete for a positive-side seal on zero-lot-line sites.',spec:['COLPHENE BSW','Fully bonded'],
+     boxes:[B(0,3,-180,-6)]},
+    {id:'f-prot',g:'Foundation',code:'FD-03',name:'Protection board',base:'#6F7C88',cats:['weather','structural'],
+     desc:'Rigid board that shields the membrane from backfill, rebar and construction traffic.',spec:['Semi-rigid board'],
+     boxes:[B(3,8,-180,-8)]},
+    {id:'f-ins',g:'Foundation',code:'FD-04',name:'Foundation insulation',base:'#8FB4CF',t:'t-ins',cats:['thermal'],
+     desc:'Moisture-resistant rigid insulation that keeps the foundation warm and pushes the dew point out of the wall.',spec:['SOPRA-XPS 60','Below-grade rated'],
+     boxes:[B(8,30,-180,-10)]},
+    {id:'f-drain',g:'Foundation',code:'FD-05',name:'Drainage board',base:'#2F465C',t:'t-dimple',cats:['weather','health'],
+     desc:'Dimpled composite board that relieves hydrostatic pressure and channels groundwater down to the footing drain.',spec:['SOPRADRAIN 10-G','Filter fabric face'],
+     boxes:[B(30,38,-182,-12)]},
+    {id:'f-pdrain',g:'Foundation',code:'FD-06',name:'Perimeter drain',base:'#B9C3CC',t:'t-perf',cats:['weather'],
+     desc:'Perforated weeping tile in clear stone at the footing, carrying collected water away from the building.',spec:['Perforated pipe','Clear stone bed'],
+     boxes:[B(52,70,-210,-192)]},
+    {id:'f-pen',g:'Foundation',code:'FD-07',name:'Penetration / tieback sealing',base:'#C9A46A',cats:['weather','structural'],
+     desc:'Detailed seals at shoring tiebacks and service penetrations, the most common source of below-grade leaks.',spec:['Tieback collars','Liquid detailing'],
+     boxes:[].concat(each(ZS,function(z){return B(-30,46,-112,-106,z-3,z+3);}),each(ZS,function(z){return B(0,10,-117,-101,z-8,z+8);}))},
+    {id:'f-trans',g:'Foundation',code:'FD-08',name:'Transition membrane',base:'#24507A',cats:['weather'],
+     desc:'Membrane strip linking the below-grade waterproofing to the above-grade air barrier at the foundation-to-wall line.',spec:['SBS transition strip','Grade line'],
+     boxes:[B(0,5,-26,30)]},
+    /* Wall */
+    {id:'w-struct',g:'Wall',code:'EW-01',name:'Structural backup wall',base:'#A3ABB2',t:'t-cut',cats:['structural','fire','sound'],
+     desc:'Concrete or masonry backup that carries the wall assembly and adds mass for fire resistance and acoustics.',spec:['Concrete / CMU','Parapet to 380'],
+     boxes:[B(-40,0,0,380)]},
+    {id:'w-sheath',g:'Wall',code:'EW-02',name:'Exterior sheathing',base:'#CBBF9F',cats:['fire'],
+     desc:'Glass-mat gypsum sheathing that gives the membranes a stable, non-combustible substrate.',spec:['Glass-mat gypsum'],
+     boxes:[B(0,5,0,380)]},
+    {id:'w-air',g:'Wall',code:'EW-03',name:'Air barrier',base:'#1A3A5E',cats:['weather','thermal','health'],
+     desc:'Continuous self-adhered membrane that stops air leakage, the largest uncontrolled heat and moisture path in a wall.',spec:['SOPRASEAL STICK AVB AT','Continuous'],
+     boxes:[B(5,8,0,380)]},
+    {id:'w-vap',g:'Wall',code:'EW-04',name:'Vapour control layer',base:'#4A7598',cats:['thermal','health'],
+     desc:'Vapour control placed on the warm side of the insulation to keep condensation out of the assembly.',spec:['Class II retarder'],
+     boxes:[B(8,10,2,378)]},
+    {id:'w-ci',g:'Wall',code:'EW-05',name:'Continuous insulation',base:'#D6C79A',t:'t-ins',cats:['thermal','fire','sound'],
+     desc:'Unbroken insulation outboard of the structure, eliminating slab-edge and stud thermal bridges.',spec:['SOPRA-ISO / mineral wool','R-15+ continuous'],
+     boxes:[B(10,40,6,376)]},
+    {id:'w-clip',g:'Wall',code:'EW-06',name:'Thermal clips',base:'#B7C2CC',cats:['thermal','sound'],
+     desc:'Thermally broken brackets that carry the cladding through the insulation with minimal heat loss.',spec:['ACS THERMAL CLIPS','Isolated pads'],
+     boxes:(function(){var o=[];[52,148,244,340].forEach(function(y){ZS.forEach(function(z){o.push(B(10,46,y,y+9,z-5,z+5));});});return o;})()},
+    {id:'w-cav',g:'Wall',code:'EW-07',name:'Rainscreen cavity',base:'#19C6F5',t:'t-ghost',cats:['weather','health'],
+     desc:'Vented and drained air space behind the cladding that equalises pressure and lets the wall dry.',spec:['25 mm drained cavity','Vented top & bottom'],
+     boxes:[B(40,58,8,374)]},
+    {id:'w-girt',g:'Wall',code:'EW-08',name:'Cladding rails / girts',base:'#8F9BA6',cats:['structural'],
+     desc:'Vertical aluminium rails fixed to the clips, setting the plane and joints of the cladding.',spec:['Aluminium T-rails'],
+     boxes:each(ZS,function(z){return B(46,52,10,372,z-4,z+4);})},
+    {id:'w-clad',g:'Wall',code:'EW-09',name:'Exterior cladding',base:'#8A735C',t:'t-panel',cats:['weather'],
+     desc:'Rainscreen panels that shed most of the water and give the building its finished face.',spec:['Metal composite panels','Open joints'],
+     boxes:[B(58,68,12,128),B(58,68,132,250),B(58,68,254,372)]},
+    {id:'w-flash',g:'Wall',code:'EW-10',name:'Flashing & transitions',base:'#C9D1D8',cats:['weather'],
+     desc:'Base, sill and head flashings that turn water back out of the cavity at every interruption.',spec:['Prefinished metal','Drip edge'],
+     boxes:[B(5,76,0,4),B(72,76,-10,4)]},
+    /* Roof */
+    {id:'r-deck',g:'Roof',code:'RF-01',name:'Structural roof deck',base:'#A3ABB2',t:'t-cut',cats:['structural','fire','sound'],
+     desc:'Concrete or steel deck that supports the roof assembly and ties into the parapet wall.',spec:['Concrete slab / steel deck'],
+     boxes:[B(-270,-40,298,316)]},
+    {id:'r-vap',g:'Roof',code:'RF-02',name:'Vapour barrier',base:'#4A7598',cats:['thermal','health'],
+     desc:'Self-adhered vapour barrier on the deck, also acting as a temporary roof during construction.',spec:['SOPRAVAP\'R'],
+     boxes:[B(-270,-40,316,319)]},
+    {id:'r-ins',g:'Roof',code:'RF-03',name:'Roof insulation',base:'#DDD3AE',t:'t-ins',cats:['thermal','sound'],
+     desc:'Polyiso boards, tapered where needed to drive water to the drains.',spec:['SOPRA-ISO tapered','LTTR rated'],
+     boxes:[B(-270,-40,319,349)]},
+    {id:'r-cover',g:'Roof',code:'RF-04',name:'Cover board',base:'#CBBF9F',cats:['weather'],
+     desc:'High-density board that protects the insulation and gives the membrane a firm, fire-resistant base.',spec:['2-1 SOPRASMART ISO HD'],
+     boxes:[B(-270,-40,349,355)]},
+    {id:'r-memb',g:'Roof',code:'RF-05',name:'Roofing membrane',base:'#232E3A',cats:['weather'],
+     desc:'Two-ply SBS membrane, flame-free where required, turned up the parapet to the cap flashing.',spec:['SOPRAPLY SBS two-ply','SOPRASTAR cap'],
+     boxes:[B(-270,-40,355,359),B(-44,-40,359,378)]},
+    {id:'r-edge',g:'Roof',code:'RF-06',name:'Edge metal / parapet flashing',base:'#C9D1D8',cats:['weather'],
+     desc:'Sloped metal cap over the parapet, lapped over the cladding to close the top of the envelope.',spec:['Prefinished coping','Cleated'],
+     boxes:[B(-48,76,380,384),B(72,76,362,384),B(-48,-44,370,384)]}
+  ];
+  var GROUPS=['Foundation','Wall','Roof'];
+  var byId={};L.forEach(function(l){byId[l.id]=l;});
+
+  /* ---------- Build model ---------- */
+  var model=$('#model'),cam=$('#cam'),stage=$('#stage');
+  function face(cls,w,h,tf){var f=document.createElement('div');f.className='fc '+cls;f.style.width=w+'px';f.style.height=h+'px';f.style.transform=tf;return f;}
+  function box(b){
+    var x0=b[0],w=b[1]-b[0],y1=b[3],h=b[3]-b[2],z0=b[4],d=b[5]-b[4];
+    var el=document.createElement('div');el.className='bx';el.style.transform='translate3d('+x0+'px,'+(-y1)+'px,'+z0+'px)';
+    el.appendChild(face('f-fr',w,h,'translateZ('+d+'px)'));
+    el.appendChild(face('f-bk',w,h,'translateX('+w+'px) rotateY(180deg)'));
+    el.appendChild(face('f-rt',d,h,'translate3d('+w+'px,0,'+d+'px) rotateY(90deg)'));
+    el.appendChild(face('f-lf',d,h,'rotateY(-90deg)'));
+    el.appendChild(face('f-tp',w,d,'rotateX(90deg)'));
+    el.appendChild(face('f-bt',w,d,'translate3d(0,'+h+'px,'+d+'px) rotateX(-90deg)'));
+    return el;
+  }
+  L.forEach(function(l){
+    var g=document.createElement('div');g.className='layer '+(l.t||'');g.style.setProperty('--base',l.base);g.dataset.id=l.id;
+    l.boxes.forEach(function(b){g.appendChild(box(b));});
+    var b0=l.boxes[0],px,py;
+    if(l.g==='Wall'){px=(b0[0]+b0[1])/2;py=b0[3]+24;}
+    else if(l.g==='Foundation'){px=(b0[0]+b0[1])/2;py=b0[2]-22;}
+    else{px=b0[0]-24;py=(b0[2]+b0[3])/2;}
+    var p=document.createElement('div');p.className='pin';p.dataset.p=px+','+py;
+    p.innerHTML='<b>'+String(L.indexOf(l)+1).padStart(2,'0')+'</b>';g.appendChild(p);l.pin=p;
+    model.appendChild(g);l.el=g;
+  });
+  /* Predictable interaction and camera framing. Material geometry stays intact. */
+  var scope='All',spread=0,zoom=1,yaw=-36,pitch=-20,selected=null,category=null,isolate=false;
+  var playing=false,sequenceTimer=null,sequenceIndex=0,hoverId=null,dragging=false,moved=false;
+  var search='',legendItems={},catBtns={},gi={Foundation:0,Wall:0,Roof:0};
+  var spreadInput=$('#spread'),playButton=$('#b-play'),explodeButton=$('#b-explode');
+  L.forEach(function(l){
+    var i=gi[l.g]++;
+    l.ex=l.g==='Roof'?[0,28+i*34,0]:l.g==='Foundation'?[i*34,-36-i*2,0]:[i*32,0,0];
+    l.el.setAttribute('aria-hidden','true');
+  });
+  var annotation=document.createElement('div');annotation.className='annotation-overlay';
+  var leaders=document.createElementNS('http://www.w3.org/2000/svg','svg');leaders.setAttribute('aria-hidden','true');annotation.appendChild(leaders);stage.appendChild(annotation);
+  L.forEach(function(l,i){
+    var b=document.createElement('button');b.type='button';b.className='layer-marker';b.textContent=String(i+1).padStart(2,'0');
+    b.setAttribute('aria-label',l.code+' '+l.name);b.dataset.marker=l.id;
+    b.addEventListener('click',function(){selectLayer(l.id);});annotation.appendChild(b);l.marker=b;
+  });
+  var names={All:'Whole envelope',Wall:'Above-grade wall',Roof:'Roof assembly',Foundation:'Below-grade foundation'};
+  function activeLayers(){
+    return L.filter(function(l){return (scope==='All'||l.g===scope)&&(!isolate||l.id===selected);});
+  }
+  function offset(l){return [l.ex[0]*spread/100,-l.ex[1]*spread/100,l.ex[2]*spread/100];}
+  function billboard(scale){
+    L.forEach(function(l){
+      var p=l.pin.dataset.p.split(',');
+      l.pin.style.transform='translate3d('+p[0]+'px,'+(-p[1])+'px,'+Z+'px) rotateY('+(-yaw)+'deg) rotateX('+(-pitch)+'deg)';
+    });
+    model.style.setProperty('--ps',String(1/scale));
+  }
+  function camera(ms){
+    var r=stage.getBoundingClientRect(),points=[],layers=activeLayers();
+    if(!r.width||!r.height||!layers.length)return;
+    layers.forEach(function(l){
+      var o=offset(l);
+      l.boxes.forEach(function(b){
+        [b[0],b[1]].forEach(function(x){[b[2],b[3]].forEach(function(y){[b[4],b[5]].forEach(function(z){
+          points.push([x+o[0],-y+o[1],z+o[2]]);
+        });});});
+      });
+    });
+    var cx=(Math.min.apply(null,points.map(function(p){return p[0];}))+Math.max.apply(null,points.map(function(p){return p[0];})))/2;
+    var cy=(Math.min.apply(null,points.map(function(p){return p[1];}))+Math.max.apply(null,points.map(function(p){return p[1];})))/2;
+    var cz=(Math.min.apply(null,points.map(function(p){return p[2];}))+Math.max.apply(null,points.map(function(p){return p[2];})))/2;
+    var ry=yaw*Math.PI/180,rx=pitch*Math.PI/180;
+    var projected=points.map(function(p){
+      var x=p[0]-cx,y=p[1]-cy,z=p[2]-cz;
+      var xx=Math.cos(ry)*x+Math.sin(ry)*z,zz=-Math.sin(ry)*x+Math.cos(ry)*z;
+      return [xx,Math.cos(rx)*y-Math.sin(rx)*zz];
+    });
+    var x0=Math.min.apply(null,projected.map(function(p){return p[0];})),x1=Math.max.apply(null,projected.map(function(p){return p[0];}));
+    var y0=Math.min.apply(null,projected.map(function(p){return p[1];})),y1=Math.max.apply(null,projected.map(function(p){return p[1];}));
+    var top=82,bottom=r.width<500?150:148;
+    var scale=Math.min((r.width-86)/Math.max(80,x1-x0),(r.height-top-bottom)/Math.max(90,y1-y0))*.94*zoom;
+    var dx=-(x0+x1)/2*scale,dy=(top-bottom)/2-(y0+y1)/2*scale;
+    cam.style.transition=ms&&!reduce?'transform '+ms+'ms cubic-bezier(.22,1,.36,1)':'none';
+    cam.style.transform='translate('+dx+'px,'+dy+'px) scale('+scale+') rotateX('+pitch+'deg) rotateY('+yaw+'deg) translate3d('+(-cx)+'px,'+(-cy)+'px,'+(-cz)+'px)';
+    billboard(scale);
+    drawMarkers({r:r,cx:cx,cy:cy,cz:cz,ry:ry,rx:rx,scale:scale,dx:dx,dy:dy});
+    $('#zoom-value').textContent=Math.round(zoom*100)+'%';
+    $('#zoom-out').disabled=zoom<=.7;
+    $('#zoom-in').disabled=zoom>=1.7;
+  }
+  function drawMarkers(v){
+    var placed=[];leaders.replaceChildren();leaders.setAttribute('viewBox','0 0 '+v.r.width+' '+v.r.height);
+    L.forEach(function(l){
+      var visible=(scope==='All'||scope===l.g)&&(!isolate||l.id===selected)&&(spread>0||l.id===selected);
+      l.marker.hidden=!visible;l.marker.setAttribute('aria-pressed',String(l.id===selected));if(!visible)return;
+      var p=l.pin.dataset.p.split(','),o=offset(l),x=Number(p[0])+o[0]-v.cx,y=-Number(p[1])+o[1]-v.cy,z=Z+o[2]-v.cz;
+      var xx=Math.cos(v.ry)*x+Math.sin(v.ry)*z,zz=-Math.sin(v.ry)*x+Math.cos(v.ry)*z;
+      var yy=Math.cos(v.rx)*y-Math.sin(v.rx)*zz,z2=(Math.sin(v.rx)*y+Math.cos(v.rx)*zz)*v.scale;
+      var f=3000/(3000-z2),ax=v.r.width/2+(xx*v.scale+v.dx)*f;
+      var ay=v.r.height*.45+(v.r.height*.05+yy*v.scale+v.dy)*f;
+      var bx=Math.max(22,Math.min(v.r.width-22,ax)),by=Math.max(68,Math.min(v.r.height-160,ay));
+      for(var i=0;i<12;i++){
+        if(!placed.some(function(p){return Math.abs(p[0]-bx)<33&&Math.abs(p[1]-by)<32;}))break;
+        by=by>104?by-34:by+34;bx=Math.max(22,Math.min(v.r.width-22,bx+(i>6?34:0)));
+      }
+      placed.push([bx,by]);l.marker.style.left=bx+'px';l.marker.style.top=by+'px';
+      if(Math.abs(ax-bx)+Math.abs(ay-by)>8){
+        var line=document.createElementNS('http://www.w3.org/2000/svg','line');
+        line.setAttribute('x1',ax);line.setAttribute('y1',ay);line.setAttribute('x2',bx);line.setAttribute('y2',by);leaders.appendChild(line);
+      }
+    });
+  }
+  function setSpread(value,animate){
+    spread=Math.max(0,Math.min(100,Number(value)||0));spreadInput.value=spread;
+    spreadInput.style.setProperty('--fill',spread+'%');$('#spread-value').textContent=Math.round(spread)+'%';
+    L.forEach(function(l){
+      var o=offset(l);l.el.style.transition=animate&&!reduce?'transform .5s cubic-bezier(.22,1,.36,1)':'none';
+      l.el.style.transform='translate3d('+o.join('px,')+'px)';
+    });
+    model.classList.toggle('exploded',spread>0);
+    explodeButton.setAttribute('aria-pressed',String(spread>0));
+    explodeButton.querySelector('span').textContent=spread>0?'Assemble view':'Exploded view';
+    camera(animate?500:0);
+    status();
+  }
+  function status(text){
+    var count=activeLayers().length;
+    $('#now').textContent=text||(spread>0?'Exploded':'Assembled')+' · '+count+' '+(count===1?'layer':'layers')+' · '+names[scope];
+    $('#view-label').textContent=names[scope];
+  }
+  function stopSequence(){
+    var wasPlaying=playing;
+    clearTimeout(sequenceTimer);sequenceTimer=null;playing=false;
+    playButton.setAttribute('aria-pressed','false');playButton.querySelector('span').textContent='Play assembly';
+    L.forEach(function(l){l.el.classList.remove('flash');});
+    if(wasPlaying)setSpread(spread,false);
+  }
+  function syncScope(){
+    root.querySelectorAll('[data-scope]').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.scope===scope));});
+    L.forEach(function(l){l.el.classList.toggle('scope-hidden',scope!=='All'&&l.g!==scope);});
+    updateList();highlight();camera(400);status();
+  }
+  function clearSelection(){
+    selected=null;category=null;isolate=false;hoverId=null;
+    model.classList.remove('isolate');$('#isolate').setAttribute('aria-pressed','false');
+    setDetail();highlight();camera(350);status();
+  }
+  function setScope(value){
+    stopSequence();scope=value;zoom=1;search='';$('#layer-search').value='';
+    clearSelection();syncScope();
+  }
+  function highlight(){
+    var ids=selected?[selected]:category?L.filter(function(l){return l.cats.indexOf(category)>-1;}).map(function(l){return l.id;}):hoverId?[hoverId]:[];
+    model.classList.toggle('focus',ids.length>0);
+    L.forEach(function(l){
+      var on=ids.indexOf(l.id)>-1;l.el.classList.toggle('hl',on);
+      if(legendItems[l.id]){
+        legendItems[l.id].classList.toggle('hl',on);legendItems[l.id].setAttribute('aria-pressed',String(selected===l.id));
+        legendItems[l.id].classList.toggle('dim',!!category&&!on);
+      }
+    });
+    Object.keys(catBtns).forEach(function(id){catBtns[id].setAttribute('aria-pressed',String(category===id));});
+  }
+  function setDetail(){
+    var detail=$('#detail'),title=detail.querySelector('[data-d=title]'),desc=detail.querySelector('[data-d=desc]'),specs=detail.querySelector('[data-d=specs]');
+    var chip=detail.querySelector('[data-d=chip]'),link=detail.querySelector('[data-d=link]'),ext=detail.querySelector('[data-d=ext]'),l=selected&&byId[selected],c=category&&CATS.filter(function(c){return c.id===category;})[0];
+    specs.replaceChildren();link.hidden=true;ext.hidden=true;
+    $('#clear-selection').hidden=!l&&!c;$('#isolate').hidden=!l;
+    $('#selected-caption').hidden=!l;
+    var tags=[],service=null,product=null;
+    if(l){
+      title.textContent=l.name;desc.textContent=l.desc;chip.textContent=names[l.g]+' · '+l.code;tags=l.spec;
+      service=LINKS[l.g];product=PRODUCT[l.id];
+      $('#selected-caption').textContent=l.code+' / '+l.name;
+    }else if(c){
+      var matches=L.filter(function(l){return l.cats.indexOf(c.id)>-1&&(scope==='All'||l.g===scope);});
+      title.textContent=c.name;desc.textContent=c.desc;chip.textContent=matches.length+' matching layers';tags=matches.map(function(l){return l.code;});
+      service=LINKS[c.id];product=PRODUCT[c.id];
+    }else{
+      var count=L.filter(function(l){return scope==='All'||l.g===scope;}).length;
+      title.textContent=scope==='All'?'24 layers. One continuous envelope.':names[scope];
+      chip.textContent=scope==='All'?'Envelope':count+' layers';
+      desc.textContent='Separate the layers, then select a material in the model or the list to understand its role. Drag to rotate; use Fit to reframe.';
+    }
+    tags.forEach(function(t){var e=document.createElement('span');e.textContent=t;specs.appendChild(e);});
+    if(service){link.hidden=false;link.href=SITE+service;detail.querySelector('[data-d=linkText]').textContent='Explore service';}
+    if(product){ext.hidden=false;ext.href=product;}
+    $('#isolate').textContent=isolate?'Show surrounding layers':'Show only this layer';
+  }
+  function selectLayer(id){
+    stopSequence();if(selected===id){clearSelection();return;}
+    selected=id;category=null;hoverId=null;isolate=false;
+    model.classList.remove('isolate');$('#isolate').setAttribute('aria-pressed','false');
+    setDetail();highlight();camera(350);status();
+    // A model selection should reveal its inspector, including on small screens.
+    if(root.classList.contains('wide')){root.classList.remove('wide');$('#b-space').setAttribute('aria-expanded','false');$('#b-space').textContent='More model space ↗';camera(0);}
+  }
+  function updateList(){
+    var count=0;
+    L.forEach(function(l){
+      var visible=(scope==='All'||l.g===scope)&&(!search||[l.name,l.code].concat(l.spec).join(' ').toLowerCase().indexOf(search)>-1);
+      legendItems[l.id].hidden=!visible;if(visible)count++;
+    });
+    root.querySelectorAll('.grp').forEach(function(g){g.hidden=!g.querySelector('.li:not([hidden])');});
+    $('#layer-count').textContent=count;$('#no-results').hidden=count>0;
+  }
+  GROUPS.forEach(function(g){
+    var group=document.createElement('div');group.className='grp';
+    var cap=document.createElement('div');cap.className='cap';cap.textContent=names[g];group.appendChild(cap);
+    L.filter(function(l){return l.g===g;}).forEach(function(l){
+      var b=document.createElement('button');b.type='button';b.className='li';b.dataset.layer=l.id;b.setAttribute('aria-pressed','false');b.style.setProperty('--base',l.base);
+      var dot=document.createElement('i'),text=document.createElement('span'),code=document.createElement('code');dot.setAttribute('aria-hidden','true');text.textContent=l.name;code.textContent=l.code;
+      b.append(dot,text,code);b.addEventListener('click',function(){selectLayer(l.id);});
+      b.addEventListener('mouseenter',function(){hoverId=l.id;highlight();});b.addEventListener('mouseleave',function(){hoverId=null;highlight();});
+      group.appendChild(b);legendItems[l.id]=b;
+    });
+    $('#legend').appendChild(group);
+  });
+  CATS.forEach(function(c){
+    var b=document.createElement('button');b.type='button';b.className='cat';b.setAttribute('aria-pressed','false');b.dataset.category=c.id;
+    b.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+c.icon+'</svg>';
+    var label=document.createElement('span');label.textContent=c.name;b.appendChild(label);
+    b.addEventListener('click',function(){
+      stopSequence();selected=null;hoverId=null;isolate=false;model.classList.remove('isolate');$('#isolate').setAttribute('aria-pressed','false');
+      category=category===c.id?null:c.id;setDetail();highlight();camera(300);status();
+    });
+    $('#cats').appendChild(b);catBtns[c.id]=b;
+  });
+  L.forEach(function(l){
+    l.el.addEventListener('click',function(){if(!moved)selectLayer(l.id);});
+    l.el.addEventListener('pointerenter',function(e){if(!dragging&&e.pointerType!=='touch'){hoverId=l.id;highlight();}});
+    l.el.addEventListener('pointerleave',function(){if(hoverId===l.id){hoverId=null;highlight();}});
+  });
+  root.querySelectorAll('[data-scope]').forEach(function(b){b.addEventListener('click',function(){setScope(b.dataset.scope);});});
+  $('#clear-selection').addEventListener('click',function(){stopSequence();clearSelection();});
+  $('#isolate').addEventListener('click',function(){
+    if(!selected)return;stopSequence();isolate=!isolate;zoom=1;model.classList.toggle('isolate',isolate);
+    $('#isolate').setAttribute('aria-pressed',String(isolate));setDetail();highlight();camera(500);status();
+  });
+  $('#layer-search').addEventListener('input',function(){search=this.value.trim().toLowerCase();updateList();});
+  function setTab(id,focus){
+    var layers=id==='layers';
+    $('#layers-panel').hidden=!layers;$('#performance-panel').hidden=layers;
+    [$('#layers-tab'),$('#performance-tab')].forEach(function(b,i){var active=layers?i===0:i===1;b.setAttribute('aria-selected',String(active));b.tabIndex=active?0:-1;});
+    if(focus)$(layers?'#layers-tab':'#performance-tab').focus();
+  }
+  ['layers','performance'].forEach(function(id){
+    $('#'+id+'-tab').addEventListener('click',function(){setTab(id);});
+    $('#'+id+'-tab').addEventListener('keydown',function(e){if(['ArrowLeft','ArrowRight','Home','End'].indexOf(e.key)>-1){e.preventDefault();setTab(e.key==='Home'?'layers':e.key==='End'?'performance':id==='layers'?'performance':'layers',true);}});
+  });
+  function changeZoom(value){zoom=Math.max(.7,Math.min(1.7,value));camera(250);}
+  $('#zoom-in').addEventListener('click',function(){stopSequence();changeZoom(zoom+.15);});
+  $('#zoom-out').addEventListener('click',function(){stopSequence();changeZoom(zoom-.15);});
+  $('#fit-view').addEventListener('click',function(){stopSequence();zoom=1;camera(400);});
+  $('#b-space').addEventListener('click',function(){
+    stopSequence();var wide=root.classList.toggle('wide');this.setAttribute('aria-expanded',String(wide));
+    this.textContent=wide?'Show layer details ↙':'More model space ↗';zoom=1;camera(350);
+  });
+  explodeButton.addEventListener('click',function(){stopSequence();setSpread(spread>0?0:80,true);});
+  spreadInput.addEventListener('input',function(){stopSequence();setSpread(this.value,false);});
+  $('#b-reset').addEventListener('click',function(){
+    stopSequence();scope='All';zoom=1;yaw=-36;pitch=-20;search='';$('#layer-search').value='';
+    clearSelection();syncScope();setSpread(0,true);
+  });
+  function sequenceStep(){
+    var layers=L.filter(function(l){return scope==='All'||l.g===scope;});
+    if(sequenceIndex>=layers.length){
+      setSpread(0,true);stopSequence();clearSelection();status('Assembly complete · '+layers.length+' layers');return;
+    }
+    var l=layers[sequenceIndex];selected=l.id;category=null;hoverId=null;setDetail();highlight();
+    l.el.style.transition=reduce?'none':'transform .55s cubic-bezier(.22,1,.36,1)';
+    l.el.style.transform='translate3d(0,0,0)';
+    status('Assembling '+(sequenceIndex+1)+' / '+layers.length+' · '+l.name);
+    sequenceIndex++;sequenceTimer=setTimeout(sequenceStep,850);
+  }
+  playButton.addEventListener('click',function(){
+    if(playing){stopSequence();setSpread(spread,false);selected=null;setDetail();highlight();status('Assembly paused · press Play assembly to restart');return;}
+    clearSelection();zoom=1;sequenceIndex=0;playing=true;
+    playButton.setAttribute('aria-pressed','true');playButton.querySelector('span').textContent='Stop assembly';
+    if(reduce){setSpread(0,false);stopSequence();status('Assembled · animation disabled by reduced-motion preference');return;}
+    setSpread(80,true);sequenceTimer=setTimeout(sequenceStep,800);
+  });
+  var sx=0,sy=0,startYaw=0,startPitch=0,activePointer=null;
+  stage.addEventListener('pointerdown',function(e){
+    if(e.target.closest('button,input,a'))return;
+    stopSequence();dragging=true;moved=false;sx=e.clientX;sy=e.clientY;startYaw=yaw;startPitch=pitch;activePointer=e.pointerId;
+  });
+  window.addEventListener('pointermove',function(e){
+    if(!dragging||e.pointerId!==activePointer)return;
+    var dx=e.clientX-sx,dy=e.clientY-sy;
+    if(!moved&&Math.abs(dx)+Math.abs(dy)<7)return;
+    if(!moved&&e.pointerType==='touch'&&Math.abs(dy)>Math.abs(dx)*1.2){dragging=false;return;}
+    moved=true;stage.classList.add('drag');hoverId=null;highlight();
+    yaw=Math.max(-78,Math.min(25,startYaw+dx*.23));pitch=Math.max(-48,Math.min(-4,startPitch-dy*.18));camera(0);
+  });
+  function endDrag(){dragging=false;stage.classList.remove('drag');activePointer=null;setTimeout(function(){moved=false;},0);}
+  window.addEventListener('pointerup',endDrag);window.addEventListener('pointercancel',endDrag);
+  stage.addEventListener('keydown',function(e){
+    if(e.target!==stage)return;
+    var handled=true;stopSequence();
+    if(e.key==='ArrowLeft')yaw=Math.max(-78,yaw-5);else if(e.key==='ArrowRight')yaw=Math.min(25,yaw+5);
+    else if(e.key==='ArrowUp')pitch=Math.max(-48,pitch-4);else if(e.key==='ArrowDown')pitch=Math.min(-4,pitch+4);
+    else if(e.key==='+'||e.key==='=')zoom=Math.min(1.7,zoom+.15);else if(e.key==='-')zoom=Math.max(.7,zoom-.15);
+    else if(e.key==='Home'){zoom=1;yaw=-36;pitch=-20;}else if(e.key==='Escape')clearSelection();else handled=false;
+    if(handled){e.preventDefault();camera(250);}
+  });
+  root.classList.add('in');syncScope();setDetail();setSpread(0,false);
+  if('ResizeObserver' in window)new ResizeObserver(function(){camera(0);}).observe(stage);
+  else window.addEventListener('resize',function(){camera(0);});
+  matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change',function(e){reduce=e.matches;if(reduce){stopSequence();setSpread(spread,false);}});
+
+})();</script></body></html>

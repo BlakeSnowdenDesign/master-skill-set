@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Request a Proposal Preview</title>
+<!-- Design preview only. On the live site every block here is a native Wix element and the form is a native Wix Form (see WIX-SETUP.md). -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,400..800&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0A1D26; --ink-2:#123440; --teal:#16B3A6; --aqua:#7FE0D4; --sun:#F2A93B;
+  --snow:#FAFCFC; --mist:#EEF3F4; --slate:#4A5F68; --line:rgba(10,29,38,.12); --white:#FFFFFF;
+  --display:"Google Sans Flex",system-ui,sans-serif; --body:"Satoshi",system-ui,sans-serif;
+  --ease:cubic-bezier(.2,.8,.2,1);
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--snow);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.sd-wrap{max-width:1240px;margin:0 auto;padding:0 24px}
+.sd-label{font-family:var(--body);font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--slate)}
+.sd-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--sun);margin-right:10px;vertical-align:middle;transform:translateY(-1px)}
+.sd-banner{background:var(--ink);color:var(--aqua);font-size:13px;text-align:center;padding:8px 16px}
+
+/* Hero */
+.sd-hero{margin:24px auto 0;max-width:1240px;border-radius:40px;background:var(--ink);color:#fff;position:relative;overflow:hidden;padding:88px 64px 96px}
+.sd-hero svg.sd-tess{position:absolute;right:-60px;top:-40px;width:560px;height:auto;opacity:.5;pointer-events:none}
+.sd-hero .sd-label{color:var(--aqua)}
+.sd-hero h1{font-family:var(--display);font-weight:800;font-size:clamp(40px,6vw,76px);line-height:1.02;letter-spacing:-.02em;margin:18px 0 22px;max-width:760px}
+.sd-hero h1 span{color:var(--aqua);display:block}
+.sd-hero p{max-width:600px;color:#CFE3E6;font-size:19px;margin:0 0 32px}
+.sd-btns{display:flex;flex-wrap:wrap;gap:12px}
+.sd-btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 26px;border-radius:999px;font-family:var(--body);font-weight:700;font-size:16px;text-decoration:none;border:1.5px solid transparent;cursor:pointer;transition:background .25s var(--ease),color .25s var(--ease),border-color .25s var(--ease)}
+.sd-btn--aqua{background:var(--aqua);color:var(--ink)}
+.sd-btn--aqua:hover{background:#fff}
+.sd-btn--outline{border-color:rgba(255,255,255,.35);color:#fff}
+.sd-btn--outline:hover{border-color:var(--aqua);color:var(--aqua)}
+.sd-btn--ink{background:var(--ink);color:#fff}
+.sd-btn--ink:hover{background:var(--teal)}
+.sd-btn--ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.sd-btn--ghost:hover{border-color:var(--ink)}
+
+/* Form + aside */
+.sd-main{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:56px;padding:88px 24px 40px}
+.sd-main h2{font-family:var(--display);font-weight:700;font-size:clamp(28px,3.2vw,40px);line-height:1.1;letter-spacing:-.01em;margin:10px 0 12px}
+.sd-lede{color:var(--slate);margin:0 0 32px;max-width:560px}
+.sd-form{background:var(--white);border:1.5px solid var(--line);border-radius:30px;padding:40px}
+.sd-steps{display:flex;gap:8px;margin:0 0 32px;padding:0;list-style:none}
+.sd-steps li{flex:1}
+.sd-steps .bar{height:4px;border-radius:4px;background:var(--mist);overflow:hidden}
+.sd-steps .bar i{display:block;height:100%;width:0;background:var(--teal);transition:width .5s var(--ease)}
+.sd-steps li.is-done .bar i,.sd-steps li.is-on .bar i{width:100%}
+.sd-steps .sd-label{display:block;margin-top:10px;font-size:11px}
+.sd-steps li.is-on .sd-label{color:var(--ink)}
+.sd-step{display:none}
+.sd-step.is-on{display:block;animation:sd-in .45s var(--ease)}
+@keyframes sd-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.sd-step h3{font-family:var(--display);font-weight:700;font-size:24px;margin:0 0 6px}
+.sd-step > p{color:var(--slate);margin:0 0 24px;font-size:16px}
+.sd-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.sd-field{display:flex;flex-direction:column;gap:8px}
+.sd-field--full{grid-column:1/-1}
+.sd-field label,.sd-field legend{font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--slate);padding:0}
+.sd-field .req{color:var(--teal)}
+.sd-field input,.sd-field select,.sd-field textarea{font-family:var(--body);font-size:16px;color:var(--ink);background:var(--mist);border:1.5px solid var(--line);border-radius:20px;padding:14px 18px;outline:none;width:100%;transition:border-color .2s var(--ease),background .2s var(--ease)}
+.sd-field textarea{min-height:150px;resize:vertical}
+.sd-field select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%234A5F68' stroke-width='1.8'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 18px center;padding-right:44px}
+.sd-field input:focus,.sd-field select:focus,.sd-field textarea:focus{border-color:var(--teal);background:#fff}
+.sd-field .hint{font-size:13px;color:var(--slate)}
+.sd-field.is-bad input,.sd-field.is-bad select,.sd-field.is-bad textarea,.sd-field.is-bad .sd-checks{border-color:#C2412D}
+.sd-field .err{display:none;font-size:13px;color:#C2412D}
+.sd-field.is-bad .err{display:block}
+fieldset.sd-field{border:0;margin:0;padding:0;min-width:0}
+.sd-checks{display:grid;grid-template-columns:1fr 1fr;gap:10px;border:1.5px solid transparent;border-radius:22px}
+.sd-check{position:relative}
+.sd-check input{position:absolute;opacity:0;inset:0;cursor:pointer;margin:0}
+.sd-check span{display:flex;align-items:center;gap:12px;min-height:52px;padding:12px 16px;border-radius:18px;background:var(--mist);border:1.5px solid var(--line);font-size:15px;font-weight:500;line-height:1.3;transition:all .2s var(--ease)}
+.sd-check span::before{content:"";flex:none;width:18px;height:18px;border-radius:6px;border:1.5px solid var(--slate);background:#fff;transition:all .2s var(--ease)}
+.sd-check input[type=radio] + span::before{border-radius:50%}
+.sd-check input:checked + span{background:#E3F6F3;border-color:var(--teal)}
+.sd-check input:checked + span::before{background:var(--teal) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='10'%3E%3Cpath d='M1 5l3.5 3.5L11 1' fill='none' stroke='white' stroke-width='2'/%3E%3C/svg%3E") center/10px no-repeat;border-color:var(--teal)}
+.sd-check input:focus-visible + span{outline:2px solid var(--teal);outline-offset:2px}
+.sd-nav{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:32px;padding-top:24px;border-top:1.5px solid var(--line)}
+.sd-nav .sd-count{font-size:14px;color:var(--slate)}
+.sd-nav .sd-btns{margin-left:auto}
+.sd-consent{font-size:13px;color:var(--slate);margin:20px 0 0}
+.sd-done{display:none;text-align:center;padding:40px 8px}
+.sd-done.is-on{display:block;animation:sd-in .5s var(--ease)}
+.sd-done .sd-badge{width:64px;height:64px;border-radius:50%;background:#E3F6F3;display:grid;place-items:center;margin:0 auto 20px}
+.sd-done h3{font-family:var(--display);font-weight:700;font-size:28px;margin:0 0 10px}
+.sd-done p{color:var(--slate);max-width:440px;margin:0 auto 24px}
+
+.sd-aside{display:flex;flex-direction:column;gap:24px;padding-top:4px}
+.sd-panel{border-radius:30px;padding:32px;background:var(--mist)}
+.sd-panel--ink{background:var(--ink);color:#fff}
+.sd-panel--ink .sd-label{color:var(--aqua)}
+.sd-panel h3{font-family:var(--display);font-weight:700;font-size:22px;margin:10px 0 18px}
+.sd-process{list-style:none;margin:0;padding:0;counter-reset:s}
+.sd-process li{counter-increment:s;display:grid;grid-template-columns:40px 1fr;gap:4px 14px;padding:16px 0;border-top:1.5px solid rgba(255,255,255,.12)}
+.sd-process li:first-child{border-top:0;padding-top:0}
+.sd-process li::before{content:"0" counter(s);grid-row:span 2;font-family:var(--display);font-weight:700;font-size:15px;color:var(--aqua);padding-top:2px}
+.sd-process strong{font-family:var(--display);font-weight:700;font-size:17px}
+.sd-process span{color:#B9CFD3;font-size:15px;line-height:1.5}
+.sd-direct a{display:block;font-family:var(--display);font-weight:700;font-size:22px;text-decoration:none;margin:4px 0}
+.sd-direct a:hover{color:var(--teal)}
+.sd-direct p{margin:14px 0 0;color:var(--slate);font-size:15px}
+
+/* Answers */
+.sd-faq{padding:56px 24px 96px}
+.sd-faq h2{font-family:var(--display);font-weight:700;font-size:clamp(26px,3vw,36px);margin:0 0 24px;max-width:760px}
+.sd-faq-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.sd-faq article{border-top:1.5px solid var(--line);padding-top:20px}
+.sd-faq h3{font-family:var(--display);font-weight:700;font-size:19px;margin:0 0 8px}
+.sd-faq p{margin:0;color:var(--slate);font-size:16px}
+
+[hidden]{display:none!important}
+.sd-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+@media (max-width:980px){
+  .sd-main{grid-template-columns:1fr}
+  .sd-faq-grid{grid-template-columns:1fr}
+}
+@media (max-width:640px){
+  .sd-hero{margin:16px 16px 0;padding:56px 24px 64px;border-radius:28px}
+  .sd-hero svg.sd-tess{width:340px;right:-120px;opacity:.3}
+  .sd-wrap,.sd-main,.sd-faq{padding-left:16px;padding-right:16px}
+  .sd-main{padding-top:56px;gap:32px}
+  .sd-form{padding:24px 20px;border-radius:24px}
+  .sd-grid,.sd-checks{grid-template-columns:1fr}
+  .sd-steps .sd-label{display:none}
+  .sd-nav{flex-wrap:wrap}
+  .sd-nav .sd-count{width:100%}
+  .sd-nav .sd-btns{width:100%}
+  .sd-nav .sd-btn{flex:1}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+
+<div class="sd-banner">Design preview. On the live site every block is a native Wix element and the form is a native Wix Form.</div>
+
+<header class="sd-hero">
+  <svg class="sd-tess" viewBox="0 0 560 560" aria-hidden="true">
+    <defs>
+      <g id="sd-cube">
+        <path d="M0 -40 L34.6 -20 L0 0 L-34.6 -20Z" fill="#7FE0D4" fill-opacity=".22"/>
+        <path d="M-34.6 -20 L0 0 L0 40 L-34.6 20Z" fill="#16B3A6" fill-opacity=".28"/>
+        <path d="M34.6 -20 L0 0 L0 40 L34.6 20Z" fill="#123440" fill-opacity=".9"/>
+        <path d="M0 -40 L34.6 -20 L34.6 20 L0 40 L-34.6 20 L-34.6 -20Z" fill="none" stroke="#7FE0D4" stroke-opacity=".35"/>
+      </g>
+    </defs>
+    <g transform="translate(140 80)">
+      <use href="#sd-cube" x="0" y="0"/><use href="#sd-cube" x="69.2" y="0"/><use href="#sd-cube" x="138.4" y="0"/><use href="#sd-cube" x="207.6" y="0"/><use href="#sd-cube" x="276.8" y="0"/>
+      <use href="#sd-cube" x="34.6" y="60"/><use href="#sd-cube" x="103.8" y="60"/><use href="#sd-cube" x="173" y="60"/><use href="#sd-cube" x="242.2" y="60"/><use href="#sd-cube" x="311.4" y="60"/>
+      <use href="#sd-cube" x="69.2" y="120"/><use href="#sd-cube" x="138.4" y="120"/><use href="#sd-cube" x="207.6" y="120"/><use href="#sd-cube" x="276.8" y="120"/>
+      <use href="#sd-cube" x="103.8" y="180"/><use href="#sd-cube" x="173" y="180"/><use href="#sd-cube" x="242.2" y="180"/><use href="#sd-cube" x="311.4" y="180"/>
+      <use href="#sd-cube" x="138.4" y="240"/><use href="#sd-cube" x="207.6" y="240"/><use href="#sd-cube" x="276.8" y="240"/>
+      <use href="#sd-cube" x="173" y="300"/><use href="#sd-cube" x="242.2" y="300"/><use href="#sd-cube" x="311.4" y="300"/>
+      <use href="#sd-cube" x="207.6" y="360"/><use href="#sd-cube" x="276.8" y="360"/>
+    </g>
+  </svg>
+  <div class="sd-label"><span class="sd-dot"></span>Request a proposal / Denver, Colorado</div>
+  <h1>Have a project in mind? <span>Let's put it on paper.</span></h1>
+  <p>Tell me what you're building, who it's for and when it needs to launch. I'll come back with a written proposal for your website, 3D or SEO and GEO work: scope, timeline and price, in plain language.</p>
+  <div class="sd-btns">
+    <a class="sd-btn sd-btn--aqua" href="#sd-form">Start the proposal</a>
+    <a class="sd-btn sd-btn--outline" href="tel:+17203402611">Call 720-340-2611</a>
+  </div>
+</header>
+
+<main class="sd-main" id="sd-form">
+  <section aria-labelledby="sd-form-h">
+    <div class="sd-label"><span class="sd-dot"></span>Three short steps</div>
+    <h2 id="sd-form-h">Send me the brief.</h2>
+    <p class="sd-lede">About three minutes. Rough answers are fine. Anything you're not sure about, we'll work out on the call.</p>
+
+    <form class="sd-form" novalidate>
+      <ol class="sd-steps" aria-label="Form progress">
+        <li class="is-on"><div class="bar"><i></i></div><span class="sd-label">1 · About you</span></li>
+        <li><div class="bar"><i></i></div><span class="sd-label">2 · The project</span></li>
+        <li><div class="bar"><i></i></div><span class="sd-label">3 · Budget &amp; timing</span></li>
+      </ol>
+
+      <div class="sd-step is-on" data-step="1">
+        <h3>About you</h3>
+        <p>Who should the proposal go to?</p>
+        <div class="sd-grid">
+          <div class="sd-field"><label for="f-name">Name <span class="req">*</span></label><input id="f-name" name="name" autocomplete="name" required><span class="err">Please add your name.</span></div>
+          <div class="sd-field"><label for="f-company">Company or organization</label><input id="f-company" name="company" autocomplete="organization"></div>
+          <div class="sd-field"><label for="f-email">Email <span class="req">*</span></label><input id="f-email" name="email" type="email" autocomplete="email" required><span class="err">Please add an email I can reply to.</span></div>
+          <div class="sd-field"><label for="f-phone">Phone</label><input id="f-phone" name="phone" type="tel" autocomplete="tel" placeholder="(720) 555-0123"></div>
+          <div class="sd-field sd-field--full"><label for="f-site">Current website</label><input id="f-site" name="website" type="url" inputmode="url" placeholder="https://"><span class="hint">Leave it blank if you're starting fresh.</span></div>
+        </div>
+      </div>
+
+      <div class="sd-step" data-step="2">
+        <h3>The project</h3>
+        <p>Pick everything that applies.</p>
+        <div class="sd-grid">
+          <fieldset class="sd-field sd-field--full" data-group="services">
+            <legend>What do you need? <span class="req">*</span></legend>
+            <div class="sd-checks">
+              <label class="sd-check"><input type="checkbox" name="services" value="web"><span>Website design and development</span></label>
+              <label class="sd-check"><input type="checkbox" name="services" value="3d"><span>3D visualization and rendering</span></label>
+              <label class="sd-check"><input type="checkbox" name="services" value="seo"><span>SEO and GEO</span></label>
+              <label class="sd-check"><input type="checkbox" name="services" value="brand"><span>Branding and graphics</span></label>
+              <label class="sd-check"><input type="checkbox" name="services" value="video"><span>Video</span></label>
+              <label class="sd-check"><input type="checkbox" name="services" value="marketing"><span>Marketing and lead generation</span></label>
+              <label class="sd-check"><input type="checkbox" name="services" value="consulting"><span>Brand consulting or project management</span></label>
+              <label class="sd-check"><input type="checkbox" name="services" value="care"><span>Website care plan</span></label>
+            </div>
+            <span class="err">Pick at least one, or the closest match.</span>
+          </fieldset>
+          <div class="sd-field sd-field--full"><label for="f-kind">Where are you starting from?</label>
+            <select id="f-kind" name="kind"><option value="">Choose one</option><option>A brand-new website</option><option>Redesigning a site I already have</option><option>Adding to or fixing my current site</option><option>Ongoing help after launch</option><option>Not sure yet</option></select></div>
+          <div class="sd-field sd-field--full"><label for="f-brief">Tell me about the project <span class="req">*</span></label><textarea id="f-brief" name="brief" required placeholder="What does the business do, who are the customers, and what should the new work change?"></textarea><span class="err">A few lines is plenty.</span></div>
+        </div>
+      </div>
+
+      <div class="sd-step" data-step="3">
+        <h3>Budget and timing</h3>
+        <p>A range helps me shape the right scope, not a bigger one.</p>
+        <div class="sd-grid">
+          <div class="sd-field"><label for="f-budget">Budget range <span class="req">*</span></label>
+            <select id="f-budget" name="budget" required><option value="">Choose a range</option><option>Under $3,000</option><option>$3,000 – $7,500</option><option>$7,500 – $15,000</option><option>$15,000 – $30,000</option><option>$30,000+</option><option>Not sure yet</option></select><span class="err">"Not sure yet" is a fine answer.</span></div>
+          <div class="sd-field"><label for="f-time">When do you want to launch? <span class="req">*</span></label>
+            <select id="f-time" name="timeline" required><option value="">Choose one</option><option>As soon as possible</option><option>In 1–3 months</option><option>In 3–6 months</option><option>Later this year or next</option><option>I'm flexible</option></select><span class="err">Pick the closest one.</span></div>
+          <div class="sd-field sd-field--full"><label for="f-heard">How did you find Snowden Design?</label>
+            <select id="f-heard" name="source"><option value="">Choose one</option><option>Google or another search engine</option><option>ChatGPT, Gemini or another AI assistant</option><option>Referral from a client or friend</option><option>Social media</option><option>I've seen your work on another site</option><option>Something else</option></select></div>
+        </div>
+        <p class="sd-consent">I'll use these details only to reply about your project. See the <a href="#">privacy policy</a>.</p>
+      </div>
+
+      <div class="sd-done" role="status" aria-live="polite">
+        <div class="sd-badge"><svg width="26" height="20" viewBox="0 0 26 20" aria-hidden="true"><path d="M2 10l7.5 7.5L24 2" fill="none" stroke="#16B3A6" stroke-width="3"/></svg></div>
+        <h3>Got it. Your brief is in.</h3>
+        <p>I read every request myself and reply within [one business day] with a few questions and times for a discovery call.</p>
+        <a class="sd-btn sd-btn--ghost" href="#">See recent work</a>
+      </div>
+
+      <div class="sd-nav">
+        <span class="sd-count">Step <b data-now>1</b> of 3</span>
+        <div class="sd-btns">
+          <button type="button" class="sd-btn sd-btn--ghost" data-back hidden>Back</button>
+          <button type="button" class="sd-btn sd-btn--ink" data-next>Next</button>
+        </div>
+      </div>
+    </form>
+  </section>
+
+  <aside class="sd-aside">
+    <div class="sd-panel sd-panel--ink">
+      <div class="sd-label"><span class="sd-dot"></span>What happens next</div>
+      <h3>From brief to proposal</h3>
+      <ol class="sd-process">
+        <li><strong>I read your brief</strong><span>Personally, and I reply within [one business day] with a few questions.</span></li>
+        <li><strong>We talk it through</strong><span>A [free] 30-minute discovery call, in person around Denver or online.</span></li>
+        <li><strong>You get a written proposal</strong><span>Scope, timeline, price and the first step to launch. No obligation.</span></li>
+      </ol>
+    </div>
+    <div class="sd-panel sd-direct">
+      <div class="sd-label"><span class="sd-dot"></span>Rather talk now?</div>
+      <a href="tel:+17203402611">720-340-2611</a>
+      <a href="mailto:blake@snowden-design.com" style="font-size:18px">blake@snowden-design.com</a>
+      <p>Snowden Design, Denver, Colorado. Working with clients across the Front Range, Colorado and the US.</p>
+    </div>
+  </aside>
+</main>
+
+<section class="sd-faq sd-wrap" aria-labelledby="sd-faq-h">
+  <h2 id="sd-faq-h">Before you send it</h2>
+  <div class="sd-faq-grid">
+    <article><h3>What's in a Snowden Design proposal?</h3><p>A written plan with the pages or deliverables, the timeline, a fixed price or price range, what I need from you, and the first step to launch.</p></article>
+    <article><h3>Do I need an exact budget?</h3><p>No. A range is enough. It tells me whether to plan a focused launch or a larger build, and the proposal explains what fits inside it.</p></article>
+    <article><h3>Is there a cost for the proposal?</h3><p>[Blake to confirm] No. The discovery call and the written proposal are free and carry no obligation.</p></article>
+  </div>
+</section>
+
+<script>
+(function(){
+  var form=document.querySelector('.sd-form'), steps=form.querySelectorAll('.sd-step'), dots=form.querySelectorAll('.sd-steps li');
+  var next=form.querySelector('[data-next]'), back=form.querySelector('[data-back]'), now=form.querySelector('[data-now]'), nav=form.querySelector('.sd-nav'), done=form.querySelector('.sd-done');
+  var i=0;
+  function show(n){
+    i=n;
+    steps.forEach(function(s,k){s.classList.toggle('is-on',k===n)});
+    dots.forEach(function(d,k){d.classList.toggle('is-on',k===n);d.classList.toggle('is-done',k<n)});
+    back.hidden=n===0; next.textContent=n===steps.length-1?'Request my proposal':'Next'; now.textContent=n+1;
+    var f=steps[n].querySelector('input,select,textarea'); if(f&&n>0) f.focus({preventScroll:true});
+  }
+  function valid(step){
+    var ok=true;
+    step.querySelectorAll('.sd-field').forEach(function(fl){
+      var bad=false;
+      if(fl.dataset.group){bad=!fl.querySelector('input:checked')}
+      else{var el=fl.querySelector('[required]'); if(el){bad=!el.value.trim()||(el.type==='email'&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value))}}
+      fl.classList.toggle('is-bad',bad); if(bad&&ok){ok=false;var t=fl.querySelector('input,select,textarea');t&&t.focus()}
+    });
+    return ok;
+  }
+  form.addEventListener('input',function(e){var fl=e.target.closest('.sd-field');fl&&fl.classList.remove('is-bad')});
+  next.addEventListener('click',function(){
+    if(!valid(steps[i]))return;
+    if(i<steps.length-1)return show(i+1);
+    steps[i].classList.remove('is-on'); dots.forEach(function(d){d.classList.add('is-done')}); nav.hidden=true; done.classList.add('is-on');
+  });
+  back.addEventListener('click',function(){show(i-1)});
+})();
+</script>
+</body>
+</html>

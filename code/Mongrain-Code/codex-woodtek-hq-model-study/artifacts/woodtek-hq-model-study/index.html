@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#171916">
+  <title>WoodTek HQ — Architectural Model Study</title>
+  <style>
+    :root{color-scheme:dark;--bg:#171916;--panel:#20231f;--line:#383d37;--ink:#f2efe7;--muted:#aaa89f;--amber:#c58c38;--blue:#91bac2}
+    *{box-sizing:border-box}html,body{height:100%;margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+    body{overflow:hidden}.study{height:100%;min-height:440px;display:grid;grid-template-rows:auto minmax(0,1fr);background:radial-gradient(ellipse at 54% 45%,#32372f 0,#20231f 45%,#171916 82%)}
+    .topbar{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:13px clamp(16px,3vw,36px);border-bottom:1px solid #ffffff14;background:#171916d9;z-index:2}
+    .brand{display:flex;align-items:center;gap:13px;min-width:0}.mark{width:34px;height:34px;display:grid;place-items:center;border:1px solid #c58c3880;color:var(--amber);font:600 13px/1 "Space Grotesk",sans-serif;letter-spacing:-.08em}.eyebrow,.overline{font-size:10px;letter-spacing:.17em;text-transform:uppercase;color:var(--amber);font-weight:650}.brand h1{margin:2px 0 0;font:500 clamp(17px,2vw,22px)/1.1 "Space Grotesk",Inter,sans-serif;letter-spacing:-.035em}.top-meta{color:var(--muted);font-size:11px;letter-spacing:.06em;text-transform:uppercase;text-align:right}
+    .workspace{position:relative;min-height:0;overflow:hidden}.viewport{position:absolute;inset:0}.viewport canvas{display:block;width:100%;height:100%;outline:0;touch-action:pan-y}.vignette{pointer-events:none;position:absolute;inset:0;background:linear-gradient(90deg,#1719165a 0,transparent 30%,transparent 78%,#17191655 100%),linear-gradient(0deg,#17191674 0,transparent 23%)}
+    .panel{position:absolute;z-index:1;top:clamp(16px,3vh,30px);left:clamp(14px,3vw,36px);width:min(300px,calc(100vw - 28px));padding:20px;background:#1c1f1bcc;border:1px solid #ffffff1c;backdrop-filter:blur(14px);box-shadow:0 18px 50px #0004}.panel h2{font:500 18px/1.2 "Space Grotesk",Inter,sans-serif;margin:5px 0 8px;letter-spacing:-.025em}.panel p{color:#b8b7af;font-size:12px;margin:0 0 16px;line-height:1.55}.rule{height:1px;background:#ffffff17;margin:15px 0}.control-label{font-size:10px;color:#a9aaa0;letter-spacing:.14em;text-transform:uppercase;margin:0 0 9px;font-weight:650}.button-row{display:flex;gap:7px;flex-wrap:wrap}.button{min-height:38px;padding:8px 11px;background:#292d28;border:1px solid #ffffff1b;color:#e9e7e0;font:inherit;font-size:11px;font-weight:600;line-height:1.2;cursor:pointer;transition:background .2s,border-color .2s,color .2s}.button:hover{border-color:#c58c3890}.button:focus-visible{outline:2px solid var(--blue);outline-offset:2px}.button[aria-pressed="true"]{background:#c58c3820;border-color:#c58c38;color:#f4c878}.button.primary{background:var(--amber);border-color:var(--amber);color:#191914}.button.primary[aria-pressed="true"]{background:#e1b569;color:#191914}.status{min-height:18px;margin-top:12px;color:#c9c7be;font-size:11px}.selected{color:var(--blue);font-size:11px;margin-top:4px;min-height:17px}.hint{position:absolute;right:clamp(16px,3vw,38px);bottom:clamp(16px,3vh,28px);font-size:10px;color:#d2d0c6a8;letter-spacing:.12em;text-transform:uppercase;pointer-events:none}
+    .fallback{position:absolute;inset:0;display:none;align-items:center;justify-content:center;background:#20231f;padding:18px}.fallback.active{display:flex}.fallback-card{max-width:520px;width:100%;padding:20px;background:#171916;border:1px solid var(--line)}.fallback-card h2{margin:0 0 8px;font:500 18px "Space Grotesk",sans-serif}.fallback-card p{color:var(--muted);font-size:12px}.elevation{width:100%;height:auto;max-height:360px;display:block;margin:auto}.elevation *{vector-effect:non-scaling-stroke}
+    .legend{display:flex;flex-wrap:wrap;gap:13px;margin-top:12px;color:#bdbab0;font-size:10px}.legend span{display:flex;align-items:center;gap:6px}.swatch{width:9px;height:9px;display:inline-block}.swatch.amber{background:#b96f1e}.swatch.dark{background:#393731}.swatch.glass{background:#83afb8}.swatch.concrete{background:#9da29e}
+    @media(max-width:680px){.topbar{min-height:62px}.top-meta{max-width:130px;font-size:9px}.panel{top:12px;left:12px;width:min(276px,calc(100vw - 24px));padding:15px}.panel p{font-size:11px;margin-bottom:11px}.rule{margin:10px 0}.button{min-height:36px;padding:7px 9px}.hint{display:none}.vignette{background:linear-gradient(0deg,#171916a6 0,transparent 40%)}}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition-duration:.01ms!important;animation-duration:.01ms!important;animation-iteration-count:1!important}}
+  </style>
+  <script type="importmap">
+    {"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}
+  </script>
+</head>
+<body>
+<main class="study" aria-label="WoodTek HQ interactive architectural model study">
+  <header class="topbar">
+    <div class="brand"><span class="mark" aria-hidden="true">W</span><div><div class="eyebrow">Mongrain · Building study</div><h1>WoodTek HQ</h1></div></div>
+    <div class="top-meta">Architectural massing · illustrative scale</div>
+  </header>
+  <section class="workspace" aria-label="Interactive model and controls">
+    <div class="viewport" id="viewport"><canvas id="model" tabindex="0" aria-label="Interactive 3D building model. Drag to orbit and use the controls to separate the storeys."></canvas></div>
+    <div class="vignette" aria-hidden="true"></div>
+    <aside class="panel" aria-label="Model controls">
+      <div class="overline">Exterior / model 01</div>
+      <h2>Form, frame, and threshold</h2>
+      <p>A four-level amber-clad volume with inset upper terraces, a glazed street frontage, and a compact roof penthouse. Geometry is grouped for reuse and review.</p>
+      <div class="control-label">Model view</div>
+      <div class="button-row">
+        <button class="button primary" id="explode" type="button" aria-pressed="false">Explode levels</button>
+        <button class="button" id="reset" type="button">Reset view</button>
+      </div>
+      <div class="rule"></div>
+      <div class="control-label">Isolate system</div>
+      <div class="button-row" role="group" aria-label="Isolate model system">
+        <button class="button" data-system="all" aria-pressed="true">All</button>
+        <button class="button" data-system="structure" aria-pressed="false">Structure</button>
+        <button class="button" data-system="envelope" aria-pressed="false">Envelope</button>
+        <button class="button" data-system="glazing" aria-pressed="false">Glazing</button>
+      </div>
+      <div class="rule"></div>
+      <div class="control-label">Selected component</div>
+      <div class="selected" id="selected" aria-live="polite">Select a model component or system.</div>
+      <div class="status" id="status" role="status">Loading the GLB model…</div>
+      <div class="legend" aria-label="Material legend">
+        <span><i class="swatch amber"></i>Amber metal</span><span><i class="swatch dark"></i>Bronze</span><span><i class="swatch glass"></i>Glazing</span><span><i class="swatch concrete"></i>Concrete</span>
+      </div>
+    </aside>
+    <div class="hint">Drag to orbit · scroll to zoom</div>
+    <div class="fallback" id="fallback" role="img" aria-label="Static front elevation fallback for the WoodTek HQ model">
+      <div class="fallback-card"><div class="overline">Static elevation</div><h2>WoodTek HQ · front study</h2>
+        <svg class="elevation" viewBox="0 0 360 500" aria-hidden="true">
+          <rect x="84" y="80" width="190" height="336" fill="#282823" stroke="#b97827" stroke-width="7"/>
+          <path d="M84 164h190M84 248h190M84 332h190" stroke="#a9aaa0" stroke-width="2"/>
+          <path d="M84 80h190v78H84zM84 164h190v78H84zM84 248h190v78H84zM84 332h190v84H84z" fill="none" stroke="#b97827" stroke-width="5"/>
+          <path d="M131 98h95v42h-95M131 182h95v42h-95M131 266h95v42h-95" fill="#7297a0" fill-opacity=".62" stroke="#202622" stroke-width="3"/>
+          <path d="M123 242h112M123 326h112" stroke="#9bbec3" stroke-width="3"/>
+          <rect x="128" y="348" width="102" height="55" fill="#7297a0" fill-opacity=".62" stroke="#202622" stroke-width="3"/>
+          <rect x="147" y="28" width="62" height="50" fill="#b97827" stroke="#292a24" stroke-width="3"/>
+          <path d="M98 416h163M109 429h141" stroke="#a5a79e" stroke-width="3"/>
+          <text x="180" y="466" text-anchor="middle" fill="#aaa89f" font-size="10" letter-spacing="2">ILLUSTRATIVE MASSING</text>
+        </svg>
+        <p>Interactive rendering is unavailable in this browser. The static elevation preserves the building outline and material cues.</p>
+      </div>
+    </div>
+  </section>
+</main>
+<script>
+window.addEventListener('error', event => {
+  if (event.target && event.target.tagName === 'SCRIPT') {
+    document.querySelector('#fallback')?.classList.add('active');
+    const status = document.querySelector('#status');
+    if (status) status.textContent = 'The interactive viewer could not start. Showing a static elevation.';
+  }
+});
+</script>
+<script type="module">
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+const canvas = document.querySelector('#model');
+const viewport = document.querySelector('#viewport');
+const status = document.querySelector('#status');
+const selected = document.querySelector('#selected');
+const fallback = document.querySelector('#fallback');
+const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+let renderer, scene, camera, controls, modelRoot, onScreen = true;
+let expanded = false, currentSystem = 'all';
+const originalY = new Map();
+const clock = new THREE.Clock();
+
+function showFallback(message) {
+  fallback.classList.add('active');
+  status.textContent = message;
+}
+
+try {
+  renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:false, powerPreference:'high-performance'});
+  renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 1.6));
+  renderer.outputColorSpace = THREE.SRGBColorSpace;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.12;
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+  scene = new THREE.Scene();
+  scene.background = new THREE.Color('#22251f');
+  scene.fog = new THREE.Fog('#22251f', 25, 65);
+  camera = new THREE.PerspectiveCamera(32, 1, 0.1, 150);
+  camera.position.set(18, 14, 23);
+  scene.add(new THREE.HemisphereLight('#f0ebdf','#4a493e',2.1));
+  const key = new THREE.DirectionalLight('#fff0d5',3.2); key.position.set(-9,18,13); key.castShadow = true; key.shadow.mapSize.set(1024,1024); scene.add(key);
+  const fill = new THREE.DirectionalLight('#a9c8d0',1.35); fill.position.set(9,10,-12); scene.add(fill);
+  const ground = new THREE.Mesh(new THREE.PlaneGeometry(80,80), new THREE.MeshStandardMaterial({color:'#292c26',roughness:.94,transparent:true,opacity:.26,depthWrite:false}));
+  ground.rotation.x=-Math.PI/2; ground.position.y=-.20; ground.receiveShadow=true; scene.add(ground);
+  const grid = new THREE.GridHelper(36,36,'#52574d','#3c4039'); grid.position.y=-.18; grid.material.transparent=true; grid.material.opacity=.22; scene.add(grid);
+  controls = new OrbitControls(camera, canvas); controls.enableDamping=true; controls.dampingFactor=.065; controls.enablePan=true; controls.minDistance=10; controls.maxDistance=42; controls.maxPolarAngle=Math.PI*.49; controls.target.set(0,6,0);
+
+  const loader = new GLTFLoader();
+  loader.load('./woodtek-hq.glb', (gltf) => {
+    modelRoot = gltf.scene;
+    modelRoot.traverse((object) => { if(object.isMesh){object.castShadow=true;object.receiveShadow=true;} });
+    scene.add(modelRoot);
+    modelRoot.children.forEach(node => { if(node.name.startsWith('S-LEVEL-') || node.name==='S-BASEMENT' || node.name==='A-ROOF-PENTHOUSE') originalY.set(node,node.position.y); });
+    const bounds = new THREE.Box3().setFromObject(modelRoot);
+    const center = bounds.getCenter(new THREE.Vector3());
+    const sphere = bounds.getBoundingSphere(new THREE.Sphere());
+    controls.target.set(center.x, center.y*.94, center.z);
+    camera.position.set(center.x+sphere.radius*.95,center.y+sphere.radius*.62,center.z+sphere.radius*1.28);
+    camera.near=Math.max(.1,sphere.radius/100); camera.far=sphere.radius*20; camera.updateProjectionMatrix(); controls.update();
+    status.textContent='GLB loaded · 4 levels · grouped model nodes';
+    render();
+  }, undefined, () => showFallback('The model file could not be loaded. Showing a static elevation.') );
+
+  const raycaster = new THREE.Raycaster(); const pointer = new THREE.Vector2();
+  canvas.addEventListener('click', (event) => {
+    if(!modelRoot) return;
+    const rect=canvas.getBoundingClientRect(); pointer.set(((event.clientX-rect.left)/rect.width)*2-1,-((event.clientY-rect.top)/rect.height)*2+1);
+    raycaster.setFromCamera(pointer,camera);
+    const hit=raycaster.intersectObject(modelRoot,true).find(item=>item.object.name && !item.object.name.startsWith('C-'));
+    if(hit) selected.textContent=humanize(hit.object.name);
+  });
+} catch(error) {
+  showFallback('WebGL is unavailable here. Showing a static elevation.');
+}
+
+function humanize(value){return value.replace(/^(S|A|G)-/,'').replaceAll('-',' ').replace(/\bL(\d+)\b/g,(_,n)=>`level ${Number(n)+1}`).toLowerCase().replace(/\b\w/g,c=>c.toUpperCase());}
+function render(){ if(!renderer || document.hidden || !onScreen) return; controls?.update(); renderer.render(scene,camera); }
+function resize(){if(!renderer)return;const width=viewport.clientWidth,height=viewport.clientHeight;renderer.setSize(width,height,false);camera.aspect=width/Math.max(1,height);camera.updateProjectionMatrix();render();}
+new ResizeObserver(resize).observe(viewport); resize();
+new IntersectionObserver(entries=>{onScreen=entries[0].isIntersecting;if(onScreen&&!document.hidden)renderer?.setAnimationLoop(render);else renderer?.setAnimationLoop(null);}).observe(viewport);
+document.addEventListener('visibilitychange',()=>{if(!renderer)return;if(document.hidden)renderer.setAnimationLoop(null);else if(onScreen)renderer.setAnimationLoop(render);});
+
+document.querySelector('#explode').addEventListener('click',(event)=>{
+  expanded=!expanded; event.currentTarget.setAttribute('aria-pressed',String(expanded)); event.currentTarget.textContent=expanded?'Assemble levels':'Explode levels';
+  const levelNodes=[...(modelRoot?.children||[])].filter(node=>node.name.startsWith('S-LEVEL-')).sort((a,b)=>a.name.localeCompare(b.name));
+  levelNodes.forEach((node,index)=>{const base=originalY.get(node)??node.position.y;const offset=expanded?(index-1.5)*.68:0;moveY(node,base+offset);});
+  const basement=modelRoot?.children.find(node=>node.name==='S-BASEMENT'); if(basement)moveY(basement,(originalY.get(basement)??basement.position.y)+(expanded?-.75:0));
+  const roof=modelRoot?.children.find(node=>node.name==='A-ROOF-PENTHOUSE'); if(roof)moveY(roof,(originalY.get(roof)??roof.position.y)+(expanded?2.05:0));
+  status.textContent=expanded?'Exploded view · each storey remains a separate named group':'Assembled view · original transforms restored';
+  selected.textContent=expanded?'Vertical separation is illustrative.':'Select a model component or system.';
+});
+function moveY(node,target){if(reducedMotion){node.position.y=target;return;}const start=node.position.y;const t0=performance.now();const duration=650;const ease=t=>1-Math.pow(1-t,4);function step(now){const t=Math.min(1,(now-t0)/duration);node.position.y=start+(target-start)*ease(t);if(t<1)requestAnimationFrame(step);else render();}requestAnimationFrame(step);}
+
+document.querySelectorAll('[data-system]').forEach(button=>button.addEventListener('click',()=>{
+  currentSystem=button.dataset.system;
+  document.querySelectorAll('[data-system]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));
+  if(modelRoot)modelRoot.traverse(object=>{if(!object.isMesh)return;const n=object.name;object.visible=currentSystem==='all'||(currentSystem==='structure'?n.startsWith('S-')||n.startsWith('C-'):currentSystem==='envelope'?n.startsWith('A-'):n.startsWith('G-'));});
+  const labels={all:'All model systems visible.',structure:'Structure isolated.',envelope:'Architectural envelope isolated.',glazing:'Glazing and window frames isolated.'};
+  status.textContent=labels[currentSystem];selected.textContent=labels[currentSystem];render();
+}));
+
+document.querySelector('#reset').addEventListener('click',()=>{
+  if(!modelRoot)return;
+  document.querySelector('#explode').setAttribute('aria-pressed','false');document.querySelector('#explode').textContent='Explode levels';expanded=false;
+  document.querySelector('[data-system="all"]').click();
+  for(const [node,y] of originalY)moveY(node,y);
+  const bounds=new THREE.Box3().setFromObject(modelRoot);const center=bounds.getCenter(new THREE.Vector3());
+  controls.target.set(center.x,center.y*.94,center.z);const sphere=bounds.getBoundingSphere(new THREE.Sphere());
+  camera.position.set(center.x+sphere.radius*.95,center.y+sphere.radius*.62,center.z+sphere.radius*1.28);controls.update();selected.textContent='Select a model component or system.';status.textContent='Model view reset.';render();
+});
+
+renderer?.setAnimationLoop(render);
+</script>
+</body>
+</html>

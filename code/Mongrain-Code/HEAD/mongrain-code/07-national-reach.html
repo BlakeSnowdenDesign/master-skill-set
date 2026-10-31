@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Questrial&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}body{margin:0;background:#123d5d;color:#fff;font-family:Questrial,Arial,sans-serif}
+.mg7{min-height:780px;padding:clamp(55px,8vw,110px) clamp(22px,7vw,110px);overflow:hidden;position:relative;background:radial-gradient(circle at 80% 10%,#2a6795,transparent 35%),#123d5d}
+.mg7-grid{position:absolute;inset:0;background-image:linear-gradient(#ffffff0a 1px,transparent 1px),linear-gradient(90deg,#ffffff0a 1px,transparent 1px);background-size:55px 55px}
+.mg7-wrap{max-width:1400px;margin:auto;position:relative;z-index:1}.mg7-head{display:flex;justify-content:space-between;align-items:end;gap:35px;margin-bottom:40px}
+.mg7-k{font:600 12px Space Grotesk;letter-spacing:.2em;color:#a9d2ef;text-transform:uppercase}h2{font:600 clamp(42px,6vw,78px)/.98 Space Grotesk;letter-spacing:-.05em;margin:16px 0 0;max-width:800px}
+.mg7-head p{max-width:430px;font-size:18px;line-height:1.6;color:#c6dce9}
+.mg7-map{position:relative;min-height:420px;border:1px solid #ffffff2b;background:linear-gradient(135deg,#ffffff0d,#ffffff03);overflow:hidden}.mg7-map svg{position:absolute;inset:0;width:100%;height:100%}
+.mg7-route{stroke-dasharray:1100;stroke-dashoffset:1100;transition:2.4s .3s}.mg7.on .mg7-route{stroke-dashoffset:0}.mg7-point{opacity:0;transform-box:fill-box;transform-origin:center;transform:scale(0);transition:.45s;transition-delay:calc(.5s + var(--i)*.35s)}.mg7.on .mg7-point{opacity:1;transform:scale(1)}
+.mg7-places{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#ffffff25}.mg7-place{background:#123d5d;padding:21px 18px;transition:.3s}.mg7-place:hover{background:#1f5b8f}.mg7-place b{display:block;font:600 15px Space Grotesk}.mg7-place span{font-size:12px;color:#bcd5e5}
+.mg7-end{margin-top:36px;display:flex;justify-content:space-between;gap:20px;align-items:center}.mg7-end strong{font:500 clamp(20px,2.4vw,30px)/1.3 Space Grotesk;max-width:800px}.mg7-badge{border:1px solid #91c1df;padding:14px 20px;font:600 11px Space Grotesk;letter-spacing:.14em;white-space:nowrap}
+@media(max-width:800px){.mg7-head,.mg7-end{display:block}.mg7-head p{margin-top:25px}.mg7-map{min-height:330px}.mg7-places{grid-template-columns:1fr 1fr}.mg7-badge{display:inline-block;margin-top:24px}}
+@media(prefers-reduced-motion:reduce){.mg7-route{stroke-dashoffset:0;transition:none}.mg7-point{opacity:1;transform:none;transition:none}}
+</style>
+</head>
+<body>
+<section class="mg7">
+ <div class="mg7-grid"></div>
+ <div class="mg7-wrap">
+  <div class="mg7-head">
+   <div><div class="mg7-k">National evolution</div><h2>From Quebec origins to coast-to-coast reach.</h2></div>
+   <p>Regional expertise became national capability—extending west while maintaining the company’s headquarters and operating depth in Quebec.</p>
+  </div>
+  <div class="mg7-map" aria-label="Stylized map showing Mongrain's Canadian expansion">
+   <svg viewBox="0 0 1200 420" preserveAspectRatio="xMidYMid meet">
+    <path d="M80 267 125 190l76-12 46-70 92-12 63 42 78-15 53 42 85-12 58 39 83-10 67 45 86-4 74 47-47 70-104-12-50 34-103-20-74 17-83-31-82 20-75-39-85 10-76-38-99 7Z" fill="#eaf4ff18" stroke="#eaf4ff55" stroke-width="2"/>
+    <g fill="none" stroke="#ffffff1e"><path d="M245 109v193M400 137v175M560 155v170M740 178v151M900 210v130"/></g>
+    <path class="mg7-route" d="M1015 290C840 122 516 126 169 264" fill="none" stroke="#91c1df" stroke-width="4"/>
+    <g class="mg7-point" style="--i:0"><circle cx="1015" cy="290" r="17" fill="#1f5b8f" stroke="#fff" stroke-width="4"/><text x="1015" y="296" fill="#fff" text-anchor="middle" font-family="Space Grotesk" font-size="15">1</text></g>
+    <g class="mg7-point" style="--i:1"><circle cx="964" cy="275" r="17" fill="#1f5b8f" stroke="#fff" stroke-width="4"/><text x="964" y="281" fill="#fff" text-anchor="middle" font-family="Space Grotesk" font-size="15">2</text></g>
+    <g class="mg7-point" style="--i:2"><circle cx="905" cy="251" r="17" fill="#1f5b8f" stroke="#fff" stroke-width="4"/><text x="905" y="257" fill="#fff" text-anchor="middle" font-family="Space Grotesk" font-size="15">3</text></g>
+    <g class="mg7-point" style="--i:3"><circle cx="169" cy="264" r="17" fill="#1f5b8f" stroke="#fff" stroke-width="4"/><text x="169" y="270" fill="#fff" text-anchor="middle" font-family="Space Grotesk" font-size="15">4</text></g>
+   </svg>
+  </div>
+  <div class="mg7-places">
+   <div class="mg7-place"><b>01 · Quebec</b><span>Company origins</span></div>
+   <div class="mg7-place"><b>02 · Mirabel</b><span>Headquarters</span></div>
+   <div class="mg7-place"><b>03 · Ottawa + Montérégie</b><span>Regional expansion</span></div>
+   <div class="mg7-place"><b>04 · Vancouver</b><span>Western operation · 2022</span></div>
+  </div>
+  <div class="mg7-end"><strong>Today, Mongrain operates as a specialized, multi-disciplinary contractor for complex building-envelope systems across Canada.</strong><div class="mg7-badge">BUILT TO ENDURE · SINCE 1955</div></div>
+ </div>
+</section>
+<script>
+const s=document.querySelector('.mg7');new IntersectionObserver(e=>e[0].isIntersecting&&s.classList.add('on'),{threshold:.18}).observe(s);
+</script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Questrial&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}body{margin:0;background:#fff;color:#17384f;font-family:Questrial,Arial,sans-serif}
+.mg6{min-height:760px;padding:clamp(55px,8vw,110px) clamp(22px,7vw,110px);overflow:hidden;background:linear-gradient(120deg,#fff 0 58%,#eaf4ff 58%)}
+.mg6-wrap{max-width:1400px;margin:auto;display:grid;grid-template-columns:1fr 1fr;gap:clamp(35px,7vw,105px);align-items:center}
+.mg6-k{font:600 12px Space Grotesk;letter-spacing:.2em;color:#1f5b8f;text-transform:uppercase}h2{font:600 clamp(42px,5.5vw,76px)/.98 Space Grotesk;letter-spacing:-.05em;margin:18px 0 25px}
+.mg6-copy>p{font-size:18px;line-height:1.65;color:#597181}.mg6-quote{font:500 clamp(20px,2.4vw,30px)/1.35 Space Grotesk!important;color:#1f5b8f!important;border-top:1px solid #d0d5dd;padding-top:27px;margin-top:32px}
+.mg6-art{position:relative;aspect-ratio:1/1}.mg6-art svg{width:100%;height:100%}
+.mg6-shell{transform-origin:center;opacity:0;transform:scale(.75);transition:.9s;transition-delay:calc(var(--i)*.16s)}.mg6.on .mg6-shell{opacity:1;transform:scale(1)}
+.mg6-pulse{transform-origin:300px 300px;animation:mg6pulse 3s ease-in-out infinite}
+.mg6-legend{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:18px}.mg6-legend span{padding:11px 8px;border:1px solid #d0d5dd;text-align:center;font:500 11px Space Grotesk;color:#1f5b8f}
+@keyframes mg6pulse{50%{transform:scale(1.025)}}
+@media(max-width:800px){.mg6{background:linear-gradient(#fff 0 55%,#eaf4ff 55%)}.mg6-wrap{grid-template-columns:1fr}.mg6-art{max-width:520px;margin:auto;width:100%}}
+@media(prefers-reduced-motion:reduce){.mg6-shell{opacity:1;transform:none;transition:none}.mg6-pulse{animation:none}}
+</style>
+</head>
+<body>
+<section class="mg6">
+ <div class="mg6-wrap">
+  <div class="mg6-copy">
+   <div class="mg6-k">A systems approach</div>
+   <h2>The envelope performs as one.</h2>
+   <p>Mongrain’s evolution brought individual protection trades together as a unified performance layer—coordinating the systems responsible for durability, energy performance, and moisture protection.</p>
+   <p class="mg6-quote">Not isolated components. One integrated defense against Canada’s most severe temperature and moisture conditions.</p>
+   <div class="mg6-legend"><span>THERMAL</span><span>MOISTURE</span><span>AIR</span></div>
+  </div>
+  <div class="mg6-art" aria-hidden="true">
+   <svg viewBox="0 0 600 600">
+    <g class="mg6-pulse">
+     <path class="mg6-shell" style="--i:4" d="M300 43 525 172v257L300 558 75 429V172Z" fill="#1f5b8f0b" stroke="#1f5b8f" stroke-width="3"/>
+     <path class="mg6-shell" style="--i:3" d="m300 83 190 109v217L300 518 110 409V192Z" fill="#1f5b8f12" stroke="#1f5b8f" stroke-width="3"/>
+     <path class="mg6-shell" style="--i:2" d="m300 125 154 88v174l-154 88-154-88V213Z" fill="#76a9cf33" stroke="#1f5b8f" stroke-width="3"/>
+     <path class="mg6-shell" style="--i:1" d="m300 169 116 66v130l-116 66-116-66V235Z" fill="#eaf4ff" stroke="#1f5b8f" stroke-width="3"/>
+     <path class="mg6-shell" style="--i:0" d="m300 219 73 42v80l-73 42-73-42v-80Z" fill="#1f5b8f"/>
+     <path d="M300 383V219m73 42-146 80m0-80 146 80" stroke="#fff" opacity=".55"/>
+    </g>
+   </svg>
+  </div>
+ </div>
+</section>
+<script>
+const s=document.querySelector('.mg6');new IntersectionObserver(e=>e[0].isIntersecting&&s.classList.add('on'),{threshold:.2}).observe(s);
+</script>
+</body>
+</html>

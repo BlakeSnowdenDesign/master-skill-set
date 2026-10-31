@@ -1,0 +1,282 @@
+[
+  {
+    "slug": "work",
+    "url": "https://www.snowden-design.com/work",
+    "title": "Web Design & 3D Portfolio Denver | Snowden Design",
+    "description": "Explore selected websites and illustrative 3D work from Blake Snowden’s independent Denver studio. See the projects and discuss what you want to create.",
+    "setup": "work/WIX-SETUP.md",
+    "nativeCopy": "work/NATIVE-WIX-COPY.md",
+    "sections": [
+      {
+        "id": "si-work-intro",
+        "label": "Work — Introduction",
+        "file": "work/si-work-intro.html"
+      },
+      {
+        "id": "si-work-limetree-feature",
+        "label": "Work — Featured case study: Lime Tree Hospitality",
+        "file": "work/si-work-limetree-feature.html"
+      },
+      {
+        "id": "sd-work",
+        "label": "Work — Portfolio",
+        "file": "work/sd-work.html"
+      },
+      {
+        "id": "si-work-close",
+        "label": "Work — Next step",
+        "file": "work/si-work-close.html"
+      }
+    ]
+  },
+  {
+    "slug": "services",
+    "url": "https://www.snowden-design.com/services",
+    "title": "Web Design, Film & Creative Services | Snowden Design",
+    "description": "Custom websites, cinematic video, photography, 3D and brand design from Blake Snowden’s Denver studio. Explore connected creative services for your next project.",
+    "setup": "services/WIX-SETUP.md",
+    "nativeCopy": "services/NATIVE-WIX-COPY.md",
+    "sections": [
+      {
+        "id": "si-svc-intro",
+        "label": "Services — Introduction",
+        "file": "services/si-svc-intro.html"
+      },
+      {
+        "id": "si-svc-lead",
+        "label": "Services — Website and film",
+        "file": "services/si-svc-lead.html"
+      },
+      {
+        "id": "si-svc-core",
+        "label": "Services — Six disciplines",
+        "file": "services/si-svc-core.html"
+      },
+      {
+        "id": "si-svc-spec",
+        "label": "Services — A connected practice",
+        "file": "services/si-svc-spec.html"
+      },
+      {
+        "id": "si-svc-process",
+        "label": "Services — Process",
+        "file": "services/si-svc-process.html"
+      },
+      {
+        "id": "si-svc-close",
+        "label": "Services — Next step",
+        "file": "services/si-svc-close.html"
+      }
+    ]
+  },
+  {
+    "slug": "3d-interactive",
+    "url": "https://www.snowden-design.com/3d-interactive",
+    "title": "3D Design & Interactive Rendering | Snowden Design",
+    "description": "Explore MONGRAIN, an illustrative 3D building-envelope project in development. Discuss rendering and interactive visual storytelling with Snowden Design.",
+    "setup": "3d-interactive/WIX-SETUP.md",
+    "nativeCopy": "3d-interactive/NATIVE-WIX-COPY.md",
+    "sections": [
+      {
+        "id": "si-3d-intro",
+        "label": "3D — Introduction",
+        "file": "3d-interactive/si-3d-intro.html"
+      },
+      {
+        "id": "sd-mongrain",
+        "label": "3D — MONGRAIN viewer",
+        "file": "3d-interactive/sd-mongrain.html"
+      },
+      {
+        "id": "si-3d-uses",
+        "label": "3D — Where 3D helps",
+        "file": "3d-interactive/si-3d-uses.html"
+      },
+      {
+        "id": "si-3d-close",
+        "label": "3D — Next step",
+        "file": "3d-interactive/si-3d-close.html"
+      }
+    ]
+  },
+  {
+    "slug": "seo-geo",
+    "url": "https://www.snowden-design.com/seo-geo",
+    "title": "SEO, GEO & Website Analytics | Snowden Design",
+    "description": "Personal, practical SEO and website analytics from Blake Snowden’s independent Denver studio. Clear audits and useful measurement, without ranking or AI citation promises.",
+    "setup": "seo-geo/WIX-SETUP.md",
+    "nativeCopy": "seo-geo/NATIVE-WIX-COPY.md",
+    "sections": [
+      {
+        "id": "si-seo-intro",
+        "label": "SEO & GEO — Introduction",
+        "file": "seo-geo/si-seo-intro.html"
+      },
+      {
+        "id": "si-seo-dashboard",
+        "label": "SEO & GEO — Original analytics graphics",
+        "file": "seo-geo/si-seo-dashboard.html"
+      },
+      {
+        "id": "si-seo-split",
+        "label": "SEO & GEO — Two disciplines",
+        "file": "seo-geo/si-seo-split.html"
+      },
+      {
+        "id": "si-seo-audit",
+        "label": "SEO & GEO — Audits and measurement",
+        "file": "seo-geo/si-seo-audit.html"
+      },
+      {
+        "id": "si-seo-faq",
+        "label": "SEO & GEO — Questions",
+        "file": "seo-geo/si-seo-faq.html"
+      },
+      {
+        "id": "si-seo-close",
+        "label": "SEO & GEO — Next step",
+        "file": "seo-geo/si-seo-close.html"
+      }
+    ]
+  },
+  {
+    "slug": "website-growth",
+    "url": "https://www.snowden-design.com/website-growth",
+    "title": "Website Growth, SEO & Maintenance | Snowden Design",
+    "description": "Keep your website current with Snowden Design. Explore ongoing maintenance, SEO, GEO, digital marketing and social support tailored to your business.",
+    "setup": "website-growth/WIX-SETUP.md",
+    "nativeCopy": "website-growth/NATIVE-WIX-COPY.md",
+    "sections": [
+      {
+        "id": "si-grow-hero",
+        "label": "Website Growth — Introduction",
+        "file": "website-growth/si-grow-hero.html"
+      },
+      {
+        "id": "si-grow-attention",
+        "label": "Website Growth — Why ongoing attention matters",
+        "file": "website-growth/si-grow-attention.html"
+      },
+      {
+        "id": "si-grow-search",
+        "label": "Website Growth — SEO and GEO",
+        "file": "website-growth/si-grow-search.html"
+      },
+      {
+        "id": "si-grow-organic",
+        "label": "Website Growth — Organic visibility and content",
+        "file": "website-growth/si-grow-organic.html"
+      },
+      {
+        "id": "si-grow-ads",
+        "label": "Website Growth — PPC and digital advertising",
+        "file": "website-growth/si-grow-ads.html"
+      },
+      {
+        "id": "si-grow-social",
+        "label": "Website Growth — Social media",
+        "file": "website-growth/si-grow-social.html"
+      },
+      {
+        "id": "si-grow-partners",
+        "label": "Website Growth — Business partnerships",
+        "file": "website-growth/si-grow-partners.html"
+      },
+      {
+        "id": "si-grow-plan",
+        "label": "Website Growth — Tailored ongoing plan",
+        "file": "website-growth/si-grow-plan.html"
+      },
+      {
+        "id": "si-grow-process",
+        "label": "Website Growth — Four-step process",
+        "file": "website-growth/si-grow-process.html"
+      },
+      {
+        "id": "si-grow-close",
+        "label": "Website Growth — Next step",
+        "file": "website-growth/si-grow-close.html"
+      }
+    ]
+  },
+  {
+    "slug": "drone-photograph-video",
+    "url": "https://www.snowden-design.com/drone-photograph-video",
+    "title": "Photography, Video & Aerial Denver | Snowden Design",
+    "description": "Photography, business video and aerial storytelling planned around your website and audience. Talk with Snowden Design about your location and creative brief.",
+    "setup": "drone-photograph-video/WIX-SETUP.md",
+    "nativeCopy": "drone-photograph-video/NATIVE-WIX-COPY.md",
+    "sections": [
+      {
+        "id": "si-media-intro",
+        "label": "Media — Introduction",
+        "file": "drone-photograph-video/si-media-intro.html"
+      },
+      {
+        "id": "si-media-disc",
+        "label": "Media — Disciplines",
+        "file": "drone-photograph-video/si-media-disc.html"
+      },
+      {
+        "id": "si-media-gallery",
+        "label": "Media — Gallery",
+        "file": "drone-photograph-video/si-media-gallery.html"
+      },
+      {
+        "id": "si-media-close",
+        "label": "Media — Next step",
+        "file": "drone-photograph-video/si-media-close.html"
+      }
+    ]
+  },
+  {
+    "slug": "about",
+    "url": "https://www.snowden-design.com/about",
+    "title": "Blake Snowden | Independent Denver Designer",
+    "description": "Meet Blake Snowden, the independent Denver designer behind Snowden Design. Direct collaboration across websites, brand, digital art and illustrative 3D.",
+    "setup": "about/WIX-SETUP.md",
+    "nativeCopy": "about/NATIVE-WIX-COPY.md",
+    "sections": [
+      {
+        "id": "si-about-intro",
+        "label": "About — Introduction",
+        "file": "about/si-about-intro.html"
+      },
+      {
+        "id": "si-about-approach",
+        "label": "About — Approach",
+        "file": "about/si-about-approach.html"
+      },
+      {
+        "id": "si-about-evidence",
+        "label": "About — Evidence",
+        "file": "about/si-about-evidence.html"
+      },
+      {
+        "id": "si-about-close",
+        "label": "About — Next step",
+        "file": "about/si-about-close.html"
+      }
+    ]
+  },
+  {
+    "slug": "contact",
+    "url": "https://www.snowden-design.com/contact",
+    "title": "Contact Blake Snowden | Denver Design Studio",
+    "description": "Tell Blake Snowden about your website, brand, 3D or search project. Email blake@snowden-design.com or call 720-340-2611 to start a conversation.",
+    "setup": "contact/WIX-SETUP.md",
+    "nativeCopy": "contact/NATIVE-WIX-COPY.md",
+    "sections": [
+      {
+        "id": "si-contact-intro",
+        "label": "Contact — Introduction and details",
+        "file": "contact/si-contact-intro.html"
+      },
+      {
+        "id": "si-contact-brief",
+        "label": "Contact — What to include",
+        "file": "contact/si-contact-brief.html"
+      }
+    ]
+  }
+]

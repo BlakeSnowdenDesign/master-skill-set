@@ -1,0 +1,664 @@
+{
+  "package": "master skillet",
+  "status": "partial-local-and-imported-report",
+  "remote_writes": false,
+  "live_accounts_inspected": 0,
+  "live_repositories_reviewed": 0,
+  "pagination": "not-started",
+  "upstream_revisions_verified": false,
+  "local_revision": "05c9fa6aa70725ec596217f953ec09cac99b28ba",
+  "imported_review": {
+    "archive_path": "attached_assets/master-skillet-review_1793160750510.zip",
+    "sha256": "d1b70ef9f3d9483ef203229f3dc2efce36ac1595bc94e3259d70e59b6e4e9ed2",
+    "attribution": "ChatGPT, as stated by the user",
+    "remote_findings": "reported-not-independently-verified",
+    "raw_archive_redistributed": false
+  },
+  "sources": [
+    {
+      "id": "S01",
+      "title": "Workspace project decisions",
+      "path": "replit.md",
+      "local_revision": "05c9fa6aa70725ec596217f953ec09cac99b28ba",
+      "sha256": "eae213ca3ddd97acb7c2714fe2d1f7b1c1926bea6ee343a2087276ac392f2ef8",
+      "line_ranges": [
+        [
+          27,
+          64
+        ]
+      ],
+      "evidence_type": "static-local-review",
+      "limitations": "Local instructions; upstream state not verified",
+      "upstream_revision": null
+    },
+    {
+      "id": "S02",
+      "title": "Recorded Claude + Replit collaboration",
+      "path": "reference/github-home/COLLABORATION.md",
+      "local_revision": "05c9fa6aa70725ec596217f953ec09cac99b28ba",
+      "sha256": "89b094334f0fc5bc85681c9760532c8ad99b3a79db3265f245032124aede324f",
+      "line_ranges": [
+        [
+          1,
+          36
+        ]
+      ],
+      "evidence_type": "static-local-review",
+      "limitations": "Copied document; original upstream SHA unavailable",
+      "upstream_revision": null
+    },
+    {
+      "id": "S03",
+      "title": "Older SEO strategy",
+      "path": "reference/github-home/seo-geo-strategy.md",
+      "local_revision": "05c9fa6aa70725ec596217f953ec09cac99b28ba",
+      "sha256": "2a4f0f3b92f86bf5b5a8fd275c62fa4d239f96643c98e0cdeb1496b48918f04f",
+      "line_ranges": [
+        [
+          280,
+          294
+        ]
+      ],
+      "evidence_type": "static-local-review",
+      "limitations": "Labels strategy BLAKE and links a Claude artifact; artifact not retrieved; stronger claims qualified by S05/S10",
+      "upstream_revision": null
+    },
+    {
+      "id": "S04",
+      "title": "Project-authored material skill",
+      "path": ".agents/skills/reflective-glass-controls/SKILL.md",
+      "local_revision": "05c9fa6aa70725ec596217f953ec09cac99b28ba",
+      "sha256": "ab96910a181e0213e03335cc32346862bf048b0b07d6e3610b4bcee753fa7401",
+      "line_ranges": [
+        [
+          8,
+          40
+        ]
+      ],
+      "evidence_type": "static-local-review",
+      "limitations": "Static extraction; related desktop visual check historically reported, not rerun",
+      "upstream_revision": null
+    },
+    {
+      "id": "S05",
+      "title": "Project-authored accessibility/SEO skill",
+      "path": ".agents/skills/wix-iframe-accessibility-seo/SKILL.md",
+      "local_revision": "05c9fa6aa70725ec596217f953ec09cac99b28ba",
+      "sha256": "c3943131c145e2b503618e839a997ec38bcfc300847f9a2dc8a5ed7f94a38ff3",
+      "line_ranges": [
+        [
+          14,
+          64
+        ],
+        [
+          79,
+          89
+        ]
+      ],
+      "evidence_type": "static-local-review",
+      "limitations": "Inherited qualified guidance, not current platform or Search Console verification",
+      "upstream_revision": null
+    },
+    {
+      "id": "S06",
+      "title": "Recorded header decisions",
+      "path": ".agents/memory/header-delivery.md",
+      "local_revision": "05c9fa6aa70725ec596217f953ec09cac99b28ba",
+      "sha256": "2e166a1114ec62598a77e73df3bc5c9a4647dea68b27991ecdc22e62b8ff1e80",
+      "line_ranges": [
+        [
+          12,
+          22
+        ],
+        [
+          30,
+          64
+        ]
+      ],
+      "evidence_type": "static-local-review",
+      "limitations": "Historical user decisions; supplied material reference labeled GROK, authorship not independently verified",
+      "upstream_revision": null
+    },
+    {
+      "id": "S07",
+      "title": "Recorded Snowden design decisions",
+      "path": ".agents/memory/design-ethos.md",
+      "local_revision": "05c9fa6aa70725ec596217f953ec09cac99b28ba",
+      "sha256": "db2dc2b25b10cddbdcb7447c54c0bb6acd46e612fdd95a01d27b8e9fe840794e",
+      "line_ranges": [
+        [
+          18,
+          22
+        ],
+        [
+          36,
+          76
+        ]
+      ],
+      "evidence_type": "static-local-review",
+      "limitations": "Historical owner intent; not proof of upstream merge or visual acceptance of present code",
+      "upstream_revision": null
+    },
+    {
+      "id": "S08",
+      "title": "Original viewer and embedding limits",
+      "path": ".agents/memory/mongrain-embedding.md",
+      "local_revision": "05c9fa6aa70725ec596217f953ec09cac99b28ba",
+      "sha256": "9a6f6f896175df95e805152f81c7f4d3a9a93126833e0ca974eece025b573d4b",
+      "line_ranges": [
+        [
+          6,
+          28
+        ]
+      ],
+      "evidence_type": "static-local-review",
+      "limitations": "Historical srcdoc fix/fallback report; no successful WebGL check in this audit",
+      "upstream_revision": null
+    },
+    {
+      "id": "S09",
+      "title": "Exact dashboard source restrictions",
+      "path": ".agents/memory/analytics-source-graphics.md",
+      "local_revision": "05c9fa6aa70725ec596217f953ec09cac99b28ba",
+      "sha256": "77dddaf243ee5e6c80a2e07c1aaf0df06318ee4798944d71a5ba01cbf048ffb2",
+      "line_ranges": [
+        [
+          6,
+          16
+        ]
+      ],
+      "evidence_type": "static-local-review",
+      "limitations": "Historical source-fidelity direction; no images redistributed",
+      "upstream_revision": null
+    },
+    {
+      "id": "S10",
+      "title": "Wix delivery/setup handoff",
+      "path": "artifacts/snowden-home/public/delivery/WIX-HOME-SETUP.md",
+      "local_revision": "05c9fa6aa70725ec596217f953ec09cac99b28ba",
+      "sha256": "f28d5218d5985b3b49d8f8f967ff93a9da7afa82785940914b302f58962a733a",
+      "line_ranges": [
+        [
+          1,
+          49
+        ],
+        [
+          139,
+          166
+        ]
+      ],
+      "evidence_type": "static-local-review",
+      "limitations": "Historical October 25 live observations, not freshly verified; public contact fields omitted",
+      "upstream_revision": null
+    },
+    {
+      "id": "S11",
+      "title": "Tall iframe dialog placement",
+      "path": ".agents/memory/wix-modal-placement.md",
+      "local_revision": "05c9fa6aa70725ec596217f953ec09cac99b28ba",
+      "sha256": "6ee32c04f7eebf8524d4e02ac55bd366dc3d7d27ee7d04e1e9cd7953cc316a8d",
+      "line_ranges": [
+        [
+          6,
+          10
+        ]
+      ],
+      "evidence_type": "static-local-review",
+      "limitations": "Historical constraint and recommended real-device checks",
+      "upstream_revision": null
+    },
+    {
+      "id": "S12",
+      "title": "Shared-source export and routing adapter",
+      "path": "artifacts/snowden-home/scripts/build-export.mjs",
+      "local_revision": "05c9fa6aa70725ec596217f953ec09cac99b28ba",
+      "sha256": "fa77c0de65d4c2f3abd446211139e6505a23019dfe9c74f5420c0d962de720d5",
+      "line_ranges": [
+        [
+          1,
+          13
+        ],
+        [
+          23,
+          45
+        ]
+      ],
+      "evidence_type": "static-local-review",
+      "limitations": "Static implementation review; source-specific adapter",
+      "upstream_revision": null
+    },
+    {
+      "id": "S13",
+      "title": "Lime Tree wrapper implementation",
+      "path": "artifacts/snowden-home/src/limetree-feature.mjs",
+      "local_revision": "05c9fa6aa70725ec596217f953ec09cac99b28ba",
+      "sha256": "439f61f3e8d46d1cdce00f4997819ba49db87bf5154cbc1b934c28375a4a363e",
+      "line_ranges": [
+        [
+          1,
+          12
+        ],
+        [
+          20,
+          26
+        ],
+        [
+          79,
+          90
+        ]
+      ],
+      "evidence_type": "static-local-review",
+      "limitations": "Static wrapper review, Social URL with Hospitality naming; not alias confirmation",
+      "upstream_revision": null
+    },
+    {
+      "id": "S14",
+      "title": "Owner review/export interface",
+      "path": "artifacts/snowden-home/src/pages/review.tsx",
+      "local_revision": "05c9fa6aa70725ec596217f953ec09cac99b28ba",
+      "sha256": "2b08e9e107235e35a7f74edddb686c791f56c2635e210bdc42ab08ac22c2e1a2",
+      "line_ranges": [
+        [
+          1,
+          53
+        ]
+      ],
+      "evidence_type": "static-local-review",
+      "limitations": "Static implementation review, not authenticated; no browser check",
+      "upstream_revision": null
+    },
+    {
+      "id": "S15",
+      "title": "Rounded control worked reference",
+      "path": ".agents/skills/reflective-glass-controls/references/glass-button.md",
+      "local_revision": "05c9fa6aa70725ec596217f953ec09cac99b28ba",
+      "sha256": "a44f6b4e8098f45230b3d69f5e352429ef720954c071d2812425e07fdb075c9d",
+      "line_ranges": [
+        [
+          1,
+          25
+        ],
+        [
+          74,
+          92
+        ]
+      ],
+      "evidence_type": "static-local-review",
+      "limitations": "Project-authored extracted example, not original supplied full header",
+      "upstream_revision": null
+    },
+    {
+      "id": "S16",
+      "title": "Aluminum/texture worked reference",
+      "path": ".agents/skills/reflective-glass-controls/references/turned-aluminum.md",
+      "local_revision": "05c9fa6aa70725ec596217f953ec09cac99b28ba",
+      "sha256": "8c1bad44445926177e2ed347f7b34f109a2eaeb192f8b6379ce5f6ecfe452e26",
+      "line_ranges": [
+        [
+          1,
+          25
+        ],
+        [
+          108,
+          144
+        ]
+      ],
+      "evidence_type": "static-local-review",
+      "limitations": "Project-authored extraction; lifecycle correction is recommendation, not verified reference behavior",
+      "upstream_revision": null
+    },
+    {
+      "id": "S17",
+      "title": "Portfolio and reporting restrictions",
+      "path": ".agents/memory/site-pages.md",
+      "local_revision": "05c9fa6aa70725ec596217f953ec09cac99b28ba",
+      "sha256": "742db43abe65a1fd60a62703870f11534e4202fa86be0098c0fba26a553c4e42",
+      "line_ranges": [
+        [
+          24,
+          56
+        ]
+      ],
+      "evidence_type": "static-local-review",
+      "limitations": "Historical project decisions; supplied assets not redistributed",
+      "upstream_revision": null
+    },
+    {
+      "id": "S18",
+      "title": "Shared body and media behavior",
+      "path": "artifacts/snowden-home/src/home-shared.mjs",
+      "local_revision": "05c9fa6aa70725ec596217f953ec09cac99b28ba",
+      "sha256": "2e4dd7bb2dec0e8ae5a4fd52957983858160e4543e99f60b19bd7350306200a5",
+      "line_ranges": [
+        [
+          20,
+          37
+        ],
+        [
+          98,
+          104
+        ],
+        [
+          133,
+          144
+        ],
+        [
+          235,
+          275
+        ]
+      ],
+      "evidence_type": "static-local-review",
+      "limitations": "Static review; Harbour names/viewer wrapper/media gating, no browser check",
+      "upstream_revision": null
+    },
+    {
+      "id": "S19",
+      "title": "Social title with Hospitality copy",
+      "path": "artifacts/snowden-home/src/interior-shared.mjs",
+      "local_revision": "05c9fa6aa70725ec596217f953ec09cac99b28ba",
+      "sha256": "05c559713c1afe9b4cc394cd1c542437027e8185d02a6da876c1bd7a5d0d7c9d",
+      "line_ranges": [
+        [
+          119,
+          130
+        ]
+      ],
+      "evidence_type": "static-local-review",
+      "limitations": "Static local portfolio naming evidence, not verified product alias",
+      "upstream_revision": null
+    },
+    {
+      "id": "S20",
+      "title": "Responsive theme and framed motion",
+      "path": "artifacts/snowden-home/src/studio-theme.css",
+      "local_revision": "05c9fa6aa70725ec596217f953ec09cac99b28ba",
+      "sha256": "d65b9a06c37d45688b481b37ac21b579cd5729f95531959a9684550d0a180cbd",
+      "line_ranges": [
+        [
+          194,
+          246
+        ]
+      ],
+      "evidence_type": "static-local-review",
+      "limitations": "Static CSS review; geometry not verified visually",
+      "upstream_revision": null
+    },
+    {
+      "id": "U01",
+      "title": "ChatGPT package scope and limits",
+      "path": "master skillet/README.md",
+      "archive_path": "attached_assets/master-skillet-review_1793160750510.zip",
+      "archive_sha256": "d1b70ef9f3d9483ef203229f3dc2efce36ac1595bc94e3259d70e59b6e4e9ed2",
+      "sha256": "5586e592c3de5d3c684f960e489c73c9c587d6b89854cd2d7fe30cef286758b5",
+      "line_ranges": [
+        [
+          14,
+          25
+        ]
+      ],
+      "local_revision": null,
+      "upstream_revision": null,
+      "reported_review_date": "2026-10-27",
+      "evidence_type": "user-supplied-chatgpt-report",
+      "attribution": "ChatGPT, as stated by the user",
+      "limitations": "User attributes upload to ChatGPT. Secondary report/proposal only; underlying repositories, pagination, approvals and revisions not independently verified."
+    },
+    {
+      "id": "U02",
+      "title": "ChatGPT project/handoff report",
+      "path": "master skillet/FULL-HANDOFF.md",
+      "archive_path": "attached_assets/master-skillet-review_1793160750510.zip",
+      "archive_sha256": "d1b70ef9f3d9483ef203229f3dc2efce36ac1595bc94e3259d70e59b6e4e9ed2",
+      "sha256": "9ffb4ddb34d908f7efc658e2077b1615785d6aa56e885ec96b2fc80233d84e4b",
+      "line_ranges": [
+        [
+          30,
+          34
+        ],
+        [
+          38,
+          59
+        ],
+        [
+          63,
+          80
+        ]
+      ],
+      "local_revision": null,
+      "upstream_revision": null,
+      "reported_review_date": "2026-10-27",
+      "evidence_type": "user-supplied-chatgpt-report",
+      "attribution": "ChatGPT, as stated by the user",
+      "limitations": "User attributes upload to ChatGPT. Secondary report/proposal only; underlying repositories, pagination, approvals and revisions not independently verified."
+    },
+    {
+      "id": "U03",
+      "title": "ChatGPT reported repository and branch inventory",
+      "path": "master skillet/REPOSITORY-INVENTORY.md",
+      "archive_path": "attached_assets/master-skillet-review_1793160750510.zip",
+      "archive_sha256": "d1b70ef9f3d9483ef203229f3dc2efce36ac1595bc94e3259d70e59b6e4e9ed2",
+      "sha256": "e0c4abe8005e7ef00d14151faf77b3a22b5e05ce77d4b34101d51e7b9ee06fe5",
+      "line_ranges": [
+        [
+          1,
+          66
+        ]
+      ],
+      "local_revision": null,
+      "upstream_revision": null,
+      "reported_review_date": "2026-10-27",
+      "evidence_type": "user-supplied-chatgpt-report",
+      "attribution": "ChatGPT, as stated by the user",
+      "limitations": "User attributes upload to ChatGPT. Secondary report/proposal only; underlying repositories, pagination, approvals and revisions not independently verified."
+    },
+    {
+      "id": "U04",
+      "title": "ChatGPT reusable technique proposals",
+      "path": "master skillet/SKILL-COMPENDIUM.md",
+      "archive_path": "attached_assets/master-skillet-review_1793160750510.zip",
+      "archive_sha256": "d1b70ef9f3d9483ef203229f3dc2efce36ac1595bc94e3259d70e59b6e4e9ed2",
+      "sha256": "567e6a025ab8a4184cdb2f93e18dd5aa31f27b539660885a0b52475e49773eca",
+      "line_ranges": [
+        [
+          15,
+          39
+        ],
+        [
+          43,
+          74
+        ],
+        [
+          114,
+          147
+        ],
+        [
+          149,
+          179
+        ]
+      ],
+      "local_revision": null,
+      "upstream_revision": null,
+      "reported_review_date": "2026-10-27",
+      "evidence_type": "user-supplied-chatgpt-report",
+      "attribution": "ChatGPT, as stated by the user",
+      "limitations": "User attributes upload to ChatGPT. Secondary report/proposal only; underlying repositories, pagination, approvals and revisions not independently verified."
+    },
+    {
+      "id": "U05",
+      "title": "ChatGPT session and delivery guidance",
+      "path": "master skillet/MASTER-PROMPT.md",
+      "archive_path": "attached_assets/master-skillet-review_1793160750510.zip",
+      "archive_sha256": "d1b70ef9f3d9483ef203229f3dc2efce36ac1595bc94e3259d70e59b6e4e9ed2",
+      "sha256": "9f8804c218310db2a3eda201912b4c6f6c11340f059170e1606e928616d25598",
+      "line_ranges": [
+        [
+          5,
+          23
+        ],
+        [
+          71,
+          77
+        ],
+        [
+          83,
+          95
+        ]
+      ],
+      "local_revision": null,
+      "upstream_revision": null,
+      "reported_review_date": "2026-10-27",
+      "evidence_type": "user-supplied-chatgpt-report",
+      "attribution": "ChatGPT, as stated by the user",
+      "limitations": "User attributes upload to ChatGPT. Secondary report/proposal only; underlying repositories, pagination, approvals and revisions not independently verified."
+    }
+  ],
+  "omitted_bundle": {
+    "path": "artifacts/snowden-home/public/delivery/mongrain-viewer-source.html",
+    "local_revision": "05c9fa6aa70725ec596217f953ec09cac99b28ba",
+    "sha256": "4d6c6b40c06ff30a3786d2a6708fccffe30108d14615b104ff4cc01db901b6c1",
+    "bytes": 1865955,
+    "routing_hook_occurrences": 1,
+    "contains_webgl_text": true,
+    "review": "Targeted string inspection only; full bundle not semantically audited or redistributed",
+    "upstream_revision": null
+  },
+  "claims": {
+    "C01": {
+      "description": "Layered materials, semantic controls and clipped reflection",
+      "sources": [
+        "S04",
+        "S15",
+        "S16"
+      ]
+    },
+    "C02": {
+      "description": "Motion ownership, reduced motion and scoped header timing",
+      "sources": [
+        "S04",
+        "S06",
+        "S16"
+      ]
+    },
+    "C03": {
+      "description": "Fluid centered frames and image motion",
+      "sources": [
+        "S07",
+        "S20"
+      ]
+    },
+    "C04": {
+      "description": "Wix parent/iframe boundaries and tall dialog placement",
+      "sources": [
+        "S01",
+        "S05",
+        "S06",
+        "S10",
+        "S11"
+      ]
+    },
+    "C05": {
+      "description": "Contextual alt, iframe title and qualified indexing guidance",
+      "sources": [
+        "S03",
+        "S05",
+        "S10"
+      ]
+    },
+    "C06": {
+      "description": "Original viewer, generated routing adapter and WebGL limits",
+      "sources": [
+        "S08",
+        "S12",
+        "S18"
+      ]
+    },
+    "C07": {
+      "description": "Durable media, deferred lookbook, playback fallbacks",
+      "sources": [
+        "S13",
+        "S17",
+        "S18"
+      ]
+    },
+    "C08": {
+      "description": "Separate owner review, copy/download errors, shared-source export",
+      "sources": [
+        "S01",
+        "S06",
+        "S10",
+        "S12",
+        "S14"
+      ]
+    },
+    "C09": {
+      "description": "Exact source dashboard fidelity and illustrative disclosures",
+      "sources": [
+        "S09",
+        "S17"
+      ]
+    },
+    "C10": {
+      "description": "Project-scoped design/assets and evidenced supersession",
+      "sources": [
+        "S01",
+        "S06",
+        "S07",
+        "S09"
+      ]
+    },
+    "C11": {
+      "description": "Keep unconfirmed project aliases separate",
+      "sources": [
+        "S13",
+        "S18",
+        "S19"
+      ]
+    },
+    "C12": {
+      "description": "Recorded collaboration/canonical authority, no audit publication",
+      "sources": [
+        "S01",
+        "S02",
+        "S10"
+      ]
+    },
+    "C13": {
+      "description": "Reported repository/source pointers are leads, not independent audit evidence",
+      "sources": [
+        "U01",
+        "U02",
+        "U03"
+      ]
+    },
+    "C14": {
+      "description": "Proposed stable-layer 3D interaction contracts and camera/state checks",
+      "sources": [
+        "U02",
+        "U04",
+        "U05"
+      ]
+    },
+    "C15": {
+      "description": "Proposed dimensional SVG material-study workflow",
+      "sources": [
+        "U03",
+        "U04"
+      ]
+    },
+    "C16": {
+      "description": "Proposed non-identifying measurement and truthful lead/export states",
+      "sources": [
+        "U02",
+        "U04"
+      ]
+    },
+    "C17": {
+      "description": "Reported Harbour-specific art direction and sample calendar constraints",
+      "sources": [
+        "U02",
+        "U03",
+        "U04"
+      ]
+    }
+  }
+}

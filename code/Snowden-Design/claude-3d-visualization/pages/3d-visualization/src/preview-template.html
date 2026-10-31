@@ -1,0 +1,120 @@
+<title>3D Visualization Page</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+/* Layout: one column; browser-window preview, then the code panel, then Wix steps */
+:root{--bg:#EEF3F4;--surface:#FFFFFF;--fg:#0A1D26;--muted:#4A5F68;--line:rgba(10,29,38,.12);--accent:#16B3A6;--chrome:#DCE5E7;
+  --code-bg:#0A1D26;--code-fg:#CFE3E6;--code-line:rgba(127,224,212,.16);--aqua:#7FE0D4;--sun:#F2A93B;
+  --display:"Archivo",system-ui,sans-serif;--mono:"IBM Plex Mono",ui-monospace,monospace}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#071419;--surface:#0E232B;--fg:#E6F1F2;--muted:#9AB2B8;--line:rgba(230,241,242,.12);--accent:#7FE0D4;--chrome:#153039;--code-bg:#040D11;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#071419;--surface:#0E232B;--fg:#E6F1F2;--muted:#9AB2B8;--line:rgba(230,241,242,.12);--accent:#7FE0D4;--chrome:#153039;--code-bg:#040D11;color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font-family:var(--display);font-size:16px;line-height:1.55}
+.w{max-width:1320px;margin:0 auto;padding-block:40px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:28px}
+.mono{font-family:var(--mono);text-transform:uppercase;letter-spacing:.14em;font-size:12px;font-weight:500}
+header{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:16px 32px}
+header .mono{color:var(--accent)}
+h1{margin:8px 0 0;font-stretch:118%;font-weight:800;font-size:clamp(30px,4.4vw,52px);line-height:1;letter-spacing:-.025em;text-wrap:balance}
+.lede{margin:12px 0 0;color:var(--muted);max-width:62ch}
+.btn{display:inline-flex;align-items:center;gap:10px;min-height:46px;padding:0 22px;border-radius:999px;border:0;cursor:pointer;font:650 15px/1 var(--display);background:var(--aqua);color:#0A1D26;box-shadow:0 1px 2px rgba(0,0,0,.15),0 12px 30px -12px rgba(22,179,166,.6);transition:transform .4s cubic-bezier(.2,.8,.2,1)}
+.btn:hover{transform:translateY(-2px)}
+.btn svg{width:16px;height:16px}
+.win{background:var(--surface);border-radius:28px;box-shadow:0 1px 2px rgba(10,29,38,.06),0 30px 70px -26px rgba(10,29,38,.35);overflow:hidden;border:1px solid var(--line)}
+.bar{display:flex;align-items:center;gap:14px;padding:12px 16px;background:var(--chrome);flex-wrap:wrap}
+.dots{display:flex;gap:7px}.dots i{width:11px;height:11px;border-radius:50%;background:#F26B5B}.dots i+i{background:#F2B33B}.dots i+i+i{background:#3BC07A}
+.url{flex:1;min-width:160px;padding:8px 14px;border-radius:999px;background:var(--surface);color:var(--muted)}
+.seg{display:flex;gap:4px;padding:4px;border-radius:999px;background:var(--surface)}
+.seg button{border:0;background:transparent;color:var(--muted);padding:7px 14px;border-radius:999px;cursor:pointer;min-height:34px}
+.seg button[aria-pressed="true"]{background:var(--fg);color:var(--bg)}
+.stage{display:flex;justify-content:center;background:repeating-linear-gradient(45deg,transparent 0 10px,var(--line) 10px 11px);overflow:hidden}
+.frame{flex:none;border:0;background:#fff;transform-origin:top center;display:block}
+.note{padding:12px 18px;color:var(--muted);font-size:14px;border-top:1px solid var(--line)}
+.code{background:var(--code-bg);border-radius:28px;overflow:hidden;box-shadow:0 30px 70px -26px rgba(4,13,17,.6)}
+.code-h{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;padding:18px 22px;border-bottom:1px solid var(--code-line);color:var(--aqua)}
+.code-h b{font-weight:500;color:#9AB2B8}
+pre{margin:0;max-height:560px;overflow:auto;padding:22px;color:var(--code-fg);font:13px/1.6 var(--mono);white-space:pre;tab-size:2}
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;padding:0;margin:0;list-style:none}
+.step{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:24px}
+.step .mono{color:var(--accent)}
+.step h3{margin:10px 0 6px;font-stretch:118%;font-size:20px}
+.step p{margin:0;color:var(--muted);font-size:15px}
+table{border-collapse:collapse;width:100%;margin-top:10px;font-variant-numeric:tabular-nums}
+td{padding:6px 0;border-top:1px solid var(--line);font-size:15px}td+td{text-align:right;font-family:var(--mono)}
+.toast{color:var(--accent);min-width:70px}
+@media (max-width:820px){.steps{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+<div class="w">
+  <header>
+    <div>
+      <span class="mono">Snowden Design / 3D Visualization page</span>
+      <h1>3D architectural visualization.</h1>
+      <p class="lede">The Mongrain 3D showcase as one Wix Embed HTML block. The preview below is the exact code you copy. Press "Launch the 3D model" inside it to try the live model.</p>
+    </div>
+    <button class="btn" type="button" data-copy>Copy code
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg></button>
+  </header>
+
+  <section class="win" aria-label="Preview">
+    <div class="bar">
+      <div class="dots" aria-hidden="true"><i></i><i></i><i></i></div>
+      <div class="url mono">snowden-design.com/3d-visualization</div>
+      <div class="seg" role="group" aria-label="Preview width">
+        <button type="button" class="mono" data-w="1280" aria-pressed="true">Desktop</button>
+        <button type="button" class="mono" data-w="980" aria-pressed="false">Tablet</button>
+        <button type="button" class="mono" data-w="390" aria-pressed="false">Phone</button>
+      </div>
+    </div>
+    <div class="stage" id="stage"><iframe class="frame" id="frame" title="Snowden Design 3D visualization page preview"></iframe></div>
+    <p class="note">Renders and the live model are built into the code, so everything shows here exactly as it will on Wix. Keyword copy and the native gallery go in Wix itself: see SEO.md.</p>
+  </section>
+
+  <section class="code" aria-label="Code">
+    <div class="code-h"><span class="mono">snowden-3d-visualization.html <b>/ {{KB}} KB</b></span>
+      <span style="display:flex;align-items:center;gap:14px"><span class="toast mono" id="toast" aria-live="polite"></span>
+      <button class="btn" type="button" data-copy>Copy code
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg></button></span>
+    </div>
+    <pre id="code" tabindex="0"></pre>
+  </section>
+
+  <ol class="steps">
+    <li class="step"><span class="mono">Step 1</span><h3>Add Embed HTML</h3><p>In the Wix editor: Add › Embed code › Embed HTML. Stretch it to full width.</p></li>
+    <li class="step"><span class="mono">Step 2</span><h3>Paste the code</h3><p>Choose "Code", paste everything from the panel above, then Update.</p></li>
+    <li class="step"><span class="mono">Step 3</span><h3>Set the height</h3><p>Measured heights, with a little room to spare:</p>
+      <table><tr><td>Desktop (1280)</td><td>{{H_desktop}} px</td></tr><tr><td>Tablet (980)</td><td>{{H_tablet}} px</td></tr><tr><td>Phone (390)</td><td>{{H_phone}} px</td></tr></table></li>
+  </ol>
+</div>
+<script>
+(function(){
+  var b64="{{B64}}";
+  var bytes=Uint8Array.from(atob(b64),function(c){return c.charCodeAt(0)});
+  var code=new TextDecoder().decode(bytes);
+  document.getElementById('code').textContent=code;
+  var frame=document.getElementById('frame'), stage=document.getElementById('stage');
+  frame.srcdoc=code;
+  var W=1280, VIEW=760;
+  function fit(){
+    var cw=stage.clientWidth, s=Math.min(1,cw/W);
+    frame.style.width=W+'px'; frame.style.height=(VIEW/s)+'px';
+    frame.style.transform='scale('+s+')';
+    stage.style.height=VIEW+'px';
+  }
+  document.querySelectorAll('[data-w]').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      W=+btn.dataset.w;
+      document.querySelectorAll('[data-w]').forEach(function(o){o.setAttribute('aria-pressed',o===btn?'true':'false')});
+      fit();
+    });
+  });
+  window.addEventListener('resize',fit); fit();
+  var toast=document.getElementById('toast');
+  function selectCode(){var r=document.createRange();r.selectNodeContents(document.getElementById('code'));var s=getSelection();s.removeAllRanges();s.addRange(r)}
+  document.querySelectorAll('[data-copy]').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var done=function(){toast.textContent='Copied'; setTimeout(function(){toast.textContent=''},2200)};
+      var fail=function(){selectCode(); toast.textContent='Selected: press Ctrl/Cmd+C'};
+      try{ navigator.clipboard.writeText(code).then(done,fail) }catch(e){ fail() }
+    });
+  });
+})();
+</script>

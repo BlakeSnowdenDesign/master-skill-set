@@ -1,0 +1,263 @@
+/* Website Growth: a restrained field of warm light, independently controllable per section. */
+.sd-root .si-grow-intro,
+.sd-root .si-grow-attention,
+.sd-root .si-grow-search,
+.sd-root .si-grow-organic,
+.sd-root .si-grow-ads,
+.sd-root .si-grow-social,
+.sd-root .si-grow-partners,
+.sd-root .si-grow-plan,
+.sd-root .si-grow-process,
+.sd-root .si-grow-intro#si-grow-hero,
+.sd-root .si-close#si-grow-close {
+  position: relative;
+  isolation: isolate;
+}
+
+.sd-root .si-grow-intro > .sd-wrap,
+.sd-root .si-grow-attention > .sd-wrap,
+.sd-root .si-grow-search > .sd-wrap,
+.sd-root .si-grow-organic > .sd-wrap,
+.sd-root .si-grow-ads > .sd-wrap,
+.sd-root .si-grow-social > .sd-wrap,
+.sd-root .si-grow-partners > .sd-wrap,
+.sd-root .si-grow-plan > .sd-wrap,
+.sd-root .si-grow-process > .sd-wrap,
+.sd-root .si-close#si-grow-close > .sd-wrap {
+  position: relative;
+  z-index: 1;
+}
+
+.sd-root .si-grow-bg {
+  position: absolute;
+  z-index: 0;
+  inset: 0 0 auto;
+  height: min(64%, 620px);
+  overflow: hidden;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 100% 0%, rgba(242, 169, 59, .105), transparent 42%),
+    radial-gradient(ellipse at 83% 8%, rgba(9, 110, 102, .085), transparent 46%);
+}
+.sd-root .si-grow-bg__shape {
+  position: absolute;
+  display: block;
+  pointer-events: none;
+  transform-origin: center;
+  will-change: transform, opacity;
+}
+.sd-root .si-grow-bg--rings .si-grow-bg__shape {
+  top: -78%;
+  right: -8%;
+  width: min(78vw, 960px);
+  aspect-ratio: 1;
+  border: 1px solid rgba(10, 29, 38, .075);
+  border-radius: 50%;
+  box-shadow:
+    inset 0 0 0 13px rgba(243, 237, 227, .12),
+    inset 0 0 0 29px rgba(9, 110, 102, .075),
+    inset 0 0 0 47px rgba(243, 237, 227, .18),
+    inset 0 0 0 64px rgba(242, 169, 59, .105);
+  background: radial-gradient(circle, rgba(9,110,102,.05), rgba(243,237,227,.03) 56%, rgba(242,169,59,.08) 73%, transparent 100%);
+  animation: si-grow-ring-breathe 17s ease-in-out infinite alternate;
+}
+.sd-root .si-grow-bg--rings .si-grow-bg__shape--two {
+  top: -64%;
+  right: 2%;
+  width: min(64vw, 790px);
+  border-color: rgba(9, 110, 102, .13);
+  box-shadow: inset 0 0 0 17px rgba(9, 110, 102, .055), inset 0 0 0 39px rgba(243,237,227,.2);
+  animation-delay: -5s;
+}
+.sd-root .si-grow-bg--rings .si-grow-bg__shape--three {
+  top: -49%;
+  right: 13%;
+  width: min(48vw, 590px);
+  border-color: rgba(242, 169, 59, .2);
+  box-shadow: inset 0 0 0 18px rgba(242,169,59,.08), inset 0 0 0 38px rgba(9,110,102,.055);
+  animation-delay: -10s;
+}
+
+.sd-root .si-grow-bg--drift {
+  background:
+    radial-gradient(ellipse at 8% 0%, rgba(242,169,59,.13), transparent 40%),
+    radial-gradient(ellipse at 88% 3%, rgba(9,110,102,.12), transparent 42%),
+    linear-gradient(135deg, rgba(243,237,227,.15), transparent 65%);
+}
+.sd-root .si-grow-bg--drift .si-grow-bg__shape {
+  top: -90%;
+  right: 4%;
+  width: min(56vw, 690px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle at 43% 55%, rgba(9,110,102,.12), rgba(9,110,102,.035) 46%, transparent 71%);
+  animation: si-grow-light-drift 23s ease-in-out infinite alternate;
+}
+.sd-root .si-grow-bg--drift .si-grow-bg__shape--two {
+  top: -110%;
+  right: 32%;
+  width: min(44vw, 540px);
+  background: radial-gradient(circle at 53% 54%, rgba(242,169,59,.18), rgba(242,169,59,.045) 45%, transparent 71%);
+  animation-delay: -8s;
+}
+.sd-root .si-grow-bg--drift .si-grow-bg__shape--three {
+  top: -70%;
+  right: -14%;
+  width: min(37vw, 450px);
+  background: radial-gradient(circle at 50% 50%, rgba(243,237,227,.55), rgba(243,237,227,.08) 54%, transparent 72%);
+  animation-delay: -15s;
+}
+
+.sd-root .si-grow-bg--contour {
+  background:
+    radial-gradient(ellipse at 95% 4%, rgba(9,110,102,.11), transparent 42%),
+    radial-gradient(ellipse at 70% 0%, rgba(242,169,59,.1), transparent 46%);
+}
+.sd-root .si-grow-bg--contour .si-grow-bg__shape {
+  top: -119%;
+  right: -4%;
+  width: min(78vw, 920px);
+  aspect-ratio: 1;
+  border: 1px solid rgba(9,110,102,.14);
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 15px rgba(243,237,227,.04), 0 0 0 16px rgba(10,29,38,.045),
+    0 0 0 36px rgba(242,169,59,.07), 0 0 0 37px rgba(10,29,38,.04),
+    0 0 0 61px rgba(243,237,227,.08), 0 0 0 62px rgba(9,110,102,.07);
+  animation: si-grow-contour-float 26s ease-in-out infinite alternate;
+}
+.sd-root .si-grow-bg--contour .si-grow-bg__shape--two {
+  top: -91%;
+  right: 10%;
+  width: min(53vw, 640px);
+  border-color: rgba(242,169,59,.16);
+  box-shadow: 0 0 0 17px rgba(242,169,59,.045), 0 0 0 18px rgba(9,110,102,.07), 0 0 0 43px rgba(243,237,227,.14);
+  animation-delay: -11s;
+}
+.sd-root .si-grow-bg--contour .si-grow-bg__shape--three {
+  top: -64%;
+  right: 22%;
+  width: min(29vw, 350px);
+  border-color: rgba(10,29,38,.08);
+  box-shadow: 0 0 0 16px rgba(9,110,102,.05), 0 0 0 34px rgba(242,169,59,.055);
+  animation-delay: -17s;
+}
+
+.sd-root .si-grow-bg--orbit {
+  background:
+    radial-gradient(ellipse at 96% 3%, rgba(242,169,59,.12), transparent 38%),
+    radial-gradient(ellipse at 77% 0%, rgba(9,110,102,.095), transparent 48%);
+}
+.sd-root .si-grow-bg--orbit .si-grow-bg__shape {
+  top: -113%;
+  right: -3%;
+  width: min(68vw, 820px);
+  aspect-ratio: 1;
+  border: 1px solid rgba(9,110,102,.12);
+  border-radius: 50%;
+  background: conic-gradient(from 240deg, transparent 0 28%, rgba(9,110,102,.12) 37%, transparent 52% 76%, rgba(242,169,59,.15) 88%, transparent 100%);
+  -webkit-mask: radial-gradient(circle, transparent 56%, #000 57%, #000 70%, transparent 71%);
+  mask: radial-gradient(circle, transparent 56%, #000 57%, #000 70%, transparent 71%);
+  animation: si-grow-orbit 34s linear infinite;
+}
+.sd-root .si-grow-bg--orbit .si-grow-bg__shape--two {
+  top: -78%;
+  right: 13%;
+  width: min(45vw, 540px);
+  border: 1px dashed rgba(10,29,38,.15);
+  background: radial-gradient(circle, transparent 58%, rgba(242,169,59,.1) 59%, transparent 62%);
+  animation: si-grow-orbit-reverse 42s linear infinite;
+}
+.sd-root .si-grow-bg--orbit .si-grow-bg__shape--three {
+  top: -92%;
+  right: 31%;
+  width: min(26vw, 310px);
+  border: 1px solid rgba(242,169,59,.16);
+  background: radial-gradient(circle at 74% 24%, rgba(242,169,59,.24) 0 2px, transparent 3px);
+  animation: si-grow-orbit 28s linear infinite;
+}
+
+.sd-root .si-grow-bg--sun {
+  background:
+    radial-gradient(ellipse at 100% 0%, rgba(242,169,59,.17), transparent 42%),
+    radial-gradient(ellipse at 72% 0%, rgba(9,110,102,.09), transparent 48%);
+}
+.sd-root .si-grow-bg--sun .si-grow-bg__shape {
+  top: -129%;
+  right: -13%;
+  width: min(76vw, 900px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle at 47% 55%, rgba(242,169,59,.15), rgba(242,169,59,.085) 33%, rgba(243,237,227,.12) 48%, rgba(9,110,102,.075) 62%, transparent 73%);
+  animation: si-grow-sun-breathe 19s ease-in-out infinite alternate;
+}
+.sd-root .si-grow-bg--sun .si-grow-bg__shape--two {
+  top: -92%;
+  right: 3%;
+  width: min(56vw, 680px);
+  border: 1px solid rgba(242,169,59,.14);
+  background: radial-gradient(circle, transparent 55%, rgba(242,169,59,.07) 56%, transparent 59%);
+  animation-delay: -7s;
+}
+.sd-root .si-grow-bg--sun .si-grow-bg__shape--three {
+  top: -61%;
+  right: 22%;
+  width: min(31vw, 370px);
+  border: 1px solid rgba(9,110,102,.12);
+  background: radial-gradient(circle at 50% 50%, rgba(9,110,102,.07), transparent 69%);
+  animation-delay: -12s;
+}
+
+
+/* Anchor the artwork to its own diameter, not to variable section heights.
+   Long mobile sections must retain visible light and contours. */
+.sd-root .si-grow-bg--rings .si-grow-bg__shape { top: max(-360px, -29vw); }
+.sd-root .si-grow-bg--rings .si-grow-bg__shape--two { top: max(-270px, -21vw); }
+.sd-root .si-grow-bg--rings .si-grow-bg__shape--three { top: max(-180px, -14vw); }
+.sd-root .si-grow-bg--drift .si-grow-bg__shape { top: max(-270px, -22vw); }
+.sd-root .si-grow-bg--drift .si-grow-bg__shape--two { top: max(-210px, -17vw); }
+.sd-root .si-grow-bg--drift .si-grow-bg__shape--three { top: max(-160px, -13vw); }
+.sd-root .si-grow-bg--contour .si-grow-bg__shape { top: max(-380px, -30vw); }
+.sd-root .si-grow-bg--contour .si-grow-bg__shape--two { top: max(-250px, -20vw); }
+.sd-root .si-grow-bg--contour .si-grow-bg__shape--three { top: max(-120px, -9vw); }
+.sd-root .si-grow-bg--orbit .si-grow-bg__shape { top: max(-340px, -27vw); }
+.sd-root .si-grow-bg--orbit .si-grow-bg__shape--two { top: max(-200px, -16vw); }
+.sd-root .si-grow-bg--orbit .si-grow-bg__shape--three { top: max(-110px, -8vw); }
+.sd-root .si-grow-bg--sun .si-grow-bg__shape { top: max(-360px, -29vw); }
+.sd-root .si-grow-bg--sun .si-grow-bg__shape--two { top: max(-270px, -21vw); }
+.sd-root .si-grow-bg--sun .si-grow-bg__shape--three { top: max(-130px, -10vw); }
+.sd-root .si-grow-bg {
+  -webkit-mask-image: linear-gradient(#000 65%, transparent);
+  mask-image: linear-gradient(#000 65%, transparent);
+}
+
+@keyframes si-grow-ring-breathe {
+  from { transform: translate3d(0, 0, 0) scale(.94); opacity: .72; }
+  to { transform: translate3d(-1.2%, 1.5%, 0) scale(1.035); opacity: 1; }
+}
+@keyframes si-grow-light-drift {
+  from { transform: translate3d(1%, 0, 0) scale(.96); opacity: .68; }
+  to { transform: translate3d(-3%, 3%, 0) scale(1.06); opacity: 1; }
+}
+@keyframes si-grow-contour-float {
+  from { transform: translate3d(0, 1%, 0) scale(.96); opacity: .62; }
+  to { transform: translate3d(-1.5%, -1%, 0) scale(1.035); opacity: .95; }
+}
+@keyframes si-grow-orbit { to { transform: rotate(360deg); } }
+@keyframes si-grow-orbit-reverse { to { transform: rotate(-360deg); } }
+@keyframes si-grow-sun-breathe {
+  from { transform: translate3d(0, 1%, 0) scale(.95); opacity: .7; }
+  to { transform: translate3d(-2%, -1%, 0) scale(1.045); opacity: 1; }
+}
+
+
+@media (max-width: 720px) {
+  .sd-root .si-grow-bg { height: min(55%, 430px); }
+  .sd-root .si-grow-bg--rings .si-grow-bg__shape { width: min(118vw, 600px); top: -48vw; right: -40%; }
+  .sd-root .si-grow-bg--rings .si-grow-bg__shape--two { width: min(96vw, 500px); right: -22%; top: -37vw; }
+  .sd-root .si-grow-bg--rings .si-grow-bg__shape--three { width: min(72vw, 390px); right: -2%; top: -25vw; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sd-root .si-grow-bg__shape { animation: none !important; will-change: auto; }
+}

@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Mongrain — Hospital Envelope Explorer"
+description = "Interactive true-3D representation of the Vaudreuil-Soulanges hospital with automatic envelope assembly, rotation, and selectable wall, roof and foundation zones."
+version = "1.0.0"
+id = "artifacts/mongrain-building"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 24888
+
+[services.development]
+run = "pnpm --filter @workspace/mongrain-building run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/mongrain-building", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/mongrain-building/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "24888"
+BASE_PATH = "/"

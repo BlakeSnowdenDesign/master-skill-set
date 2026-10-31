@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Questrial&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f8fbfd;color:#16384f;font-family:Questrial,Arial,sans-serif}
+.mg4{min-height:720px;padding:clamp(55px,8vw,110px) clamp(22px,7vw,110px);overflow:hidden;position:relative}
+.mg4-wrap{max-width:1400px;margin:auto;display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(40px,7vw,100px);align-items:center}
+.mg4-kicker{font:600 12px Space Grotesk;letter-spacing:.18em;color:#1f5b8f;text-transform:uppercase}
+h2{font:600 clamp(42px,5.5vw,76px)/.98 Space Grotesk;letter-spacing:-.05em;margin:18px 0 26px}.mg4-copy p{font-size:18px;line-height:1.65;color:#5b7180}
+.mg4-lead{border-left:3px solid #1f5b8f;padding-left:22px;margin-top:34px;font:500 18px/1.5 Space Grotesk!important;color:#173f5d!important}
+.mg4-bars{height:500px;display:flex;align-items:flex-end;gap:clamp(8px,2vw,26px);padding:40px 15px 0;position:relative}
+.mg4-bars:before{content:"";position:absolute;inset:0;background:linear-gradient(#1f5b8f14 1px,transparent 1px);background-size:100% 20%}
+.mg4-bar{height:var(--h);flex:1;min-width:0;background:linear-gradient(180deg,#5d92ba,#1f5b8f);position:relative;transform:scaleY(0);transform-origin:bottom;transition:1s cubic-bezier(.2,.8,.2,1);transition-delay:calc(var(--i)*.18s)}
+.mg4.on .mg4-bar{transform:scaleY(1)}.mg4-bar:before{content:"";position:absolute;inset:8px;border:1px solid #ffffff50}
+.mg4-label{position:absolute;bottom:18px;left:50%;writing-mode:vertical-rl;transform:translateX(-50%) rotate(180deg);font:500 12px Space Grotesk;letter-spacing:.08em;color:#fff;text-transform:uppercase}
+.mg4-top{position:absolute;top:-40px;left:50%;transform:translateX(-50%);font:600 20px Space Grotesk;color:#1f5b8f}.mg4-arrow{position:absolute;right:7%;top:3%;font-size:70px;color:#1f5b8f;animation:mg4up 1.8s infinite}
+@keyframes mg4up{50%{transform:translateY(-10px)}}
+@media(max-width:800px){.mg4-wrap{grid-template-columns:1fr}.mg4-bars{height:400px}.mg4-arrow{display:none}}
+@media(prefers-reduced-motion:reduce){.mg4-bar{transform:none;transition:none}.mg4-arrow{animation:none}}
+</style>
+</head>
+<body>
+<section class="mg4">
+ <div class="mg4-wrap">
+  <div class="mg4-copy">
+   <div class="mg4-kicker">1995—Present · Karl Mongrain</div>
+   <h2>Modernized for national scale.</h2>
+   <p>Karl Mongrain assumed leadership in 1995, beginning a new phase defined by acquisitions, expanded service divisions, proprietary solutions, and major engineering partnerships.</p>
+   <p class="mg4-lead">The objective grew beyond delivering individual trades: coordinate complex protection systems for major Canadian infrastructure.</p>
+  </div>
+  <div class="mg4-bars" aria-label="Four areas of strategic growth">
+   <div class="mg4-arrow">↑</div>
+   <div class="mg4-bar" style="--h:48%;--i:0"><span class="mg4-top">01</span><span class="mg4-label">Acquisitions</span></div>
+   <div class="mg4-bar" style="--h:64%;--i:1"><span class="mg4-top">02</span><span class="mg4-label">Divisions</span></div>
+   <div class="mg4-bar" style="--h:81%;--i:2"><span class="mg4-top">03</span><span class="mg4-label">Technology</span></div>
+   <div class="mg4-bar" style="--h:100%;--i:3"><span class="mg4-top">04</span><span class="mg4-label">National Scale</span></div>
+  </div>
+ </div>
+</section>
+<script>
+const s=document.querySelector('.mg4');new IntersectionObserver(e=>e[0].isIntersecting&&s.classList.add('on'),{threshold:.2}).observe(s);
+</script>
+</body>
+</html>

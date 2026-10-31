@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Questrial&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}body{margin:0;background:#fff;color:#17354b;font-family:Questrial,Arial,sans-serif}
+.mg2{min-height:690px;padding:clamp(50px,8vw,110px) clamp(22px,7vw,110px);position:relative;overflow:hidden}
+.mg2:before{content:"01";position:absolute;right:3vw;top:-5vw;font:700 clamp(180px,30vw,440px)/1 Space Grotesk;color:#eaf4ff;z-index:0}
+.mg2-wrap{max-width:1400px;margin:auto;display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(40px,7vw,110px);align-items:center;position:relative;z-index:1}
+.mg2-copy{opacity:0;transform:translateX(-35px);transition:.9s}.mg2.on .mg2-copy{opacity:1;transform:none}
+.mg2-year{font:600 13px Space Grotesk;letter-spacing:.16em;color:#1f5b8f;text-transform:uppercase}
+h2{font:600 clamp(40px,5vw,72px)/1 Space Grotesk;letter-spacing:-.045em;margin:18px 0 24px;color:#17354b}
+.mg2-copy p{font-size:18px;line-height:1.65;color:#526b7b;max-width:620px}
+.mg2-tags{display:flex;flex-wrap:wrap;gap:9px;margin-top:32px}.mg2-tag{padding:10px 14px;border:1px solid #d0d5dd;font:500 12px Space Grotesk;letter-spacing:.05em;background:#fff}
+.mg2-visual{position:relative;min-height:480px;opacity:0;transform:translateY(40px);transition:1s .15s}.mg2.on .mg2-visual{opacity:1;transform:none}
+.mg2-frame{position:absolute;inset:5% 0 0 8%;border:1px solid #1f5b8f55}
+.mg2-frame:before,.mg2-frame:after{content:"";position:absolute;background:#1f5b8f}.mg2-frame:before{width:70px;height:2px;left:-35px;top:16%}.mg2-frame:after{height:70px;width:2px;right:14%;bottom:-35px}
+.mg2 svg{position:absolute;inset:0;width:100%;height:100%;filter:drop-shadow(0 25px 25px #1f5b8f22)}
+.mg2-note{position:absolute;right:2%;bottom:4%;background:#1f5b8f;color:#fff;padding:18px 22px;font:500 13px Space Grotesk;max-width:210px}
+@media(max-width:780px){.mg2-wrap{grid-template-columns:1fr}.mg2-visual{min-height:370px}.mg2:before{top:20%;right:-10%}}
+@media(prefers-reduced-motion:reduce){.mg2-copy,.mg2-visual{opacity:1;transform:none;transition:none}}
+</style>
+</head>
+<body>
+<section class="mg2">
+ <div class="mg2-wrap">
+  <div class="mg2-copy">
+   <div class="mg2-year">1955—1970s · Quebec</div>
+   <h2>A specialist foundation.</h2>
+   <p>Donat Mongrain founded the company in 1955 as Quebec’s first contractor focused specifically on thermal insulation.</p>
+   <p>During the post-war construction boom, the firm protected exterior walls from temperature extremes and moisture infiltration across industrial, commercial, and institutional projects.</p>
+   <div class="mg2-tags"><span class="mg2-tag">INDUSTRIAL</span><span class="mg2-tag">COMMERCIAL</span><span class="mg2-tag">INSTITUTIONAL</span></div>
+  </div>
+  <div class="mg2-visual" aria-hidden="true">
+   <div class="mg2-frame"></div>
+   <svg viewBox="0 0 700 500">
+    <defs><linearGradient id="m2g" x2="1" y2="1"><stop stop-color="#eaf4ff"/><stop offset="1" stop-color="#8cb5d3"/></linearGradient></defs>
+    <path d="M70 400h580" stroke="#1f5b8f" opacity=".25"/>
+    <path d="M120 370V190l195-70 210 80v170Z" fill="url(#m2g)" stroke="#1f5b8f" stroke-width="3"/>
+    <path d="M315 120v250M525 200 315 120 120 190" fill="none" stroke="#1f5b8f" stroke-width="3"/>
+    <path d="M170 217h95v74h-95zm195-27h110v94H365zM165 317h105m90 0h120" fill="none" stroke="#fff" stroke-width="8"/>
+    <path d="M205 155V55h24v91m160 15V75h24v95" fill="#1f5b8f"/>
+    <g stroke="#1f5b8f" opacity=".32"><path d="M78 420h530"/><path d="M100 440h460"/><path d="M142 100h390"/><path d="M90 80h130"/></g>
+   </svg>
+   <div class="mg2-note">Built for a climate that tests every exterior surface.</div>
+  </div>
+ </div>
+</section>
+<script>
+const s=document.querySelector('.mg2');new IntersectionObserver(e=>e[0].isIntersecting&&s.classList.add('on'),{threshold:.2}).observe(s);
+</script>
+</body>
+</html>

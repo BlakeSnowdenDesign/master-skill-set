@@ -1,0 +1,7 @@
+# Snowden Design header — Wix setup
+
+The header export (`/delivery/sections/00-header.html`) is a self-contained HTML document: scoped CSS, plain JavaScript, and the original rook, gold hamburger, and green X images embedded as data URIs. No packages, trackers, or third-party widgets are included.
+
+It starts as a thin dark-blue bar and automatically opens after 5.5 seconds. The rook and SNOWDEN DESIGN link to https://www.snowden-design.com/, and the gold hamburger sits at right. The hamburger works immediately; manual interaction cancels the pending automatic opening. Opening rolls the blue sheet down, then nine page links slide in top to bottom at 125ms intervals beside a hover preview (rook within slowly rotating gradient rectangles; the rook also links home). The green X, Escape, or choosing a link retracts the links bottom to top before the sheet rolls back up. It does not reopen automatically after closing. All links use `target="_top"`.
+
+Important: a Wix HTML embed is an iframe and cannot draw outside its own bounds, and this export does not resize the Wix element. The closed bar is about 90px tall on desktop and 81px on mobile. The open blue background fills the iframe's full viewport height, without a 720px cap. To cover the video hero, size and position the Wix embed over that entire section, from its top edge to its bottom edge. Making the HTML fill its iframe does not automatically resize the Wix element. Reduced-motion preferences disable the animations.

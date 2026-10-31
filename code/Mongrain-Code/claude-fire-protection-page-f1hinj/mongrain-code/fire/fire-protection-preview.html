@@ -1,0 +1,886 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Fire Protection Preview</title>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0f2329;--card:#17353d;--ink:#eef5f2;--muted:#9fb6b8;--cyan:#66d2da;--ember:#e3651d}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 'Hanken Grotesk',system-ui,sans-serif}
+.wrap{max-width:1360px;margin:0 auto;padding:40px 24px 80px}
+h1{font-size:30px;font-weight:500;letter-spacing:-.03em;margin:0 0 6px}.sub{color:var(--muted);margin:0 0 28px}
+.mono{font:500 11px 'DM Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan)}
+.bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:14px}
+.bar button{min-height:40px;padding:0 16px;border-radius:999px;border:1px solid rgba(238,245,242,.2);background:transparent;color:var(--ink);font:inherit;font-size:13px;cursor:pointer}
+.bar button[aria-pressed=true]{background:var(--ink);color:#17353d}
+.bar .copy{background:var(--ember);border-color:var(--ember);color:#fff;margin-left:auto}
+.win{border-radius:16px;overflow:hidden;background:#fff;box-shadow:0 30px 80px rgba(0,0,0,.4);margin:0 auto;transition:max-width .4s}
+.chrome{height:38px;background:#e7ecea;display:flex;align-items:center;gap:7px;padding:0 14px}.chrome i{width:11px;height:11px;border-radius:50%;background:#c9d2d0}
+.chrome span{margin-left:12px;flex:1;height:22px;border-radius:6px;background:#fff;font:11px 'DM Mono',monospace;color:#6a7d81;display:flex;align-items:center;padding:0 10px}
+iframe{display:block;width:100%;height:860px;border:0}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:36px 0}
+.step{background:var(--card);border-radius:20px;padding:20px 22px}.step b{display:block;font-weight:500;font-size:17px;margin:6px 0 4px}.step p{margin:0;color:var(--muted);font-size:14px}
+pre{margin:0;max-height:520px;overflow:auto;background:#0a181c;border-radius:16px;padding:20px;font:12px/1.5 'DM Mono',monospace;color:#cfe3e2;white-space:pre-wrap;word-break:break-all}
+@media(max-width:760px){.steps{grid-template-columns:1fr}.bar .copy{margin-left:0}}
+</style></head><body><div class="wrap">
+<p class="mono">Mongrain · Wix HTML embed</p><h1>Fire Protection page</h1>
+<p class="sub">Live preview of the embed, the full code to paste into Wix, and the three setup steps.</p>
+<div class="bar" role="group" aria-label="Preview width">
+<button type="button" data-w="100%" aria-pressed="true">Desktop</button><button type="button" data-w="980px" aria-pressed="false">Tablet 980</button><button type="button" data-w="390px" aria-pressed="false">Phone 390</button>
+<button type="button" class="copy" data-copy>Copy code</button></div>
+<div class="win" id="win"><div class="chrome"><i></i><i></i><i></i><span>mongrain.ca/en/services/fire</span></div><iframe title="Fire Protection page preview" id="frame"></iframe></div>
+<div class="steps">
+<div class="step"><span class="mono">Step 1</span><b>Add Embed HTML</b><p>In the Wix editor: Add › Embed code › Embed HTML. Stretch it to full width.</p></div>
+<div class="step"><span class="mono">Step 2</span><b>Paste the code</b><p>Choose “Code”, paste everything from the panel below, then Update.</p></div>
+<div class="step"><span class="mono">Step 3</span><b>Set the height</b><p>Desktop 5440 px, tablet 5750 px, mobile 7850 px. Remove page padding above and below.</p></div>
+</div>
+<div class="bar"><span class="mono">Full code</span><button type="button" class="copy" data-copy>Copy code</button></div>
+<pre id="code">&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;utf-8&quot;&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;&gt;
+&lt;title&gt;Mongrain — Fire Protection&lt;/title&gt;
+&lt;meta name=&quot;description&quot; content=&quot;Passive fire protection by Mongrain: intumescent coatings, traditional fireproofing, thermal barriers, firewalls and partitions, and asbestos and vermiculite removal.&quot;&gt;
+&lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;&gt;
+&lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin&gt;
+&lt;link href=&quot;https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700&amp;family=Instrument+Serif:ital@0;1&amp;family=DM+Mono:wght@400;500&amp;display=swap&quot; rel=&quot;stylesheet&quot;&gt;
+&lt;style&gt;
+html,body{margin:0;padding:0;background:#f3f5f2}
+#mg-fire{
+  --ink:#17323a;--ink-soft:#4b646b;--muted:#6a7d81;--cyan:#11a8be;--cyan-deep:#087c91;--cyan-glow:#66d2da;
+  --hero:#17353d;--deep:#132d34;--paper:#f3f5f2;--mist:#e2e9e7;--line:rgba(23,50,58,.17);
+  --ember:#e3651d;--ember-soft:#ff9a52;--risk:#b8325a;--char:#3b3835;
+  --mono:&#x27;DM Mono&#x27;,ui-monospace,monospace;--serif:&#x27;Instrument Serif&#x27;,Georgia,serif;
+  --ease:cubic-bezier(.2,.8,.2,1);
+  font-family:&#x27;Hanken Grotesk&#x27;,ui-sans-serif,system-ui,sans-serif;color:var(--ink);background:var(--paper);
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:hidden;font-size:16px;line-height:1.6
+}
+#mg-fire *,#mg-fire *::before,#mg-fire *::after{box-sizing:border-box}
+#mg-fire a{color:inherit;text-decoration:none}
+#mg-fire button{font:inherit;color:inherit;cursor:pointer}
+#mg-fire h1,#mg-fire h2,#mg-fire h3,#mg-fire p{margin:0}
+#mg-fire :focus-visible{outline:2px solid var(--cyan);outline-offset:4px;border-radius:4px}
+#mg-fire .fp-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+#mg-fire .fp-kicker{display:flex;align-items:center;gap:10px;font:500 10px/1.4 var(--mono);letter-spacing:.17em;text-transform:uppercase}
+#mg-fire .fp-kicker i{width:7px;height:7px;border-radius:50%;background:var(--ember);box-shadow:0 0 0 4px rgba(227,101,29,.16);flex:none}
+#mg-fire .fp-sec{padding:128px 9vw;position:relative}
+#mg-fire .fp-wrap{max-width:1240px;margin:0 auto}
+#mg-fire .fp-label&gt;span{color:var(--cyan-deep);font:500 10px var(--mono);letter-spacing:.17em}
+#mg-fire .fp-label&gt;p{margin:26px 0 12px;color:var(--muted);font:500 10px var(--mono);letter-spacing:.15em;text-transform:uppercase}
+#mg-fire .fp-label&gt;h2:first-child{margin-top:0}
+#mg-fire .fp-label h2{font-size:clamp(40px,5vw,70px);line-height:.98;letter-spacing:-.06em;font-weight:500}
+#mg-fire .fp-label h2 i,#mg-fire .fp-serif{font-family:var(--serif);font-weight:400;font-style:italic;letter-spacing:-.02em}
+#mg-fire .fp-head{display:grid;grid-template-columns:1fr .72fr;gap:12%;align-items:end}
+#mg-fire .fp-head&gt;p{max-width:390px;color:var(--ink-soft);font-size:15px;line-height:1.75;margin-bottom:8px}
+#mg-fire .fp-btn{position:relative;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 22px;border-radius:999px;border:1px solid transparent;font:500 14px/1 &#x27;Hanken Grotesk&#x27;,sans-serif;letter-spacing:.01em;transition:background .3s var(--ease),border-color .3s var(--ease),color .3s var(--ease),transform .3s var(--ease)}
+#mg-fire .fp-btn svg{transition:transform .3s var(--ease)}
+#mg-fire .fp-btn:hover svg{transform:translateX(4px)}
+#mg-fire .fp-btn::after{content:&quot;&quot;;position:absolute;inset:0;background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,.28) 50%,transparent 70%);transform:translateX(-120%);transition:transform .8s var(--ease)}
+#mg-fire .fp-btn:hover::after{transform:translateX(120%)}
+#mg-fire .fp-btn-primary{background:var(--ember);color:#fff;box-shadow:0 1px 2px rgba(80,30,5,.2),0 14px 34px -14px rgba(227,101,29,.75)}
+#mg-fire .fp-btn-primary:hover{background:#cf5612}
+#mg-fire .fp-btn-ghost{border-color:rgba(232,246,243,.28);color:#eef6f2}
+#mg-fire .fp-btn-ghost:hover{border-color:rgba(232,246,243,.6)}
+#mg-fire .fp-btn-ink{background:var(--ink);color:#fff}
+#mg-fire .fp-btn-ink:hover{background:var(--cyan-deep)}
+#mg-fire .fp-btn-line{border-color:var(--line);color:var(--ink);background:transparent}
+#mg-fire .fp-btn-line:hover{border-color:var(--cyan-deep);color:var(--cyan-deep)}
+
+/* nav */
+#mg-fire .fp-nav{position:absolute;z-index:5;inset:0 0 auto;height:76px;padding:0 5.3vw;display:flex;align-items:center;justify-content:space-between;color:#f5f8f5;border-bottom:1px solid rgba(241,248,245,.14)}
+#mg-fire .fp-brand{display:flex;align-items:center;gap:11px;font:500 9px/1.3 var(--mono);letter-spacing:.13em}
+#mg-fire .fp-brand img{width:34px;height:auto;display:block}
+#mg-fire .fp-nav nav{display:flex;gap:34px;font-size:13px;letter-spacing:.02em}
+#mg-fire .fp-nav nav a{opacity:.74;transition:opacity .2s;padding:12px 0}
+#mg-fire .fp-nav nav a:hover{opacity:1}
+
+/* hero */
+#mg-fire .fp-hero{position:relative;overflow:hidden;background:var(--hero);color:#f3f6f1;min-height:820px;display:grid;grid-template-columns:44% 56%;align-items:center;padding:120px 0 84px 9vw}
+#mg-fire .fp-hero::before{content:&quot;&quot;;position:absolute;inset:0;pointer-events:none;opacity:.1;background:repeating-linear-gradient(0deg,transparent 0 69px,rgba(212,238,234,.3) 70px),repeating-linear-gradient(90deg,transparent 0 69px,rgba(212,238,234,.24) 70px);-webkit-mask-image:linear-gradient(90deg,transparent,#000 70%);mask-image:linear-gradient(90deg,transparent,#000 70%)}
+#mg-fire .fp-hero::after{content:&quot;&quot;;position:absolute;width:980px;height:980px;right:-200px;bottom:-640px;border-radius:50%;background:radial-gradient(circle,rgba(227,101,29,.22),rgba(227,101,29,0) 62%);pointer-events:none;opacity:.55;transition:opacity 1.2s var(--ease)}
+#mg-fire.is-hot .fp-hero::after{opacity:1}
+#mg-fire .fp-hero-copy{position:relative;z-index:2;max-width:520px}
+#mg-fire .fp-hero-copy&gt;*{animation:fp-arrive 1.05s var(--ease) both}
+#mg-fire .fp-hero-copy&gt;*:nth-child(2){animation-delay:.1s}
+#mg-fire .fp-hero-copy&gt;*:nth-child(3){animation-delay:.22s}
+
+#mg-fire .fp-hero .fp-kicker{color:rgba(240,248,243,.86)}
+#mg-fire .fp-hero h1{font-size:clamp(56px,6.25vw,92px);line-height:.93;letter-spacing:-.065em;font-weight:500;margin:0 0 26px}
+#mg-fire .fp-hero h1 em{font-style:normal;color:var(--ember-soft)}
+#mg-fire .fp-hero h1 .fp-serif{color:var(--cyan-glow);font-size:1.08em;letter-spacing:-.03em}
+#mg-fire .fp-intro{max-width:400px;color:rgba(238,246,242,.74);font-size:16px;line-height:1.72}
+#mg-fire .fp-hero-ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:34px}
+#mg-fire .fp-stage{position:relative;z-index:1;align-self:stretch;display:flex;flex-direction:column;justify-content:center;min-width:0;padding-left:2vw;animation:fp-arrive 1.2s .2s var(--ease) both}
+#mg-fire .fp-stage-cap{display:flex;justify-content:space-between;gap:16px;padding:0 6% 13px 4%;font:500 9px var(--mono);letter-spacing:.13em;color:rgba(233,246,242,.55)}
+#mg-fire .fp-lens{position:relative;height:560px;overflow:hidden;border-radius:50% 0 0 50%/65% 0 0 65%;background:radial-gradient(ellipse at 58% 42%,#f2f4ef 0%,#dde5e2 55%,#bfcdcb 100%);box-shadow:-38px 24px 100px rgba(1,19,24,.28)}
+#mg-fire .fp-lens::after{content:&quot;&quot;;position:absolute;inset:0;background:radial-gradient(ellipse 70% 45% at 55% 100%,rgba(227,101,29,.38),transparent 70%);opacity:0;transition:opacity 1.2s var(--ease);pointer-events:none}
+#mg-fire.is-hot .fp-lens::after{opacity:1}
+#mg-fire .fp-beam{position:absolute;inset:0;width:100%;height:100%}
+#mg-fire .fp-state{position:absolute;left:30%;top:26px;z-index:2;font:500 9px/1.5 var(--mono);letter-spacing:.13em;color:#33535b;text-transform:uppercase}
+#mg-fire .fp-state b{display:block;font:500 15px/1.3 &#x27;Hanken Grotesk&#x27;,sans-serif;letter-spacing:-.01em;text-transform:none;color:var(--ink);margin-top:4px;transition:color .4s}
+#mg-fire.is-hot .fp-state b{color:#b4470f}
+#mg-fire .fp-controls{align-self:center;display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin-top:18px;padding:5px;border:1px solid rgba(232,246,243,.18);border-radius:28px;background:rgba(7,32,38,.32);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
+#mg-fire .fp-controls button{display:flex;align-items:center;gap:8px;min-height:40px;padding:0 15px;border:0;border-radius:999px;background:transparent;color:#ebf5f1;font-size:12px;transition:background .25s var(--ease),color .25s}
+#mg-fire .fp-controls button:hover{background:rgba(119,221,224,.16)}
+#mg-fire .fp-controls button[aria-pressed=&quot;true&quot;]{background:#eef5f2;color:var(--ink)}
+#mg-fire .fp-controls .fp-heat[aria-pressed=&quot;true&quot;]{background:var(--ember);color:#fff}
+#mg-fire .fp-controls .fp-sep{width:1px;background:rgba(232,246,243,.18);margin:6px 2px}
+
+/* beam svg */
+#mg-fire .fp-flames{opacity:0;transition:opacity .9s var(--ease)}
+#mg-fire.is-hot .fp-flames{opacity:1}
+#mg-fire .fp-flame{transform-box:fill-box;transform-origin:50% 100%;animation:fp-flick 1.6s ease-in-out infinite alternate}
+#mg-fire .fp-ember{opacity:0}
+#mg-fire.is-hot .fp-ember{animation:fp-rise 3.4s linear infinite}
+#mg-fire .fp-lbl{font:500 9px var(--mono);letter-spacing:.12em;fill:#24434b;paint-order:stroke;stroke:#eef2ef;stroke-width:4px;stroke-linejoin:round}
+#mg-fire .fp-lbl-hot{fill:#b4470f}
+#mg-fire .fp-leader{stroke:#33535b;stroke-width:1;fill:none}
+
+/* systems */
+#mg-fire .fp-systems{background:#f2f4f1}
+#mg-fire .fp-explorer{display:grid;grid-template-columns:.8fr 1.2fr;margin-top:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+#mg-fire .fp-tabs{padding:18px 5vw 18px 0;border-right:1px solid var(--line);display:flex;flex-direction:column;justify-content:center}
+#mg-fire .fp-tab{display:grid;grid-template-columns:40px 1fr 20px;align-items:center;gap:6px;text-align:left;border:0;background:transparent;padding:17px 12px;min-height:56px;color:#6d8185;border-radius:12px;transition:color .25s,transform .35s var(--ease),background .35s var(--ease)}
+#mg-fire .fp-tab span{font:500 10px var(--mono);color:var(--cyan-deep);letter-spacing:.1em}
+#mg-fire .fp-tab strong{font-size:19px;font-weight:500;letter-spacing:-.02em}
+#mg-fire .fp-tab svg{opacity:0;transform:translateX(-6px);transition:opacity .3s,transform .3s var(--ease)}
+#mg-fire .fp-tab:hover,#mg-fire .fp-tab[aria-selected=&quot;true&quot;]{color:var(--ink);transform:translateX(5px)}
+#mg-fire .fp-tab[aria-selected=&quot;true&quot;]{background:#fff;box-shadow:0 1px 2px rgba(23,50,58,.06),0 12px 30px -16px rgba(23,50,58,.25)}
+#mg-fire .fp-tab[aria-selected=&quot;true&quot;] svg{opacity:1;transform:none;color:var(--ember)}
+#mg-fire .fp-panel{display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center;padding:48px 0 48px 4.5vw}
+#mg-fire .fp-panel[hidden]{display:none}
+#mg-fire .fp-panel.is-swap{animation:fp-swap .5s var(--ease) both}
+#mg-fire .fp-panel-idx{color:var(--cyan-deep);font:500 9px var(--mono);letter-spacing:.14em}
+#mg-fire .fp-panel h3{margin:14px 0 6px;font-size:31px;font-weight:500;letter-spacing:-.04em;line-height:1.05}
+#mg-fire .fp-panel .fp-panel-mat{font:500 10px/1.6 var(--mono);letter-spacing:.1em;color:var(--ember);text-transform:uppercase;margin-bottom:16px!important}
+#mg-fire .fp-panel p{color:var(--ink-soft);font-size:15px;line-height:1.75;max-width:420px}
+#mg-fire .fp-facts{list-style:none;margin:22px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+#mg-fire .fp-facts li{padding:8px 13px;border:1px solid var(--line);border-radius:999px;font:500 10px var(--mono);letter-spacing:.08em;color:var(--ink);background:#fff;transition:background .25s,color .25s}
+#mg-fire .fp-facts li:hover{background:var(--ink);color:#fff}
+#mg-fire .fp-draw{max-width:420px;width:100%;background:#e4ebe8;border-radius:22px;padding:18px;aspect-ratio:1.15;display:grid;place-items:center;position:relative;overflow:hidden}
+#mg-fire .fp-draw svg{width:100%;height:100%;overflow:visible}
+#mg-fire .fp-draw .fp-tag{position:absolute;left:16px;bottom:12px;font:500 8px var(--mono);letter-spacing:.13em;color:#6a7d81}
+#mg-fire .fp-draw text{font:500 8.5px var(--mono);letter-spacing:.08em;fill:#4b646b}
+#mg-fire .fp-pulse{animation:fp-pulse 2.6s var(--ease) infinite}
+#mg-fire .fp-dash{stroke-dasharray:4 5;animation:fp-dash 1.4s linear infinite}
+
+/* time */
+#mg-fire .fp-time{background:var(--mist)}
+#mg-fire .fp-chart-card{margin-top:64px;background:#fcfcfb;border-radius:30px;padding:30px 34px 26px;box-shadow:0 1px 2px rgba(23,50,58,.06),0 30px 70px -40px rgba(23,50,58,.35)}
+#mg-fire .fp-chart-top{display:flex;flex-wrap:wrap;justify-content:space-between;gap:18px 30px;align-items:flex-start}
+#mg-fire .fp-legend{display:flex;flex-wrap:wrap;gap:8px 20px;list-style:none;margin:0;padding:0;font-size:13px;color:var(--ink-soft)}
+#mg-fire .fp-legend li{display:flex;align-items:center;gap:8px}
+#mg-fire .fp-legend svg{flex:none}
+#mg-fire .fp-readout{display:grid;grid-template-columns:repeat(3,auto);gap:4px 28px;text-align:left}
+#mg-fire .fp-readout dt{font:500 9px var(--mono);letter-spacing:.13em;color:var(--muted);text-transform:uppercase}
+#mg-fire .fp-readout dd{margin:0;font-size:22px;font-weight:500;letter-spacing:-.03em;font-variant-numeric:tabular-nums;color:var(--ink)}
+#mg-fire .fp-readout dd small{font-size:12px;color:var(--muted);letter-spacing:0}
+#mg-fire .fp-chart{width:100%;height:auto;margin-top:18px;display:block;touch-action:pan-y;cursor:crosshair}
+#mg-fire .fp-chart text{font:500 10px var(--mono);fill:#6a7d81}
+#mg-fire .fp-chart .fp-hour{fill:var(--ink)}
+#mg-fire .fp-chart .fp-dl{font:600 11px &#x27;Hanken Grotesk&#x27;,sans-serif;fill:var(--ink)}
+#mg-fire .fp-scrub{display:flex;align-items:center;gap:16px;margin-top:12px}
+#mg-fire .fp-play{flex:none;width:46px;height:46px;border-radius:50%;border:1px solid var(--line);background:#fff;display:grid;place-items:center;transition:background .25s,color .25s,border-color .25s}
+#mg-fire .fp-play:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+#mg-fire .fp-range{flex:1;-webkit-appearance:none;appearance:none;height:44px;background:transparent;margin:0}
+#mg-fire .fp-range::-webkit-slider-runnable-track{height:4px;border-radius:4px;background:linear-gradient(90deg,var(--ember) var(--p,33%),#d9e2e0 var(--p,33%))}
+#mg-fire .fp-range::-moz-range-track{height:4px;border-radius:4px;background:#d9e2e0}
+#mg-fire .fp-range::-moz-range-progress{height:4px;border-radius:4px;background:var(--ember)}
+#mg-fire .fp-range::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:#fff;border:2px solid var(--ember);margin-top:-9px;box-shadow:0 2px 8px rgba(80,30,5,.25)}
+#mg-fire .fp-range::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:#fff;border:2px solid var(--ember)}
+#mg-fire .fp-caveat{display:flex;gap:11px;align-items:flex-start;max-width:820px;margin-top:22px;padding-top:20px;border-top:1px solid var(--line);color:#677d81;font-size:12px;line-height:1.7}
+#mg-fire .fp-caveat svg{flex:none;color:var(--cyan-deep);margin-top:2px}
+
+/* proof */
+#mg-fire .fp-proof{background:var(--deep);color:#eef5f0;overflow:hidden}
+#mg-fire .fp-proof::before{content:&quot;&quot;;position:absolute;left:50%;top:-340px;width:1100px;height:1100px;margin-left:-550px;border-radius:50%;border:1px solid rgba(166,229,231,.1);box-shadow:0 0 0 90px rgba(166,229,231,.025),0 0 0 180px rgba(166,229,231,.02);pointer-events:none}
+#mg-fire .fp-proof .fp-kicker{color:var(--cyan-glow)}
+#mg-fire .fp-statement{position:relative;margin-top:0;font-size:clamp(36px,5.2vw,76px);line-height:1.04;letter-spacing:-.055em;font-weight:500;max-width:19ch}
+#mg-fire .fp-mark{background:linear-gradient(transparent 62%,rgba(227,101,29,.62) 70%,rgba(227,101,29,.62) 90%,transparent 92%) no-repeat 0 0/0% 100%;transition:background-size 1.4s .35s var(--ease)}
+#mg-fire .is-in .fp-mark,#mg-fire .fp-mark.is-in{background-size:100% 100%}
+#mg-fire .fp-statement .fp-serif{color:var(--cyan-glow)}
+#mg-fire .fp-stats{position:relative;display:grid;grid-template-columns:repeat(3,1fr);margin-top:80px;border-top:1px solid rgba(238,246,242,.16)}
+#mg-fire .fp-stat{padding:28px 28px 8px 0}
+#mg-fire .fp-stat+.fp-stat{padding-left:28px;border-left:1px solid rgba(238,246,242,.16)}
+#mg-fire .fp-stat b{display:block;font-size:clamp(46px,5vw,68px);font-weight:500;letter-spacing:-.06em;line-height:1;color:#fff}
+#mg-fire .fp-stat b small{font-size:.42em;letter-spacing:-.02em;color:var(--ember-soft);margin-left:6px}
+#mg-fire .fp-stat p{margin-top:14px;max-width:270px;color:rgba(237,246,242,.66);font-size:14px;line-height:1.65}
+#mg-fire .fp-clients{position:relative;margin-top:84px}
+#mg-fire .fp-clients&gt;p{font:500 10px var(--mono);letter-spacing:.16em;color:rgba(237,246,242,.55);text-transform:uppercase}
+#mg-fire .fp-client-row{list-style:none;margin:20px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid rgba(238,246,242,.16);border-bottom:1px solid rgba(238,246,242,.16)}
+#mg-fire .fp-client-row li{padding:30px 20px 30px 0;font-size:clamp(19px,1.9vw,26px);font-weight:500;letter-spacing:-.03em;color:#f3f7f4;transition:color .3s}
+#mg-fire .fp-client-row li+li{padding-left:22px;border-left:1px solid rgba(238,246,242,.16)}
+#mg-fire .fp-client-row li span{display:block;margin-top:8px;font:500 9px var(--mono);letter-spacing:.14em;color:rgba(237,246,242,.48);text-transform:uppercase}
+#mg-fire .fp-client-row li:hover{color:var(--cyan-glow)}
+#mg-fire .fp-sectors{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+#mg-fire .fp-sectors span{padding:9px 15px;border:1px solid rgba(238,246,242,.2);border-radius:999px;font:500 10px var(--mono);letter-spacing:.12em;color:rgba(237,246,242,.82);transition:background .25s,color .25s}
+#mg-fire .fp-sectors span:hover{background:#eef5f2;color:var(--ink)}
+
+/* method */
+#mg-fire .fp-method{background:var(--paper)}
+#mg-fire .fp-steps{list-style:none;margin:72px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line);counter-reset:s}
+#mg-fire .fp-step{position:relative;padding:30px 26px 34px;min-height:300px;border-right:1px solid var(--line);transition:background .45s var(--ease),color .45s var(--ease)}
+#mg-fire .fp-step:first-child{padding-left:0}
+#mg-fire .fp-step:last-child{border-right:0}
+#mg-fire .fp-step::before{content:&quot;&quot;;position:absolute;left:0;right:0;top:-1px;height:2px;background:var(--ember);transform:scaleX(0);transform-origin:left;transition:transform .8s var(--ease)}
+#mg-fire .fp-step.is-in::before{transform:scaleX(1)}
+#mg-fire .fp-step:nth-child(2)::before{transition-delay:.15s}
+#mg-fire .fp-step:nth-child(3)::before{transition-delay:.3s}
+#mg-fire .fp-step:nth-child(4)::before{transition-delay:.45s}
+#mg-fire .fp-step svg{display:block;margin:4px 0 30px;color:var(--ink);transition:transform .45s var(--ease),color .3s}
+#mg-fire .fp-step:hover svg{transform:rotate(-6deg) scale(1.08);color:var(--ember)}
+#mg-fire .fp-step h3{font-size:22px;font-weight:500;letter-spacing:-.03em;line-height:1.15}
+#mg-fire .fp-step p{margin-top:10px;color:var(--ink-soft);font-size:14px;line-height:1.7}
+
+/* brief */
+#mg-fire .fp-brief{background:#e1e9e6;padding-bottom:56px}
+#mg-fire .fp-brief-grid{display:grid;grid-template-columns:1fr .8fr;gap:10%;align-items:center}
+#mg-fire .fp-brief h2{margin:0 0 18px;font-size:clamp(44px,5.6vw,78px);line-height:.94;letter-spacing:-.065em;font-weight:500}
+#mg-fire .fp-brief h2 i{font-family:var(--serif);font-weight:400;letter-spacing:-.02em;color:#5c7c81}
+#mg-fire .fp-brief-copy{max-width:410px;color:var(--ink-soft);font-size:15px;line-height:1.75}
+#mg-fire .fp-brief-ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+#mg-fire .fp-builder{padding:28px 30px 22px;border-radius:30px;background:rgba(250,251,249,.82);border:1px solid rgba(35,74,81,.12);box-shadow:0 1px 2px rgba(23,50,58,.06),0 26px 60px -30px rgba(23,50,58,.35)}
+#mg-fire .fp-builder fieldset{border:0;margin:0 0 18px;padding:0}
+#mg-fire .fp-builder legend{padding:0;margin-bottom:10px;font:500 9px var(--mono);letter-spacing:.14em;color:var(--muted);text-transform:uppercase}
+#mg-fire .fp-check{display:flex;align-items:center;gap:12px;min-height:44px;border-bottom:1px solid var(--line);font-size:14px;cursor:pointer}
+#mg-fire .fp-check input{position:absolute;opacity:0;width:1px;height:1px}
+#mg-fire .fp-box{flex:none;width:18px;height:18px;border-radius:5px;border:1.5px solid #8ba0a3;display:grid;place-items:center;transition:background .2s,border-color .2s}
+#mg-fire .fp-box svg{opacity:0;transform:scale(.6);transition:opacity .2s,transform .25s var(--ease)}
+#mg-fire .fp-check input:checked+.fp-box{background:var(--ink);border-color:var(--ink)}
+#mg-fire .fp-check input:checked+.fp-box svg{opacity:1;transform:none}
+#mg-fire .fp-check input:focus-visible+.fp-box{outline:2px solid var(--cyan);outline-offset:3px}
+#mg-fire .fp-chips{display:flex;flex-wrap:wrap;gap:8px}
+#mg-fire .fp-chip{min-height:40px;padding:0 15px;border-radius:999px;border:1px solid var(--line);background:#fff;font-size:13px;transition:background .25s,color .25s,border-color .25s}
+#mg-fire .fp-chip:hover{border-color:var(--ink)}
+#mg-fire .fp-chip[aria-pressed=&quot;true&quot;]{background:var(--ink);border-color:var(--ink);color:#fff}
+#mg-fire .fp-builder-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
+#mg-fire .fp-builder-actions .fp-btn{min-height:44px;font-size:13px;padding:0 18px}
+#mg-fire .fp-note{margin-top:14px;font-size:12px;color:var(--muted)}
+#mg-fire .fp-foot{display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-end;gap:18px;margin-top:110px;padding-top:24px;border-top:1px solid var(--line)}
+#mg-fire .fp-foot a{font:500 12px &#x27;Hanken Grotesk&#x27;,sans-serif;padding:12px 0;border-bottom:1px solid var(--line)}
+
+/* reveal (hidden only once JS confirms) */
+#mg-fire.fp-js [data-rv]{opacity:0;translate:0 44px;scale:.985;transition:opacity 1s var(--ease),translate 1s var(--ease),scale 1s var(--ease);transition-delay:var(--d,0s)}
+#mg-fire.fp-js [data-rv].is-in{opacity:1;translate:0 0;scale:1}
+
+@keyframes fp-arrive{from{opacity:0;transform:translateY(30px);filter:blur(8px)}to{opacity:1;transform:none;filter:blur(0)}}
+@keyframes fp-swap{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes fp-flick{0%{transform:scaleY(.82) scaleX(1.04)}50%{transform:scaleY(1.06) scaleX(.96)}100%{transform:scaleY(.92) scaleX(1.02)}}
+@keyframes fp-rise{0%{opacity:0;transform:translate(0,0)}15%{opacity:.9}100%{opacity:0;transform:translate(var(--dx,10px),-190px)}}
+@keyframes fp-pulse{0%,100%{opacity:.35}50%{opacity:1}}
+@keyframes fp-dash{to{stroke-dashoffset:-18}}
+
+@media (max-width:1100px){
+  #mg-fire .fp-hero{grid-template-columns:1fr;padding:128px 7vw 90px;min-height:0}
+  #mg-fire .fp-hero-copy{max-width:640px}
+  #mg-fire .fp-stage{padding:0;margin:56px -7vw 0 0}
+  #mg-fire .fp-lens{height:520px}
+  #mg-fire .fp-sec{padding:110px 7vw}
+  #mg-fire .fp-explorer{grid-template-columns:1fr}
+  #mg-fire .fp-tabs{border-right:0;border-bottom:1px solid var(--line);padding:16px 0;flex-direction:row;flex-wrap:wrap;gap:6px}
+  #mg-fire .fp-tab{grid-template-columns:30px auto;padding:10px 16px 10px 12px;min-height:48px}
+  #mg-fire .fp-tab strong{font-size:15px}
+  #mg-fire .fp-tab svg{display:none}
+  #mg-fire .fp-tab:hover,#mg-fire .fp-tab[aria-selected=&quot;true&quot;]{transform:none}
+  #mg-fire .fp-panel{padding:40px 0}
+}
+@media (max-width:820px){
+  #mg-fire .fp-nav nav{display:none}
+  #mg-fire .fp-head,#mg-fire .fp-brief-grid{grid-template-columns:1fr;gap:34px}
+  #mg-fire .fp-panel{grid-template-columns:1fr;gap:30px}
+  #mg-fire .fp-steps{grid-template-columns:1fr 1fr}
+  #mg-fire .fp-step{min-height:0;border-bottom:1px solid var(--line)}
+  #mg-fire .fp-step:nth-child(2n){border-right:0}
+  #mg-fire .fp-step:nth-child(3){padding-left:0}
+  #mg-fire .fp-step:nth-last-child(-n+2){border-bottom:0}
+  #mg-fire .fp-stats{grid-template-columns:1fr}
+  #mg-fire .fp-stat,#mg-fire .fp-stat+.fp-stat{padding:26px 0;border-left:0;border-bottom:1px solid rgba(238,246,242,.16)}
+  #mg-fire .fp-client-row{grid-template-columns:1fr 1fr}
+  #mg-fire .fp-client-row li:nth-child(3){padding-left:0;border-left:0}
+  #mg-fire .fp-client-row li:nth-child(-n+2){border-bottom:1px solid rgba(238,246,242,.16)}
+  #mg-fire .fp-readout{grid-template-columns:repeat(3,1fr);width:100%}
+}
+@media (max-width:600px){
+  #mg-fire{font-size:15px}
+  #mg-fire .fp-nav{height:64px;padding:0 20px}
+  #mg-fire .fp-hero{padding:108px 20px 76px}
+  #mg-fire .fp-hero h1{font-size:clamp(48px,14vw,64px);margin:24px 0 20px}
+  #mg-fire .fp-hero-ctas{flex-direction:column}
+  #mg-fire .fp-hero-ctas .fp-btn,#mg-fire .fp-brief-ctas .fp-btn{width:100%}
+  #mg-fire .fp-brief-ctas{flex-direction:column}
+  #mg-fire .fp-stage{margin:44px -20px 0}
+  #mg-fire .fp-lens{height:380px;border-radius:28px;margin:0 12px}
+  #mg-fire .fp-stage-cap{padding:0 24px 12px}
+  #mg-fire .fp-stage-cap span+span{display:none}
+  #mg-fire .fp-state{left:22px;top:20px}
+  #mg-fire .fp-lbl{font-size:14px;letter-spacing:.06em;stroke-width:5px}
+  #mg-fire .fp-controls{margin:16px 12px 0;border-radius:24px}
+  #mg-fire .fp-controls button{padding:0 12px}
+  #mg-fire .fp-controls .fp-sep{display:none}
+  #mg-fire .fp-sec{padding:88px 20px}
+  #mg-fire .fp-chart-card,#mg-fire .fp-steps{margin-top:48px}
+  #mg-fire .fp-tab{flex:1 1 100%}
+  #mg-fire .fp-draw{border-radius:20px}
+  #mg-fire .fp-chart-card{padding:22px 16px 18px;border-radius:22px;margin-left:-6px;margin-right:-6px}
+  #mg-fire .fp-readout{gap:4px 12px}
+  #mg-fire .fp-readout dd{font-size:17px}
+  #mg-fire .fp-steps{grid-template-columns:1fr}
+  #mg-fire .fp-step,#mg-fire .fp-step:first-child,#mg-fire .fp-step:nth-child(3){padding:26px 0;border-right:0;border-bottom:1px solid var(--line)}
+  #mg-fire .fp-step:last-child{border-bottom:0}
+  #mg-fire .fp-step svg{margin:18px 0 20px}
+  #mg-fire .fp-client-row{grid-template-columns:1fr}
+  #mg-fire .fp-client-row li,#mg-fire .fp-client-row li+li{padding:20px 0;border-left:0;border-bottom:1px solid rgba(238,246,242,.16)}
+  #mg-fire .fp-client-row li:last-child{border-bottom:0}
+  #mg-fire .fp-builder{padding:22px 18px 18px;border-radius:24px}
+  #mg-fire .fp-builder-actions .fp-btn{flex:1 1 100%}
+  #mg-fire .fp-foot{margin-top:72px}
+}
+@media (prefers-reduced-motion:reduce){
+  #mg-fire *,#mg-fire *::before,#mg-fire *::after{animation:none!important;transition:none!important}
+  #mg-fire.fp-js [data-rv]{opacity:1;translate:none;scale:none}
+  #mg-fire .fp-mark{background-size:100% 100%}
+  #mg-fire .fp-step::before{transform:scaleX(1)}
+}
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div id=&quot;mg-fire&quot;&gt;
+
+&lt;!-- 01 · HERO --&gt;
+&lt;header class=&quot;fp-nav&quot;&gt;
+  &lt;div class=&quot;fp-brand&quot;&gt;&lt;img src=&quot;data:image/webp;base64,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&quot; alt=&quot;Mongrain&quot; width=&quot;34&quot; height=&quot;37&quot;&gt;&lt;span&gt;FIRE&lt;br&gt;PROTECTION&lt;/span&gt;&lt;/div&gt;
+  &lt;nav aria-label=&quot;Page sections&quot;&gt;&lt;a href=&quot;#fp-systems&quot;&gt;Systems&lt;/a&gt;&lt;a href=&quot;#fp-time&quot;&gt;Fire resistance&lt;/a&gt;&lt;a href=&quot;#fp-method&quot;&gt;Method&lt;/a&gt;&lt;a href=&quot;#fp-brief&quot;&gt;Enquiry&lt;/a&gt;&lt;/nav&gt;
+&lt;/header&gt;
+
+&lt;section class=&quot;fp-hero&quot; aria-labelledby=&quot;fp-title&quot;&gt;
+  &lt;div class=&quot;fp-hero-copy&quot;&gt;
+    &lt;h1 id=&quot;fp-title&quot;&gt;Fire resistance, measured in &lt;span class=&quot;fp-serif&quot;&gt;time.&lt;/span&gt;&lt;/h1&gt;
+    &lt;p class=&quot;fp-intro&quot;&gt;Passive fire protection keeps structural elements below their failure temperature and preserves a building’s bearing capacity. Coatings, fireproofing, thermal barriers and firewalls, applied by one team.&lt;/p&gt;
+    &lt;div class=&quot;fp-hero-ctas&quot;&gt;
+      &lt;a class=&quot;fp-btn fp-btn-primary&quot; href=&quot;https://snowden-design.wixstudio.com/mongrain-new/contact-us&quot; target=&quot;_top&quot;&gt;Request a submission
+        &lt;svg width=&quot;16&quot; height=&quot;16&quot; viewBox=&quot;0 0 16 16&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M3 8h10M9 4l4 4-4 4&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.6&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;/&gt;&lt;/svg&gt;&lt;/a&gt;
+      &lt;a class=&quot;fp-btn fp-btn-ghost&quot; href=&quot;#fp-systems&quot;&gt;Explore the systems
+        &lt;svg width=&quot;16&quot; height=&quot;16&quot; viewBox=&quot;0 0 16 16&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M8 3v10M4 9l4 4 4-4&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.6&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;/&gt;&lt;/svg&gt;&lt;/a&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class=&quot;fp-stage&quot;&gt;
+    &lt;div class=&quot;fp-stage-cap&quot;&gt;&lt;span&gt;INTERACTIVE SECTION · STEEL BEAM&lt;/span&gt;&lt;span&gt;SELECT A SYSTEM · APPLY HEAT&lt;/span&gt;&lt;/div&gt;
+    &lt;div class=&quot;fp-lens&quot;&gt;
+      &lt;p class=&quot;fp-state&quot; aria-live=&quot;polite&quot;&gt;&lt;span data-state-k&gt;Intumescent coating&lt;/span&gt;&lt;b data-state-v&gt;Thin dry film&lt;/b&gt;&lt;/p&gt;
+      &lt;svg class=&quot;fp-beam&quot; viewBox=&quot;0 0 640 520&quot; preserveAspectRatio=&quot;xMidYMid meet&quot; role=&quot;img&quot; aria-labelledby=&quot;fp-beam-t&quot;&gt;
+        &lt;title id=&quot;fp-beam-t&quot;&gt;Illustrative steel I-beam with a cutaway showing the protective layer. When heat is applied, the intumescent coating expands into an insulating char.&lt;/title&gt;
+        &lt;defs&gt;
+          &lt;pattern id=&quot;fp-hatch&quot; width=&quot;7&quot; height=&quot;7&quot; patternUnits=&quot;userSpaceOnUse&quot; patternTransform=&quot;rotate(45)&quot;&gt;&lt;rect width=&quot;7&quot; height=&quot;7&quot; fill=&quot;#aab6ba&quot;/&gt;&lt;line x1=&quot;0&quot; y1=&quot;0&quot; x2=&quot;0&quot; y2=&quot;7&quot; stroke=&quot;#7d8b90&quot; stroke-width=&quot;1.4&quot;/&gt;&lt;/pattern&gt;
+          &lt;pattern id=&quot;fp-speck&quot; width=&quot;9&quot; height=&quot;9&quot; patternUnits=&quot;userSpaceOnUse&quot;&gt;&lt;rect width=&quot;9&quot; height=&quot;9&quot; fill=&quot;currentColor&quot;/&gt;&lt;circle cx=&quot;2&quot; cy=&quot;3&quot; r=&quot;.9&quot; fill=&quot;#000&quot; opacity=&quot;.18&quot;/&gt;&lt;circle cx=&quot;6.5&quot; cy=&quot;7&quot; r=&quot;.7&quot; fill=&quot;#fff&quot; opacity=&quot;.22&quot;/&gt;&lt;circle cx=&quot;7&quot; cy=&quot;2&quot; r=&quot;.5&quot; fill=&quot;#000&quot; opacity=&quot;.14&quot;/&gt;&lt;/pattern&gt;
+          &lt;filter id=&quot;fp-foam&quot; x=&quot;-10%&quot; y=&quot;-10%&quot; width=&quot;120%&quot; height=&quot;120%&quot;&gt;&lt;feTurbulence type=&quot;fractalNoise&quot; baseFrequency=&quot;.05&quot; numOctaves=&quot;2&quot; seed=&quot;4&quot; result=&quot;n&quot;/&gt;&lt;feDisplacementMap in=&quot;SourceGraphic&quot; in2=&quot;n&quot; scale=&quot;0&quot; data-foam/&gt;&lt;/filter&gt;
+          &lt;radialGradient id=&quot;fp-glow&quot; cx=&quot;50%&quot; cy=&quot;100%&quot; r=&quot;70%&quot;&gt;&lt;stop offset=&quot;0&quot; stop-color=&quot;#ffb46b&quot; stop-opacity=&quot;.9&quot;/&gt;&lt;stop offset=&quot;.5&quot; stop-color=&quot;#e3651d&quot; stop-opacity=&quot;.35&quot;/&gt;&lt;stop offset=&quot;1&quot; stop-color=&quot;#e3651d&quot; stop-opacity=&quot;0&quot;/&gt;&lt;/radialGradient&gt;
+          &lt;linearGradient id=&quot;fp-fl&quot; x1=&quot;0&quot; y1=&quot;1&quot; x2=&quot;0&quot; y2=&quot;0&quot;&gt;&lt;stop offset=&quot;0&quot; stop-color=&quot;#e3651d&quot;/&gt;&lt;stop offset=&quot;.55&quot; stop-color=&quot;#ff9a52&quot;/&gt;&lt;stop offset=&quot;1&quot; stop-color=&quot;#ffd59a&quot; stop-opacity=&quot;0&quot;/&gt;&lt;/linearGradient&gt;
+        &lt;/defs&gt;
+        &lt;g class=&quot;fp-flames&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;ellipse cx=&quot;330&quot; cy=&quot;470&quot; rx=&quot;300&quot; ry=&quot;90&quot; fill=&quot;url(#fp-glow)&quot;/&gt;
+          &lt;g data-flames&gt;&lt;/g&gt;
+          &lt;g data-embers&gt;&lt;/g&gt;
+        &lt;/g&gt;
+        &lt;g data-coat filter=&quot;url(#fp-foam)&quot;&gt;&lt;/g&gt;
+        &lt;g data-steel&gt;&lt;/g&gt;
+        &lt;g aria-hidden=&quot;true&quot; data-labels&gt;&lt;/g&gt;
+      &lt;/svg&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;fp-controls&quot; role=&quot;group&quot; aria-label=&quot;Section controls&quot;&gt;
+      &lt;button type=&quot;button&quot; data-sys=&quot;intu&quot; aria-pressed=&quot;true&quot;&gt;Intumescent&lt;/button&gt;
+      &lt;button type=&quot;button&quot; data-sys=&quot;trad&quot; aria-pressed=&quot;false&quot;&gt;Traditional&lt;/button&gt;
+      &lt;span class=&quot;fp-sep&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+      &lt;button type=&quot;button&quot; class=&quot;fp-heat&quot; data-heat aria-pressed=&quot;false&quot;&gt;
+        &lt;svg width=&quot;15&quot; height=&quot;15&quot; viewBox=&quot;0 0 16 16&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M8 1.5c.4 2.3 3.6 3.9 3.6 7.4A3.6 3.6 0 0 1 8 12.5a3.6 3.6 0 0 1-3.6-3.6c0-1.6.9-2.6 1.6-3.3.2 1.2.8 1.9 1.5 2.2C7 6 7.3 3.6 8 1.5Z&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linejoin=&quot;round&quot;/&gt;&lt;path d=&quot;M5 14.5h6&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot;/&gt;&lt;/svg&gt;
+        &lt;span data-heat-l&gt;Apply heat&lt;/span&gt;&lt;/button&gt;
+      &lt;button type=&quot;button&quot; data-reset&gt;
+        &lt;svg width=&quot;15&quot; height=&quot;15&quot; viewBox=&quot;0 0 16 16&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M3 3v4h4M3.5 7A5 5 0 1 1 4 11&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;/&gt;&lt;/svg&gt;Reset&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+
+&lt;!-- 02 · SYSTEMS --&gt;
+&lt;section class=&quot;fp-sec fp-systems&quot; id=&quot;fp-systems&quot; aria-labelledby=&quot;fp-systems-t&quot;&gt;
+  &lt;div class=&quot;fp-wrap&quot;&gt;
+    &lt;h2 class=&quot;fp-sr&quot; id=&quot;fp-systems-t&quot;&gt;Fire protection services&lt;/h2&gt;
+
+    &lt;div class=&quot;fp-explorer&quot; data-rv&gt;
+      &lt;div class=&quot;fp-tabs&quot; role=&quot;tablist&quot; aria-label=&quot;Fire protection systems&quot;&gt;
+        &lt;button class=&quot;fp-tab&quot; role=&quot;tab&quot; id=&quot;fp-t1&quot; aria-controls=&quot;fp-p1&quot; aria-selected=&quot;true&quot;&gt;&lt;span&gt;01&lt;/span&gt;&lt;strong&gt;Intumescent coatings&lt;/strong&gt;&lt;svg width=&quot;16&quot; height=&quot;16&quot; viewBox=&quot;0 0 16 16&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M3 8h10M9 4l4 4-4 4&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.6&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;/&gt;&lt;/svg&gt;&lt;/button&gt;
+        &lt;button class=&quot;fp-tab&quot; role=&quot;tab&quot; id=&quot;fp-t2&quot; aria-controls=&quot;fp-p2&quot; aria-selected=&quot;false&quot; tabindex=&quot;-1&quot;&gt;&lt;span&gt;02&lt;/span&gt;&lt;strong&gt;Traditional fireproofing&lt;/strong&gt;&lt;svg width=&quot;16&quot; height=&quot;16&quot; viewBox=&quot;0 0 16 16&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M3 8h10M9 4l4 4-4 4&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.6&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;/&gt;&lt;/svg&gt;&lt;/button&gt;
+        &lt;button class=&quot;fp-tab&quot; role=&quot;tab&quot; id=&quot;fp-t3&quot; aria-controls=&quot;fp-p3&quot; aria-selected=&quot;false&quot; tabindex=&quot;-1&quot;&gt;&lt;span&gt;03&lt;/span&gt;&lt;strong&gt;Thermal barriers&lt;/strong&gt;&lt;svg width=&quot;16&quot; height=&quot;16&quot; viewBox=&quot;0 0 16 16&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M3 8h10M9 4l4 4-4 4&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.6&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;/&gt;&lt;/svg&gt;&lt;/button&gt;
+        &lt;button class=&quot;fp-tab&quot; role=&quot;tab&quot; id=&quot;fp-t4&quot; aria-controls=&quot;fp-p4&quot; aria-selected=&quot;false&quot; tabindex=&quot;-1&quot;&gt;&lt;span&gt;04&lt;/span&gt;&lt;strong&gt;Firewalls &amp;amp; partitions&lt;/strong&gt;&lt;svg width=&quot;16&quot; height=&quot;16&quot; viewBox=&quot;0 0 16 16&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M3 8h10M9 4l4 4-4 4&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.6&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;/&gt;&lt;/svg&gt;&lt;/button&gt;
+        &lt;button class=&quot;fp-tab&quot; role=&quot;tab&quot; id=&quot;fp-t5&quot; aria-controls=&quot;fp-p5&quot; aria-selected=&quot;false&quot; tabindex=&quot;-1&quot;&gt;&lt;span&gt;05&lt;/span&gt;&lt;strong&gt;Decontamination&lt;/strong&gt;&lt;svg width=&quot;16&quot; height=&quot;16&quot; viewBox=&quot;0 0 16 16&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M3 8h10M9 4l4 4-4 4&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.6&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;/&gt;&lt;/svg&gt;&lt;/button&gt;
+      &lt;/div&gt;
+
+      &lt;div&gt;
+        &lt;article class=&quot;fp-panel&quot; role=&quot;tabpanel&quot; id=&quot;fp-p1&quot; aria-labelledby=&quot;fp-t1&quot;&gt;
+          &lt;div&gt;
+            &lt;span class=&quot;fp-panel-idx&quot;&gt;SYSTEM 01 / 05&lt;/span&gt;
+            &lt;h3&gt;Intumescent coatings&lt;/h3&gt;
+            &lt;p class=&quot;fp-panel-mat&quot;&gt;Multi-layer protective paint · exposed steel&lt;/p&gt;
+            &lt;p&gt;A specialty paint applied in multiple layers. Under heat it forms a protective barrier, giving exposed steel beams up to three hours of fire resistance while the structure stays visible. One of Mongrain’s specialties.&lt;/p&gt;
+            &lt;ul class=&quot;fp-facts&quot;&gt;&lt;li&gt;Up to 3 h fire resistance&lt;/li&gt;&lt;li&gt;Steel stays visible&lt;/li&gt;&lt;li&gt;Largest project in Canada&lt;/li&gt;&lt;/ul&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;fp-draw&quot; aria-hidden=&quot;true&quot;&gt;
+            &lt;svg viewBox=&quot;0 0 260 220&quot;&gt;
+              &lt;g transform=&quot;translate(36 40)&quot;&gt;&lt;path d=&quot;M0 0h70v12H41v96h29v12H0v-12h29V12H0Z&quot; fill=&quot;#8a979b&quot;/&gt;&lt;path d=&quot;M0 0h70v12H41v96h29v12H0v-12h29V12H0Z&quot; fill=&quot;none&quot; stroke=&quot;#f1f3ef&quot; stroke-width=&quot;3&quot;/&gt;&lt;/g&gt;
+              &lt;path d=&quot;M118 100h22&quot; stroke=&quot;#e3651d&quot; stroke-width=&quot;1.6&quot; stroke-linecap=&quot;round&quot; class=&quot;fp-dash&quot;/&gt;&lt;path d=&quot;M136 95l6 5-6 5&quot; fill=&quot;none&quot; stroke=&quot;#e3651d&quot; stroke-width=&quot;1.6&quot; stroke-linecap=&quot;round&quot;/&gt;
+              &lt;g transform=&quot;translate(166 40)&quot;&gt;&lt;path d=&quot;M-9-9h88v30H50v78h29v30h-88V99h29V21H-9Z&quot; fill=&quot;#45403b&quot; stroke=&quot;#2c2926&quot; stroke-width=&quot;1&quot;/&gt;&lt;path d=&quot;M0 0h70v12H41v96h29v12H0v-12h29V12H0Z&quot; fill=&quot;#8a979b&quot;/&gt;&lt;/g&gt;
+              &lt;text x=&quot;36&quot; y=&quot;188&quot;&gt;DRY FILM&lt;/text&gt;&lt;text x=&quot;157&quot; y=&quot;188&quot;&gt;EXPANDED CHAR&lt;/text&gt;
+            &lt;/svg&gt;
+            &lt;span class=&quot;fp-tag&quot;&gt;SCHEMATIC · NTS&lt;/span&gt;
+          &lt;/div&gt;
+        &lt;/article&gt;
+
+        &lt;article class=&quot;fp-panel&quot; role=&quot;tabpanel&quot; id=&quot;fp-p2&quot; aria-labelledby=&quot;fp-t2&quot; hidden&gt;
+          &lt;div&gt;
+            &lt;span class=&quot;fp-panel-idx&quot;&gt;SYSTEM 02 / 05&lt;/span&gt;
+            &lt;h3&gt;Traditional fireproofing&lt;/h3&gt;
+            &lt;p class=&quot;fp-panel-mat&quot;&gt;Fibrous materials · shotcrete · gypsum&lt;/p&gt;
+            &lt;p&gt;Fibrous materials, shotcrete and gypsum are selected to the project specification. They raise the fire resistance of structural elements, keeping them below failure temperature so the building preserves its bearing capacity.&lt;/p&gt;
+            &lt;ul class=&quot;fp-facts&quot;&gt;&lt;li&gt;Selected per specification&lt;/li&gt;&lt;li&gt;Columns · beams · decks&lt;/li&gt;&lt;li&gt;Bearing capacity preserved&lt;/li&gt;&lt;/ul&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;fp-draw&quot; aria-hidden=&quot;true&quot;&gt;
+            &lt;svg viewBox=&quot;0 0 260 220&quot;&gt;
+              &lt;rect x=&quot;70&quot; y=&quot;20&quot; width=&quot;120&quot; height=&quot;160&quot; rx=&quot;4&quot; fill=&quot;#c9c2b2&quot;/&gt;
+              &lt;g fill=&quot;#b2aa98&quot;&gt;&lt;circle cx=&quot;82&quot; cy=&quot;40&quot; r=&quot;2&quot;/&gt;&lt;circle cx=&quot;170&quot; cy=&quot;60&quot; r=&quot;2.4&quot;/&gt;&lt;circle cx=&quot;96&quot; cy=&quot;120&quot; r=&quot;1.8&quot;/&gt;&lt;circle cx=&quot;160&quot; cy=&quot;150&quot; r=&quot;2.2&quot;/&gt;&lt;circle cx=&quot;120&quot; cy=&quot;34&quot; r=&quot;1.6&quot;/&gt;&lt;circle cx=&quot;180&quot; cy=&quot;110&quot; r=&quot;1.7&quot;/&gt;&lt;circle cx=&quot;80&quot; cy=&quot;168&quot; r=&quot;2&quot;/&gt;&lt;/g&gt;
+              &lt;path d=&quot;M88 38h84v14h-34v96h34v14H88v-14h34V52H88Z&quot; fill=&quot;#8a979b&quot;/&gt;
+              &lt;path d=&quot;M54 30v140M206 30v140&quot; stroke=&quot;#4b646b&quot; stroke-width=&quot;1&quot; stroke-dasharray=&quot;2 4&quot;/&gt;
+              &lt;text x=&quot;54&quot; y=&quot;200&quot;&gt;SPRAY-APPLIED TO SPECIFIED THICKNESS&lt;/text&gt;
+            &lt;/svg&gt;
+            &lt;span class=&quot;fp-tag&quot;&gt;SCHEMATIC · NTS&lt;/span&gt;
+          &lt;/div&gt;
+        &lt;/article&gt;
+
+        &lt;article class=&quot;fp-panel&quot; role=&quot;tabpanel&quot; id=&quot;fp-p3&quot; aria-labelledby=&quot;fp-t3&quot; hidden&gt;
+          &lt;div&gt;
+            &lt;span class=&quot;fp-panel-idx&quot;&gt;SYSTEM 03 / 05&lt;/span&gt;
+            &lt;h3&gt;Thermal barriers&lt;/h3&gt;
+            &lt;p class=&quot;fp-panel-mat&quot;&gt;Coating over spray foam insulation&lt;/p&gt;
+            &lt;p&gt;A specialized coating applied over spray foam insulation. It isolates the foam from heat and keeps it from igniting, so insulation and fire safety work together in the same assembly.&lt;/p&gt;
+            &lt;ul class=&quot;fp-facts&quot;&gt;&lt;li&gt;Over spray foam&lt;/li&gt;&lt;li&gt;Isolates from heat&lt;/li&gt;&lt;li&gt;Prevents ignition&lt;/li&gt;&lt;/ul&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;fp-draw&quot; aria-hidden=&quot;true&quot;&gt;
+            &lt;svg viewBox=&quot;0 0 260 220&quot;&gt;
+              &lt;rect x=&quot;40&quot; y=&quot;24&quot; width=&quot;34&quot; height=&quot;160&quot; fill=&quot;#a9b3b4&quot;/&gt;
+              &lt;path d=&quot;M74 24h58c-4 20 4 40 0 60s4 40 0 60 4 30 0 40H74Z&quot; fill=&quot;#e9cf86&quot;/&gt;
+              &lt;path d=&quot;M132 24c-4 20 4 40 0 60s4 40 0 60 4 30 0 40&quot; fill=&quot;none&quot; stroke=&quot;#11a8be&quot; stroke-width=&quot;7&quot; stroke-linecap=&quot;round&quot;/&gt;
+              &lt;g stroke=&quot;#e3651d&quot; stroke-width=&quot;1.8&quot; stroke-linecap=&quot;round&quot; fill=&quot;none&quot;&gt;&lt;path d=&quot;M220 60h-58M168 54l-6 6 6 6&quot; class=&quot;fp-pulse&quot;/&gt;&lt;path d=&quot;M220 104h-58M168 98l-6 6 6 6&quot; class=&quot;fp-pulse&quot; style=&quot;animation-delay:.4s&quot;/&gt;&lt;path d=&quot;M220 148h-58M168 142l-6 6 6 6&quot; class=&quot;fp-pulse&quot; style=&quot;animation-delay:.8s&quot;/&gt;&lt;/g&gt;
+              &lt;text x=&quot;40&quot; y=&quot;204&quot;&gt;SUBSTRATE · FOAM · BARRIER&lt;/text&gt;&lt;text x=&quot;184&quot; y=&quot;44&quot;&gt;HEAT&lt;/text&gt;
+            &lt;/svg&gt;
+            &lt;span class=&quot;fp-tag&quot;&gt;SCHEMATIC · NTS&lt;/span&gt;
+          &lt;/div&gt;
+        &lt;/article&gt;
+
+        &lt;article class=&quot;fp-panel&quot; role=&quot;tabpanel&quot; id=&quot;fp-p4&quot; aria-labelledby=&quot;fp-t4&quot; hidden&gt;
+          &lt;div&gt;
+            &lt;span class=&quot;fp-panel-idx&quot;&gt;SYSTEM 04 / 05&lt;/span&gt;
+            &lt;h3&gt;Firewalls &amp;amp; partitions&lt;/h3&gt;
+            &lt;p class=&quot;fp-panel-mat&quot;&gt;Fire-rated walls · doors · partitions&lt;/p&gt;
+            &lt;p&gt;Structural obstacles, fire-rated doors and partitions built from fire-resistant materials. They limit how flames and smoke spread from one section of a building to the next.&lt;/p&gt;
+            &lt;ul class=&quot;fp-facts&quot;&gt;&lt;li&gt;Compartmentation&lt;/li&gt;&lt;li&gt;Fire-rated doors&lt;/li&gt;&lt;li&gt;Flame &amp;amp; smoke control&lt;/li&gt;&lt;/ul&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;fp-draw&quot; aria-hidden=&quot;true&quot;&gt;
+            &lt;svg viewBox=&quot;0 0 260 220&quot;&gt;
+              &lt;rect x=&quot;24&quot; y=&quot;30&quot; width=&quot;212&quot; height=&quot;150&quot; fill=&quot;none&quot; stroke=&quot;#4b646b&quot; stroke-width=&quot;2&quot;/&gt;
+              &lt;rect x=&quot;124&quot; y=&quot;30&quot; width=&quot;12&quot; height=&quot;150&quot; fill=&quot;#17323a&quot;/&gt;
+              &lt;rect x=&quot;124&quot; y=&quot;96&quot; width=&quot;12&quot; height=&quot;30&quot; fill=&quot;#e3651d&quot;/&gt;
+              &lt;g fill=&quot;#e3651d&quot; opacity=&quot;.9&quot;&gt;&lt;path d=&quot;M66 150c-8-14 6-20 2-34 12 8 18 22 12 34Z&quot; class=&quot;fp-pulse&quot;/&gt;&lt;path d=&quot;M88 150c-5-9 4-13 1-22 8 5 11 14 7 22Z&quot; class=&quot;fp-pulse&quot; style=&quot;animation-delay:.5s&quot;/&gt;&lt;/g&gt;
+              &lt;g stroke=&quot;#6a7d81&quot; stroke-width=&quot;1.6&quot; fill=&quot;none&quot; stroke-linecap=&quot;round&quot; class=&quot;fp-dash&quot;&gt;&lt;path d=&quot;M60 80c20-8 34 6 56 0&quot;/&gt;&lt;path d=&quot;M56 104c22-8 36 6 60 0&quot;/&gt;&lt;/g&gt;
+              &lt;path d=&quot;M144 70l10 10M154 70l-10 10&quot; stroke=&quot;#11a8be&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot;/&gt;
+              &lt;text x=&quot;24&quot; y=&quot;204&quot;&gt;FIRE SIDE&lt;/text&gt;&lt;text x=&quot;168&quot; y=&quot;204&quot;&gt;PROTECTED&lt;/text&gt;&lt;text x=&quot;146&quot; y=&quot;120&quot;&gt;RATED DOOR&lt;/text&gt;
+            &lt;/svg&gt;
+            &lt;span class=&quot;fp-tag&quot;&gt;PLAN · SCHEMATIC&lt;/span&gt;
+          &lt;/div&gt;
+        &lt;/article&gt;
+
+        &lt;article class=&quot;fp-panel&quot; role=&quot;tabpanel&quot; id=&quot;fp-p5&quot; aria-labelledby=&quot;fp-t5&quot; hidden&gt;
+          &lt;div&gt;
+            &lt;span class=&quot;fp-panel-idx&quot;&gt;SYSTEM 05 / 05&lt;/span&gt;
+            &lt;h3&gt;Decontamination&lt;/h3&gt;
+            &lt;p class=&quot;fp-panel-mat&quot;&gt;Asbestos &amp;amp; vermiculite removal&lt;/p&gt;
+            &lt;p&gt;Asbestos was used for insulation in construction until 1980. Work begins with an assessment of the structures; Mongrain then recommends the safest removal method for asbestos in vermiculite insulation, plaster and cement, before new insulation or fire barriers go in.&lt;/p&gt;
+            &lt;ul class=&quot;fp-facts&quot;&gt;&lt;li&gt;Pre-1980 buildings&lt;/li&gt;&lt;li&gt;Assessment first&lt;/li&gt;&lt;li&gt;Vermiculite · plaster · cement&lt;/li&gt;&lt;/ul&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;fp-draw&quot; aria-hidden=&quot;true&quot;&gt;
+            &lt;svg viewBox=&quot;0 0 260 220&quot;&gt;
+              &lt;g font-family=&quot;DM Mono&quot; fill=&quot;none&quot; stroke-width=&quot;1.6&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;&gt;
+                &lt;circle cx=&quot;52&quot; cy=&quot;80&quot; r=&quot;26&quot; stroke=&quot;#17323a&quot;/&gt;&lt;path d=&quot;M44 80l6 6 11-12&quot; stroke=&quot;#17323a&quot;/&gt;
+                &lt;path d=&quot;M86 80h26&quot; stroke=&quot;#4b646b&quot; class=&quot;fp-dash&quot;/&gt;
+                &lt;circle cx=&quot;138&quot; cy=&quot;80&quot; r=&quot;26&quot; stroke=&quot;#e3651d&quot;/&gt;&lt;path d=&quot;M128 72h20M131 72v18h14V72M135 68h6&quot; stroke=&quot;#e3651d&quot;/&gt;
+                &lt;path d=&quot;M172 80h26&quot; stroke=&quot;#4b646b&quot; class=&quot;fp-dash&quot;/&gt;
+                &lt;circle cx=&quot;224&quot; cy=&quot;80&quot; r=&quot;26&quot; stroke=&quot;#11a8be&quot;/&gt;&lt;path d=&quot;M212 90V74l12-8 12 8v16Z&quot; stroke=&quot;#11a8be&quot;/&gt;
+              &lt;/g&gt;
+              &lt;g fill=&quot;#b9a678&quot;&gt;&lt;circle cx=&quot;40&quot; cy=&quot;140&quot; r=&quot;3&quot;/&gt;&lt;circle cx=&quot;50&quot; cy=&quot;146&quot; r=&quot;2.4&quot;/&gt;&lt;circle cx=&quot;60&quot; cy=&quot;139&quot; r=&quot;2.8&quot;/&gt;&lt;circle cx=&quot;46&quot; cy=&quot;132&quot; r=&quot;2&quot;/&gt;&lt;circle cx=&quot;62&quot; cy=&quot;150&quot; r=&quot;2.2&quot;/&gt;&lt;/g&gt;
+              &lt;text x=&quot;24&quot; y=&quot;124&quot;&gt;ASSESS&lt;/text&gt;&lt;text x=&quot;116&quot; y=&quot;124&quot;&gt;REMOVE&lt;/text&gt;&lt;text x=&quot;200&quot; y=&quot;124&quot;&gt;REBUILD&lt;/text&gt;
+              &lt;text x=&quot;74&quot; y=&quot;148&quot;&gt;VERMICULITE (TYP.)&lt;/text&gt;
+            &lt;/svg&gt;
+            &lt;span class=&quot;fp-tag&quot;&gt;SEQUENCE · SCHEMATIC&lt;/span&gt;
+          &lt;/div&gt;
+        &lt;/article&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+
+&lt;!-- 03 · TIME --&gt;
+&lt;section class=&quot;fp-sec fp-time&quot; id=&quot;fp-time&quot; aria-labelledby=&quot;fp-time-t&quot;&gt;
+  &lt;div class=&quot;fp-wrap&quot;&gt;
+    &lt;div class=&quot;fp-head&quot;&gt;
+      &lt;div class=&quot;fp-label&quot; data-rv&gt;&lt;h2 id=&quot;fp-time-t&quot;&gt;Every minute&lt;br&gt;is &lt;i&gt;designed.&lt;/i&gt;&lt;/h2&gt;&lt;/div&gt;
+      &lt;p data-rv style=&quot;--d:.1s&quot;&gt;Fire resistance is rated in time. Scrub through three hours of a standard fire exposure to see why protected steel keeps its strength for longer.&lt;/p&gt;
+    &lt;/div&gt;
+
+    &lt;figure class=&quot;fp-chart-card&quot; data-rv style=&quot;margin-left:0;margin-right:0&quot;&gt;
+      &lt;div class=&quot;fp-chart-top&quot;&gt;
+        &lt;ul class=&quot;fp-legend&quot; aria-label=&quot;Legend&quot;&gt;
+          &lt;li&gt;&lt;svg width=&quot;22&quot; height=&quot;8&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M1 4h20&quot; stroke=&quot;#e3651d&quot; stroke-width=&quot;2.5&quot; stroke-linecap=&quot;round&quot;/&gt;&lt;/svg&gt;Fire exposure · standard curve&lt;/li&gt;
+          &lt;li&gt;&lt;svg width=&quot;22&quot; height=&quot;8&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M1 4h20&quot; stroke=&quot;#b8325a&quot; stroke-width=&quot;2&quot; stroke-dasharray=&quot;4 3&quot; stroke-linecap=&quot;round&quot;/&gt;&lt;/svg&gt;Unprotected steel&lt;/li&gt;
+          &lt;li&gt;&lt;svg width=&quot;22&quot; height=&quot;8&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M1 4h20&quot; stroke=&quot;#0a8fa6&quot; stroke-width=&quot;2.5&quot; stroke-linecap=&quot;round&quot;/&gt;&lt;/svg&gt;Protected steel&lt;/li&gt;
+        &lt;/ul&gt;
+        &lt;dl class=&quot;fp-readout&quot; aria-live=&quot;polite&quot;&gt;
+          &lt;div&gt;&lt;dt&gt;Elapsed&lt;/dt&gt;&lt;dd data-r-time&gt;60 &lt;small&gt;min&lt;/small&gt;&lt;/dd&gt;&lt;/div&gt;
+          &lt;div&gt;&lt;dt&gt;Fire side&lt;/dt&gt;&lt;dd data-r-fire&gt;≈ 927 &lt;small&gt;°C&lt;/small&gt;&lt;/dd&gt;&lt;/div&gt;
+          &lt;div&gt;&lt;dt&gt;Protected steel&lt;/dt&gt;&lt;dd data-r-steel&gt;Below limit&lt;/dd&gt;&lt;/div&gt;
+        &lt;/dl&gt;
+      &lt;/div&gt;
+      &lt;svg class=&quot;fp-chart&quot; viewBox=&quot;0 0 760 340&quot; role=&quot;img&quot; aria-labelledby=&quot;fp-chart-t fp-chart-d&quot; data-chart&gt;
+        &lt;title id=&quot;fp-chart-t&quot;&gt;Standard fire curve with schematic steel temperatures over three hours&lt;/title&gt;
+        &lt;desc id=&quot;fp-chart-d&quot;&gt;The fire-side temperature follows the standard time–temperature curve, passing about 540 °C at 5 minutes and 1050 °C at 3 hours. Unprotected steel follows it quickly and crosses the limiting temperature early. Protected steel rises slowly and stays below the limit across the period shown. Steel lines are schematic.&lt;/desc&gt;
+      &lt;/svg&gt;
+      &lt;div class=&quot;fp-scrub&quot;&gt;
+        &lt;button type=&quot;button&quot; class=&quot;fp-play&quot; data-play aria-label=&quot;Play three-hour exposure&quot;&gt;
+          &lt;svg width=&quot;14&quot; height=&quot;14&quot; viewBox=&quot;0 0 16 16&quot; aria-hidden=&quot;true&quot; data-play-i&gt;&lt;path d=&quot;M4 2.5v11l9-5.5Z&quot; fill=&quot;currentColor&quot;/&gt;&lt;/svg&gt;&lt;/button&gt;
+        &lt;label class=&quot;fp-sr&quot; for=&quot;fp-range&quot;&gt;Elapsed time in minutes&lt;/label&gt;
+        &lt;input class=&quot;fp-range&quot; id=&quot;fp-range&quot; type=&quot;range&quot; min=&quot;0&quot; max=&quot;180&quot; step=&quot;1&quot; value=&quot;60&quot; data-range&gt;
+      &lt;/div&gt;
+      &lt;figcaption class=&quot;fp-caveat&quot;&gt;
+        &lt;svg width=&quot;16&quot; height=&quot;16&quot; viewBox=&quot;0 0 16 16&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M8 1.5 2.5 3.7v4c0 3.2 2.3 5.8 5.5 6.8 3.2-1 5.5-3.6 5.5-6.8v-4Z&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linejoin=&quot;round&quot;/&gt;&lt;/svg&gt;
+        &lt;span&gt;Schematic. The fire-side line follows the standard time–temperature curve used in CAN/ULC-S101 and ASTM E119 fire tests. Steel lines and the limit shown are illustrative, not test data: actual ratings depend on the tested assembly, section size, product and applied thickness.&lt;/span&gt;
+      &lt;/figcaption&gt;
+      &lt;table class=&quot;fp-sr&quot;&gt;&lt;caption&gt;Standard time–temperature curve&lt;/caption&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Minutes&lt;/th&gt;&lt;th&gt;°C&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;538&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;10&lt;/td&gt;&lt;td&gt;704&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;30&lt;/td&gt;&lt;td&gt;843&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;60&lt;/td&gt;&lt;td&gt;927&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;120&lt;/td&gt;&lt;td&gt;1010&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;180&lt;/td&gt;&lt;td&gt;1052&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+    &lt;/figure&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+
+&lt;!-- 04 · PROOF --&gt;
+&lt;section class=&quot;fp-sec fp-proof&quot; aria-labelledby=&quot;fp-proof-t&quot;&gt;
+  &lt;div class=&quot;fp-wrap&quot;&gt;
+    &lt;h2 class=&quot;fp-statement&quot; id=&quot;fp-proof-t&quot; data-rv&gt;Mongrain completed &lt;span class=&quot;fp-mark&quot;&gt;the largest intumescent insulation project&lt;/span&gt; in Canada &lt;span class=&quot;fp-serif&quot;&gt;to date.&lt;/span&gt;&lt;/h2&gt;
+
+    &lt;div class=&quot;fp-stats&quot;&gt;
+      &lt;div class=&quot;fp-stat&quot; data-rv&gt;&lt;b&gt;3&lt;small&gt;hours&lt;/small&gt;&lt;/b&gt;&lt;p&gt;Up to three hours of fire resistance for exposed steel beams with intumescent coatings.&lt;/p&gt;&lt;/div&gt;
+      &lt;div class=&quot;fp-stat&quot; data-rv style=&quot;--d:.1s&quot;&gt;&lt;b&gt;1955&lt;/b&gt;&lt;p&gt;Protecting Canadian buildings since the company was founded.&lt;/p&gt;&lt;/div&gt;
+      &lt;div class=&quot;fp-stat&quot; data-rv style=&quot;--d:.2s&quot;&gt;&lt;b&gt;4&lt;small&gt;sectors&lt;/small&gt;&lt;/b&gt;&lt;p&gt;Commercial, industrial, institutional and residential projects.&lt;/p&gt;&lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;fp-clients&quot; data-rv&gt;
+      &lt;p&gt;Clients include utilities, builders and infrastructure developers&lt;/p&gt;
+      &lt;ul class=&quot;fp-client-row&quot;&gt;
+        &lt;li&gt;Hydro-Québec&lt;span&gt;Utility&lt;/span&gt;&lt;/li&gt;
+        &lt;li&gt;Pomerleau&lt;span&gt;Builder&lt;/span&gt;&lt;/li&gt;
+        &lt;li&gt;SNC-Lavalin&lt;span&gt;Engineering&lt;/span&gt;&lt;/li&gt;
+        &lt;li&gt;Aluminerie Alouette&lt;span&gt;Industrial&lt;/span&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+      &lt;div class=&quot;fp-sectors&quot;&gt;&lt;span&gt;COMMERCIAL&lt;/span&gt;&lt;span&gt;INDUSTRIAL&lt;/span&gt;&lt;span&gt;INSTITUTIONAL&lt;/span&gt;&lt;span&gt;RESIDENTIAL&lt;/span&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+
+&lt;!-- 05 · METHOD --&gt;
+&lt;section class=&quot;fp-sec fp-method&quot; id=&quot;fp-method&quot; aria-labelledby=&quot;fp-method-t&quot;&gt;
+  &lt;div class=&quot;fp-wrap&quot;&gt;
+    &lt;div class=&quot;fp-head&quot;&gt;
+      &lt;div class=&quot;fp-label&quot; data-rv&gt;&lt;h2 id=&quot;fp-method-t&quot;&gt;Part of the&lt;br&gt;&lt;i&gt;whole envelope.&lt;/i&gt;&lt;/h2&gt;&lt;/div&gt;
+      &lt;p data-rv style=&quot;--d:.1s&quot;&gt;Fire protection is planned with the rest of the building envelope, from the first 3D model to the final compliance check, by the same team that builds the walls and roof around it.&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;ol class=&quot;fp-steps&quot;&gt;
+      &lt;li class=&quot;fp-step&quot; data-rv&gt;
+        &lt;svg width=&quot;44&quot; height=&quot;44&quot; viewBox=&quot;0 0 44 44&quot; aria-hidden=&quot;true&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.6&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;&gt;&lt;path d=&quot;M22 4 38 13v18L22 40 6 31V13Z&quot;/&gt;&lt;path d=&quot;M6 13l16 9 16-9M22 22v18&quot;/&gt;&lt;/svg&gt;
+        &lt;h3&gt;3D design mapping&lt;/h3&gt;&lt;p&gt;Map the elements to protect and how they meet the rest of the envelope, with the design team, before work begins.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li class=&quot;fp-step&quot; data-rv style=&quot;--d:.08s&quot;&gt;
+        &lt;svg width=&quot;44&quot; height=&quot;44&quot; viewBox=&quot;0 0 44 44&quot; aria-hidden=&quot;true&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.6&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;&gt;&lt;rect x=&quot;6&quot; y=&quot;8&quot; width=&quot;14&quot; height=&quot;28&quot; rx=&quot;3&quot;/&gt;&lt;rect x=&quot;24&quot; y=&quot;8&quot; width=&quot;14&quot; height=&quot;28&quot; rx=&quot;3&quot;/&gt;&lt;path d=&quot;M10 22h6M28 22h6M31 19v6&quot;/&gt;&lt;/svg&gt;
+        &lt;h3&gt;Material compatibility&lt;/h3&gt;&lt;p&gt;Confirm each fire product suits its substrate and the adjacent envelope layers it touches.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li class=&quot;fp-step&quot; data-rv style=&quot;--d:.16s&quot;&gt;
+        &lt;svg width=&quot;44&quot; height=&quot;44&quot; viewBox=&quot;0 0 44 44&quot; aria-hidden=&quot;true&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.6&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;&gt;&lt;path d=&quot;M22 8 38 16 22 24 6 16Z&quot;/&gt;&lt;path d=&quot;m6 22 16 8 16-8&quot;/&gt;&lt;path d=&quot;m6 28 16 8 16-8&quot;/&gt;&lt;/svg&gt;
+        &lt;h3&gt;Application&lt;/h3&gt;&lt;p&gt;Apply each system to the project specification: coatings in layers, fireproofing to thickness, walls and doors as rated.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li class=&quot;fp-step&quot; data-rv style=&quot;--d:.24s&quot;&gt;
+        &lt;svg width=&quot;44&quot; height=&quot;44&quot; viewBox=&quot;0 0 44 44&quot; aria-hidden=&quot;true&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.6&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;&gt;&lt;path d=&quot;M22 4 8 9v10c0 9 6 16 14 19 8-3 14-10 14-19V9Z&quot;/&gt;&lt;path d=&quot;m15 21 5 5 9-10&quot;/&gt;&lt;/svg&gt;
+        &lt;h3&gt;Compliance verification&lt;/h3&gt;&lt;p&gt;Check the installed work against the specification before handover.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ol&gt;
+
+  &lt;/div&gt;
+&lt;/section&gt;
+
+&lt;!-- 06 · ENQUIRY BRIEF --&gt;
+&lt;section class=&quot;fp-sec fp-brief&quot; id=&quot;fp-brief&quot; aria-labelledby=&quot;fp-brief-t&quot;&gt;
+  &lt;div class=&quot;fp-wrap&quot;&gt;
+    &lt;div class=&quot;fp-brief-grid&quot;&gt;
+      &lt;div data-rv&gt;
+        &lt;h2 id=&quot;fp-brief-t&quot;&gt;A project to&lt;br&gt;&lt;i&gt;carry out?&lt;/i&gt;&lt;/h2&gt;
+        &lt;p class=&quot;fp-brief-copy&quot;&gt;Select the systems and building type you have in mind to build a short enquiry brief, then send it with your submission request.&lt;/p&gt;
+        &lt;div class=&quot;fp-brief-ctas&quot;&gt;
+          &lt;a class=&quot;fp-btn fp-btn-primary&quot; href=&quot;https://snowden-design.wixstudio.com/mongrain-new/contact-us&quot; target=&quot;_top&quot;&gt;Request a submission
+            &lt;svg width=&quot;16&quot; height=&quot;16&quot; viewBox=&quot;0 0 16 16&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M3 8h10M9 4l4 4-4 4&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.6&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;/&gt;&lt;/svg&gt;&lt;/a&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;form class=&quot;fp-builder&quot; data-rv style=&quot;--d:.1s&quot; onsubmit=&quot;return false&quot; aria-label=&quot;Enquiry brief builder&quot;&gt;
+        &lt;fieldset&gt;
+          &lt;legend&gt;Systems of interest&lt;/legend&gt;
+          &lt;label class=&quot;fp-check&quot;&gt;&lt;input type=&quot;checkbox&quot; name=&quot;sys&quot; value=&quot;Intumescent coatings&quot; checked&gt;&lt;span class=&quot;fp-box&quot;&gt;&lt;svg width=&quot;11&quot; height=&quot;11&quot; viewBox=&quot;0 0 12 12&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;m2.5 6.2 2.3 2.3 4.7-5&quot; fill=&quot;none&quot; stroke=&quot;#fff&quot; stroke-width=&quot;1.8&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;/&gt;&lt;/svg&gt;&lt;/span&gt;Intumescent coatings&lt;/label&gt;
+          &lt;label class=&quot;fp-check&quot;&gt;&lt;input type=&quot;checkbox&quot; name=&quot;sys&quot; value=&quot;Traditional fireproofing&quot;&gt;&lt;span class=&quot;fp-box&quot;&gt;&lt;svg width=&quot;11&quot; height=&quot;11&quot; viewBox=&quot;0 0 12 12&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;m2.5 6.2 2.3 2.3 4.7-5&quot; fill=&quot;none&quot; stroke=&quot;#fff&quot; stroke-width=&quot;1.8&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;/&gt;&lt;/svg&gt;&lt;/span&gt;Traditional fireproofing&lt;/label&gt;
+          &lt;label class=&quot;fp-check&quot;&gt;&lt;input type=&quot;checkbox&quot; name=&quot;sys&quot; value=&quot;Thermal barriers&quot;&gt;&lt;span class=&quot;fp-box&quot;&gt;&lt;svg width=&quot;11&quot; height=&quot;11&quot; viewBox=&quot;0 0 12 12&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;m2.5 6.2 2.3 2.3 4.7-5&quot; fill=&quot;none&quot; stroke=&quot;#fff&quot; stroke-width=&quot;1.8&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;/&gt;&lt;/svg&gt;&lt;/span&gt;Thermal barriers&lt;/label&gt;
+          &lt;label class=&quot;fp-check&quot;&gt;&lt;input type=&quot;checkbox&quot; name=&quot;sys&quot; value=&quot;Firewalls &amp; partitions&quot;&gt;&lt;span class=&quot;fp-box&quot;&gt;&lt;svg width=&quot;11&quot; height=&quot;11&quot; viewBox=&quot;0 0 12 12&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;m2.5 6.2 2.3 2.3 4.7-5&quot; fill=&quot;none&quot; stroke=&quot;#fff&quot; stroke-width=&quot;1.8&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;/&gt;&lt;/svg&gt;&lt;/span&gt;Firewalls &amp;amp; partitions&lt;/label&gt;
+          &lt;label class=&quot;fp-check&quot;&gt;&lt;input type=&quot;checkbox&quot; name=&quot;sys&quot; value=&quot;Asbestos &amp; vermiculite removal&quot;&gt;&lt;span class=&quot;fp-box&quot;&gt;&lt;svg width=&quot;11&quot; height=&quot;11&quot; viewBox=&quot;0 0 12 12&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;m2.5 6.2 2.3 2.3 4.7-5&quot; fill=&quot;none&quot; stroke=&quot;#fff&quot; stroke-width=&quot;1.8&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;/&gt;&lt;/svg&gt;&lt;/span&gt;Asbestos &amp;amp; vermiculite removal&lt;/label&gt;
+        &lt;/fieldset&gt;
+        &lt;fieldset&gt;
+          &lt;legend&gt;Building type&lt;/legend&gt;
+          &lt;div class=&quot;fp-chips&quot; data-sector&gt;
+            &lt;button type=&quot;button&quot; class=&quot;fp-chip&quot; aria-pressed=&quot;true&quot;&gt;Commercial&lt;/button&gt;
+            &lt;button type=&quot;button&quot; class=&quot;fp-chip&quot; aria-pressed=&quot;false&quot;&gt;Industrial&lt;/button&gt;
+            &lt;button type=&quot;button&quot; class=&quot;fp-chip&quot; aria-pressed=&quot;false&quot;&gt;Institutional&lt;/button&gt;
+            &lt;button type=&quot;button&quot; class=&quot;fp-chip&quot; aria-pressed=&quot;false&quot;&gt;Residential&lt;/button&gt;
+          &lt;/div&gt;
+        &lt;/fieldset&gt;
+        &lt;div class=&quot;fp-builder-actions&quot;&gt;
+          &lt;button type=&quot;button&quot; class=&quot;fp-btn fp-btn-ink&quot; data-dl&gt;
+            &lt;svg width=&quot;15&quot; height=&quot;15&quot; viewBox=&quot;0 0 16 16&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M8 2v8M4.5 6.5 8 10l3.5-3.5M3 13.5h10&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.6&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;/&gt;&lt;/svg&gt;Download brief&lt;/button&gt;
+          &lt;button type=&quot;button&quot; class=&quot;fp-btn fp-btn-line&quot; data-copy&gt;
+            &lt;svg width=&quot;15&quot; height=&quot;15&quot; viewBox=&quot;0 0 16 16&quot; aria-hidden=&quot;true&quot;&gt;&lt;rect x=&quot;5&quot; y=&quot;5&quot; width=&quot;8.5&quot; height=&quot;8.5&quot; rx=&quot;2&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot;/&gt;&lt;path d=&quot;M11 3.5V3a1.5 1.5 0 0 0-1.5-1.5h-6A1.5 1.5 0 0 0 2 3v6a1.5 1.5 0 0 0 1.5 1.5H4&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot;/&gt;&lt;/svg&gt;Copy text&lt;/button&gt;
+        &lt;/div&gt;
+        &lt;p class=&quot;fp-note&quot; role=&quot;status&quot; aria-live=&quot;polite&quot; data-note&gt;Created on your device only. Nothing is sent to Mongrain.&lt;/p&gt;
+      &lt;/form&gt;
+    &lt;/div&gt;
+
+    &lt;footer class=&quot;fp-foot&quot;&gt;
+      &lt;a href=&quot;#fp-title&quot;&gt;Back to top ↑&lt;/a&gt;
+    &lt;/footer&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+(function(){
+  &#x27;use strict&#x27;;
+  /* Translatable strings: edit here for the French version. */
+  var STR = {
+    intu:&#x27;Intumescent coating&#x27;, trad:&#x27;Traditional fireproofing&#x27;,
+    intuCold:&#x27;Thin dry film&#x27;, intuHot:&#x27;Expanded insulating char&#x27;,
+    tradCold:&#x27;Spray-applied to specified thickness&#x27;, tradHot:&#x27;Insulating layer holds its thickness&#x27;,
+    heatOn:&#x27;Apply heat&#x27;, heatOff:&#x27;Remove heat&#x27;,
+    lblSteel:&#x27;STRUCTURAL STEEL · CUT&#x27;, lblIntu:&#x27;INTUMESCENT COAT&#x27;, lblChar:&#x27;CHAR LAYER&#x27;, lblTrad:&#x27;SPRAY FIREPROOFING&#x27;, lblFire:&#x27;FIRE EXPOSURE&#x27;,
+    below:&#x27;Below limit&#x27;, past:&#x27;Past limit&#x27;, limit:&#x27;Limiting steel temperature (example)&#x27;,
+    fire:&#x27;Fire&#x27;, unprot:&#x27;Unprotected&#x27;, prot:&#x27;Protected&#x27;, min:&#x27;min&#x27;, hour:&#x27;h&#x27;,
+    play:&#x27;Play three-hour exposure&#x27;, pause:&#x27;Pause&#x27;,
+    copied:&#x27;Brief copied. It has not been sent.&#x27;, noclip:&#x27;Clipboard unavailable. Use Download brief instead; nothing has been sent.&#x27;,
+    downloaded:&#x27;Brief downloaded to your device. Mongrain has not received it.&#x27;,
+    briefTitle:&#x27;MONGRAIN · FIRE PROTECTION ENQUIRY BRIEF&#x27;, briefSys:&#x27;Systems of interest&#x27;, briefType:&#x27;Building type&#x27;, none:&#x27;Not selected&#x27;,
+    briefFields:[&#x27;Project / location&#x27;,&#x27;Project team and contact&#x27;,&#x27;Design phase and schedule&#x27;,&#x27;Elements to protect and required ratings (from the specification)&#x27;,&#x27;Existing building? Year built, known asbestos or vermiculite&#x27;,&#x27;Preferred next discussion&#x27;],
+    briefNote:&#x27;Required ratings, products and thicknesses come from the project specification and its tested or listed assemblies. This brief was created on your device; Mongrain has not received it.&#x27;,
+    file:&#x27;mongrain-fire-protection-brief.txt&#x27;
+  };
+
+  var root = document.getElementById(&#x27;mg-fire&#x27;);
+  var reduce = window.matchMedia &amp;&amp; matchMedia(&#x27;(prefers-reduced-motion: reduce)&#x27;).matches;
+  root.classList.add(&#x27;fp-js&#x27;);
+  var NS = &#x27;http://www.w3.org/2000/svg&#x27;;
+  function el(tag, attrs, parent){ var n=document.createElementNS(NS,tag); for(var k in attrs) n.setAttribute(k,attrs[k]); if(parent) parent.appendChild(n); return n; }
+  function $(s){ return root.querySelector(s); }
+  function $$(s){ return Array.prototype.slice.call(root.querySelectorAll(s)); }
+
+  /* ---------- Reveal on view (IntersectionObserver; works inside the Wix iframe) ---------- */
+  var rv = $$(&#x27;[data-rv]&#x27;);
+  if (!(&#x27;IntersectionObserver&#x27; in window) || reduce) { rv.forEach(function(e){ e.classList.add(&#x27;is-in&#x27;); }); }
+  else {
+    var io = new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add(&#x27;is-in&#x27;); io.unobserve(e.target); } }); }, { threshold:.14, rootMargin:&#x27;0px 0px -6% 0px&#x27; });
+    rv.forEach(function(e){ io.observe(e); });
+    setTimeout(function(){ rv.forEach(function(e){ e.classList.add(&#x27;is-in&#x27;); }); }, 6000); /* safety net if the host never scrolls the iframe */
+  }
+
+  /* ---------- 01 · Interactive steel section ---------- */
+  var G = { cx:178, cy:318, ex:270, ey:-156, b:150, d:192, tf:18, tw:13, s0:.24 };
+  var gCoat = $(&#x27;[data-coat]&#x27;), gSteel = $(&#x27;[data-steel]&#x27;), gLbl = $(&#x27;[data-labels]&#x27;), foam = $(&#x27;[data-foam]&#x27;);
+  var state = { sys:&#x27;intu&#x27;, hot:false, t:3.2, target:3.2, raf:0 };
+  var COL = {
+    intu:{ top:&#x27;#eef1ee&#x27;, side:&#x27;#d2d9d7&#x27;, front:&#x27;#e4e9e6&#x27; },
+    char:{ top:&#x27;#4c4743&#x27;, side:&#x27;#2f2c2a&#x27;, front:&#x27;#3d3936&#x27; },
+    trad:{ top:&#x27;#cfc8b8&#x27;, side:&#x27;#aea692&#x27;, front:&#x27;#bdb5a3&#x27; }
+  };
+  function P(s,x,y){ return [G.cx + x + s*G.ex, G.cy + y + s*G.ey]; }
+  function pts(a){ return a.map(function(p){ return p[0].toFixed(1)+&#x27;,&#x27;+p[1].toFixed(1); }).join(&#x27; &#x27;); }
+  function profile(b,d,tf,tw){ var h=d/2, w=b/2, t=tw/2;
+    return [[-w,-h],[w,-h],[w,-h+tf],[t,-h+tf],[t,h-tf],[w,h-tf],[w,h],[-w,h],[-w,h-tf],[-t,h-tf],[-t,-h+tf],[-w,-h+tf]]; }
+  function prism(g, sa, sb, b,d,tf,tw, c, frontFill){
+    var h=d/2, w=b/2, t=tw/2;
+    function quad(x1,y1,x2,y2,fill){ el(&#x27;polygon&#x27;,{points:pts([P(sa,x1,y1),P(sa,x2,y2),P(sb,x2,y2),P(sb,x1,y1)]),fill:fill,stroke:&#x27;rgba(20,40,46,.35)&#x27;,&#x27;stroke-width&#x27;:.6,&#x27;stroke-linejoin&#x27;:&#x27;round&#x27;},g); }
+    quad(-w,h-tf, w,h-tf, c.top);      /* bottom flange top */
+    quad(w,h-tf, w,h, c.side);         /* bottom flange end */
+    quad(t,-h+tf, t,h-tf, c.side);     /* web face */
+    quad(-w,-h, w,-h, c.top);          /* top flange top */
+    quad(w,-h, w,-h+tf, c.side);       /* top flange end */
+    el(&#x27;polygon&#x27;,{points:pts(profile(b,d,tf,tw).map(function(p){ return P(sa,p[0],p[1]); })),fill:frontFill||c.front,stroke:&#x27;rgba(20,40,46,.45)&#x27;,&#x27;stroke-width&#x27;:.8,&#x27;stroke-linejoin&#x27;:&#x27;round&#x27;},g);
+  }
+  function lerp(a,b,k){ return a+(b-a)*k; }
+  function mix(c1,c2,k){ var a=parseInt(c1.slice(1),16), b=parseInt(c2.slice(1),16);
+    var r=Math.round(lerp(a&gt;&gt;16,b&gt;&gt;16,k)), g=Math.round(lerp(a&gt;&gt;8&amp;255,b&gt;&gt;8&amp;255,k)), bl=Math.round(lerp(a&amp;255,b&amp;255,k));
+    return &#x27;#&#x27;+((1&lt;&lt;24)|(r&lt;&lt;16)|(g&lt;&lt;8)|bl).toString(16).slice(1); }
+  function label(x1,y1,x2,y2,text,hot,right){ var r=right||x2&gt;x1; el(&#x27;path&#x27;,{d:&#x27;M&#x27;+x1+&#x27; &#x27;+y1+&#x27;L&#x27;+x2+&#x27; &#x27;+y2+&#x27;h&#x27;+(r?16:-16),class:&#x27;fp-leader&#x27;},gLbl); el(&#x27;circle&#x27;,{cx:x1,cy:y1,r:2.5,fill:&#x27;#33535b&#x27;},gLbl);
+    var tx=el(&#x27;text&#x27;,{x:x2+(r?20:-20),y:y2+3,class:&#x27;fp-lbl&#x27;+(hot?&#x27; fp-lbl-hot&#x27;:&#x27;&#x27;),&#x27;text-anchor&#x27;:r?&#x27;start&#x27;:&#x27;end&#x27;},gLbl); tx.textContent=text; }
+  function drawBeam(){
+    while(gCoat.firstChild) gCoat.removeChild(gCoat.firstChild);
+    while(gSteel.firstChild) gSteel.removeChild(gSteel.firstChild);
+    while(gLbl.firstChild) gLbl.removeChild(gLbl.firstChild);
+    var t = state.t, c;
+    if (state.sys===&#x27;intu&#x27;){ var k=Math.max(0,Math.min(1,(t-3.2)/(22-3.2))); c={top:mix(COL.intu.top,COL.char.top,k),side:mix(COL.intu.side,COL.char.side,k),front:mix(COL.intu.front,COL.char.front,k)}; foam.setAttribute(&#x27;scale&#x27;,(k*9).toFixed(1)); }
+    else { c=COL.trad; foam.setAttribute(&#x27;scale&#x27;,&#x27;3&#x27;); }
+    prism(gCoat, G.s0, 1, G.b+2*t, G.d+2*t, G.tf+2*t, G.tw+2*t, c);
+    prism(gSteel, 0, G.s0, G.b, G.d, G.tf, G.tw, {top:&#x27;#9aa6aa&#x27;,side:&#x27;#6b787d&#x27;,front:&#x27;#b5bfc2&#x27;}, &#x27;url(#fp-hatch)&#x27;);
+    var cp = P(.66, -20, -G.d/2 - t);
+    var sp=P(0,-G.tw/2-2,G.d/2-G.tf-40); label(sp[0], sp[1], 96, 470, STR.lblSteel, false, 1);
+    label(cp[0], cp[1], 300, 92, state.sys===&#x27;trad&#x27; ? STR.lblTrad : (t&gt;8 ? STR.lblChar : STR.lblIntu), state.sys===&#x27;intu&#x27; &amp;&amp; t&gt;8);
+    if (state.hot) { var fp = P(.62, 40, G.d/2+40); label(fp[0], fp[1], 470, 500, STR.lblFire, true, 1); }
+  }
+  /* flames + embers along the underside */
+  (function buildFire(){
+    var gf=$(&#x27;[data-flames]&#x27;), ge=$(&#x27;[data-embers]&#x27;);
+    for (var i=0;i&lt;11;i++){ var s=.05+i*.088, p=P(s, (i%2?-30:30), G.d/2+70), h=60+((i*37)%40), w=26+((i*13)%14);
+      var f=el(&#x27;path&#x27;,{d:&#x27;M&#x27;+p[0]+&#x27; &#x27;+p[1]+&#x27;c&#x27;+(-w/2)+&#x27; &#x27;+(-h*.35)+&#x27; &#x27;+(w*.1)+&#x27; &#x27;+(-h*.6)+&#x27; 0 &#x27;+(-h)+&#x27;c&#x27;+(w*.55)+&#x27; &#x27;+(h*.32)+&#x27; &#x27;+(w*.55)+&#x27; &#x27;+(h*.72)+&#x27; 0 &#x27;+h+&#x27;z&#x27;,fill:&#x27;url(#fp-fl)&#x27;,class:&#x27;fp-flame&#x27;,opacity:.85},gf);
+      f.style.animationDelay=(-(i*0.37)%1.6)+&#x27;s&#x27;; f.style.animationDuration=(1.2+(i%4)*.25)+&#x27;s&#x27;; }
+    for (var j=0;j&lt;16;j++){ var q=P(.05+j*.06, ((j*29)%60)-30, G.d/2+50);
+      var e=el(&#x27;circle&#x27;,{cx:q[0],cy:q[1],r:1.2+(j%3)*.6,fill:j%2?&#x27;#ffb46b&#x27;:&#x27;#ff7a2e&#x27;,class:&#x27;fp-ember&#x27;},ge);
+      e.style.setProperty(&#x27;--dx&#x27;,((j%5)-2)*14+&#x27;px&#x27;); e.style.animationDelay=(j*.23)+&#x27;s&#x27;; e.style.animationDuration=(2.6+(j%4)*.5)+&#x27;s&#x27;; }
+  })();
+  function setState(){
+    $(&#x27;[data-state-k]&#x27;).textContent = STR[state.sys];
+    $(&#x27;[data-state-v]&#x27;).textContent = state.sys===&#x27;intu&#x27; ? (state.hot?STR.intuHot:STR.intuCold) : (state.hot?STR.tradHot:STR.tradCold);
+    root.classList.toggle(&#x27;is-hot&#x27;, state.hot);
+    $(&#x27;[data-heat]&#x27;).setAttribute(&#x27;aria-pressed&#x27;, state.hot);
+    $(&#x27;[data-heat-l]&#x27;).textContent = state.hot ? STR.heatOff : STR.heatOn;
+    $$(&#x27;[data-sys]&#x27;).forEach(function(b){ b.setAttribute(&#x27;aria-pressed&#x27;, b.getAttribute(&#x27;data-sys&#x27;)===state.sys); });
+    state.target = state.sys===&#x27;trad&#x27; ? 15 : (state.hot ? 22 : 3.2);
+    animateTo();
+  }
+  function animateTo(){
+    cancelAnimationFrame(state.raf);
+    if (reduce){ state.t=state.target; drawBeam(); return; }
+    var from=state.t, to=state.target, dur= state.sys===&#x27;intu&#x27; &amp;&amp; state.hot ? 2600 : 700, t0=null;
+    function step(ts){ if(!t0) t0=ts; var k=Math.min(1,(ts-t0)/dur), e=1-Math.pow(1-k,3); state.t=from+(to-from)*e; drawBeam(); if(k&lt;1) state.raf=requestAnimationFrame(step); }
+    state.raf=requestAnimationFrame(step);
+  }
+  $$(&#x27;[data-sys]&#x27;).forEach(function(b){ b.addEventListener(&#x27;click&#x27;,function(){ state.sys=b.getAttribute(&#x27;data-sys&#x27;); if(state.sys===&#x27;trad&#x27;) state.t=Math.max(state.t,3.2); setState(); }); });
+  $(&#x27;[data-heat]&#x27;).addEventListener(&#x27;click&#x27;,function(){ state.hot=!state.hot; setState(); });
+  $(&#x27;[data-reset]&#x27;).addEventListener(&#x27;click&#x27;,function(){ state.sys=&#x27;intu&#x27;; state.hot=false; setState(); });
+  drawBeam();
+
+  /* ---------- 02 · Systems tabs (roving tabindex, arrow keys) ---------- */
+  var tabs = $$(&#x27;.fp-tab&#x27;);
+  function selectTab(i, focus){
+    tabs.forEach(function(t,j){ var on=i===j, p=document.getElementById(t.getAttribute(&#x27;aria-controls&#x27;));
+      t.setAttribute(&#x27;aria-selected&#x27;,on); t.tabIndex=on?0:-1; p.hidden=!on; if(on){ p.classList.remove(&#x27;is-swap&#x27;); void p.offsetWidth; p.classList.add(&#x27;is-swap&#x27;); } });
+    if(focus) tabs[i].focus();
+  }
+  tabs.forEach(function(t,i){
+    t.addEventListener(&#x27;click&#x27;,function(){ selectTab(i); });
+    t.addEventListener(&#x27;keydown&#x27;,function(e){ var k=e.key, n=null;
+      if(k===&#x27;ArrowDown&#x27;||k===&#x27;ArrowRight&#x27;) n=(i+1)%tabs.length; else if(k===&#x27;ArrowUp&#x27;||k===&#x27;ArrowLeft&#x27;) n=(i-1+tabs.length)%tabs.length; else if(k===&#x27;Home&#x27;) n=0; else if(k===&#x27;End&#x27;) n=tabs.length-1;
+      if(n!==null){ e.preventDefault(); selectTab(n,true); } });
+  });
+
+  /* ---------- 03 · Time chart ---------- */
+  var FIRE=[[0,20],[5,538],[10,704],[20,795],[30,843],[60,927],[90,978],[120,1010],[180,1052]];
+  function fireAt(m){ for(var i=1;i&lt;FIRE.length;i++){ if(m&lt;=FIRE[i][0]){ var a=FIRE[i-1], b=FIRE[i]; return a[1]+(b[1]-a[1])*(m-a[0])/(b[0]-a[0]); } } return FIRE[FIRE.length-1][1]; }
+  /* Schematic first-order lag models, not test data. */
+  function steelSeries(tau){ var out=[], T=20; for(var m=0;m&lt;=180;m+=.5){ T+=(fireAt(m)-T)*(.5/tau); if(m%1===0) out.push([m,T]); } return out; }
+  var UNP=steelSeries(9), PRO=steelSeries(360), LIMIT=538;
+  var chart=$(&#x27;[data-chart]&#x27;), C={}, VW=760, pf, pu, pp, cl, d1, d2, d3, layer=null;
+  function X(m){ return C.l+(C.r-C.l)*m/180; } function Y(v){ return C.b-(C.b-C.t)*v/1200; }
+  function line(data){ return data.map(function(p,i){ return (i?&#x27;L&#x27;:&#x27;M&#x27;)+X(p[0]).toFixed(1)+&#x27; &#x27;+Y(p[1]).toFixed(1); }).join(&#x27;&#x27;); }
+  /* The chart is drawn in CSS pixels at its real width, so labels stay legible on phones. */
+  function buildChart(){
+    VW=Math.max(300,Math.round(chart.getBoundingClientRect().width)||760);
+    var VH=Math.round(Math.max(250,Math.min(340,VW*.46))), narrow=VW&lt;520;
+    C={l:narrow?44:58,r:VW-(narrow?6:60),t:18,b:VH-36};
+    chart.setAttribute(&#x27;viewBox&#x27;,&#x27;0 0 &#x27;+VW+&#x27; &#x27;+VH);
+    if(layer) chart.removeChild(layer);
+    layer=el(&#x27;g&#x27;,{},chart);
+    for(var v=0; v&lt;=1200; v+=(narrow?400:200)){ el(&#x27;line&#x27;,{x1:C.l,x2:C.r,y1:Y(v),y2:Y(v),stroke:v?&#x27;#e6ecea&#x27;:&#x27;#9fb0b3&#x27;,&#x27;stroke-width&#x27;:1},layer); var ty=el(&#x27;text&#x27;,{x:C.l-8,y:Y(v)+3.5,&#x27;text-anchor&#x27;:&#x27;end&#x27;},layer); ty.textContent=v+(v===1200?&#x27;°C&#x27;:&#x27;&#x27;); }
+    for(var m=0; m&lt;=180; m+=(narrow?60:30)){ var tx=el(&#x27;text&#x27;,{x:X(m),y:C.b+22,&#x27;text-anchor&#x27;:m===0?&#x27;start&#x27;:(m===180&amp;&amp;narrow?&#x27;end&#x27;:&#x27;middle&#x27;),class:m%60===0&amp;&amp;m?&#x27;fp-hour&#x27;:&#x27;&#x27;},layer); tx.textContent = m%60===0&amp;&amp;m ? (m/60)+&#x27; &#x27;+STR.hour : m+(m===0?&#x27; &#x27;+STR.min:&#x27;&#x27;); if(m%60===0&amp;&amp;m) el(&#x27;line&#x27;,{x1:X(m),x2:X(m),y1:C.t,y2:C.b,stroke:&#x27;#e6ecea&#x27;},layer); }
+    el(&#x27;line&#x27;,{x1:C.l,x2:C.r,y1:Y(LIMIT),y2:Y(LIMIT),stroke:&#x27;#17323a&#x27;,&#x27;stroke-width&#x27;:1,&#x27;stroke-dasharray&#x27;:&#x27;2 4&#x27;},layer);
+    var lt=el(&#x27;text&#x27;,{x:C.r-4,y:Y(LIMIT)-8,&#x27;text-anchor&#x27;:&#x27;end&#x27;},layer); lt.textContent=STR.limit;
+    pf=el(&#x27;path&#x27;,{d:line(FIRE),fill:&#x27;none&#x27;,stroke:&#x27;#e3651d&#x27;,&#x27;stroke-width&#x27;:2.5,&#x27;stroke-linejoin&#x27;:&#x27;round&#x27;,&#x27;stroke-linecap&#x27;:&#x27;round&#x27;},layer);
+    pu=el(&#x27;path&#x27;,{d:line(UNP),fill:&#x27;none&#x27;,stroke:&#x27;#b8325a&#x27;,&#x27;stroke-width&#x27;:2,&#x27;stroke-dasharray&#x27;:&#x27;5 4&#x27;,&#x27;stroke-linecap&#x27;:&#x27;round&#x27;},layer);
+    pp=el(&#x27;path&#x27;,{d:line(PRO),fill:&#x27;none&#x27;,stroke:&#x27;#0a8fa6&#x27;,&#x27;stroke-width&#x27;:2.5,&#x27;stroke-linecap&#x27;:&#x27;round&#x27;},layer);
+    if(!narrow){ dl(VW-2, Y(1052)-8, STR.fire, &#x27;end&#x27;); dl(VW-2, Y(UNP[180][1])+16, STR.unprot, &#x27;end&#x27;); dl(VW-2, Y(PRO[180][1])+4, STR.prot, &#x27;end&#x27;); }
+    var cross=el(&#x27;g&#x27;,{&#x27;aria-hidden&#x27;:&#x27;true&#x27;},layer);
+    cl=el(&#x27;line&#x27;,{y1:C.t,y2:C.b,stroke:&#x27;#17323a&#x27;,&#x27;stroke-width&#x27;:1},cross);
+    d1=el(&#x27;circle&#x27;,{r:5,fill:&#x27;#e3651d&#x27;,stroke:&#x27;#fcfcfb&#x27;,&#x27;stroke-width&#x27;:2},cross); d2=el(&#x27;circle&#x27;,{r:5,fill:&#x27;#b8325a&#x27;,stroke:&#x27;#fcfcfb&#x27;,&#x27;stroke-width&#x27;:2},cross); d3=el(&#x27;circle&#x27;,{r:5,fill:&#x27;#0a8fa6&#x27;,stroke:&#x27;#fcfcfb&#x27;,&#x27;stroke-width&#x27;:2},cross);
+  }
+  function dl(x,y,t,a){ var n=el(&#x27;text&#x27;,{x:x,y:y,class:&#x27;fp-dl&#x27;,&#x27;text-anchor&#x27;:a},layer); n.textContent=t; }
+  buildChart();
+  var range=$(&#x27;[data-range]&#x27;);
+  function setTime(m){ m=Math.max(0,Math.min(180,Math.round(m))); range.value=m; range.style.setProperty(&#x27;--p&#x27;,(m/180*100)+&#x27;%&#x27;);
+    var x=X(m); cl.setAttribute(&#x27;x1&#x27;,x); cl.setAttribute(&#x27;x2&#x27;,x);
+    d1.setAttribute(&#x27;cx&#x27;,x); d1.setAttribute(&#x27;cy&#x27;,Y(fireAt(m))); d2.setAttribute(&#x27;cx&#x27;,x); d2.setAttribute(&#x27;cy&#x27;,Y(UNP[m][1])); d3.setAttribute(&#x27;cx&#x27;,x); d3.setAttribute(&#x27;cy&#x27;,Y(PRO[m][1]));
+    $(&#x27;[data-r-time]&#x27;).innerHTML = m+&#x27; &lt;small&gt;&#x27;+STR.min+&#x27;&lt;/small&gt;&#x27;;
+    $(&#x27;[data-r-fire]&#x27;).innerHTML = &#x27;≈ &#x27;+Math.round(fireAt(m))+&#x27; &lt;small&gt;°C&lt;/small&gt;&#x27;;
+    $(&#x27;[data-r-steel]&#x27;).textContent = PRO[m][1] &lt; LIMIT ? STR.below : STR.past;
+  }
+  range.addEventListener(&#x27;input&#x27;,function(){ stop(); setTime(+range.value); });
+  chart.addEventListener(&#x27;pointermove&#x27;,function(e){ var r=chart.getBoundingClientRect(), vx=(e.clientX-r.left)/r.width*VW; if(vx&lt;C.l||vx&gt;C.r) return; stop(); setTime((vx-C.l)/(C.r-C.l)*180); });
+  var playing=0, playBtn=$(&#x27;[data-play]&#x27;);
+  function stop(){ if(playing){ cancelAnimationFrame(playing); playing=0; playBtn.setAttribute(&#x27;aria-label&#x27;,STR.play); playBtn.innerHTML=&#x27;&lt;svg width=&quot;14&quot; height=&quot;14&quot; viewBox=&quot;0 0 16 16&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M4 2.5v11l9-5.5Z&quot; fill=&quot;currentColor&quot;/&gt;&lt;/svg&gt;&#x27;; } }
+  playBtn.addEventListener(&#x27;click&#x27;,function(){
+    if(playing){ stop(); return; }
+    var m=+range.value&gt;=180?0:+range.value, last=null;
+    playBtn.setAttribute(&#x27;aria-label&#x27;,STR.pause); playBtn.innerHTML=&#x27;&lt;svg width=&quot;14&quot; height=&quot;14&quot; viewBox=&quot;0 0 16 16&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M4.5 3v10M11.5 3v10&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2.2&quot; stroke-linecap=&quot;round&quot;/&gt;&lt;/svg&gt;&#x27;;
+    function tick(ts){ if(last===null) last=ts; m+=(ts-last)/1000*30; last=ts; setTime(m); if(m&lt;180) playing=requestAnimationFrame(tick); else stop(); }
+    playing=requestAnimationFrame(tick);
+  });
+  /* draw-on of the lines when the chart enters view */
+  if(!reduce &amp;&amp; &#x27;IntersectionObserver&#x27; in window){
+    [pf,pu,pp].forEach(function(p){ var L=p.getTotalLength(); p.style.strokeDasharray=p===pu?&#x27;&#x27;:L; if(p!==pu){ p.style.strokeDashoffset=L; } else { p.style.opacity=0; } });
+    var cio=new IntersectionObserver(function(es){ if(!es[0].isIntersecting) return; cio.disconnect();
+      [pf,pp].forEach(function(p,i){ p.style.transition=&#x27;stroke-dashoffset 1.8s &#x27;+(.15+i*.25)+&#x27;s cubic-bezier(.2,.8,.2,1)&#x27;; p.style.strokeDashoffset=0; });
+      pu.style.transition=&#x27;opacity 1.2s .3s&#x27;; pu.style.opacity=1; },{threshold:.3});
+    cio.observe(chart);
+  }
+  setTime(60);
+  var rz; window.addEventListener(&#x27;resize&#x27;,function(){ clearTimeout(rz); rz=setTimeout(function(){ var w=Math.round(chart.getBoundingClientRect().width); if(w&amp;&amp;Math.abs(w-VW)&gt;2){ buildChart(); setTime(+range.value); } },150); });
+
+  /* ---------- 06 · Enquiry brief (local only) ---------- */
+  var chips=$$(&#x27;[data-sector] .fp-chip&#x27;);
+  chips.forEach(function(c){ c.addEventListener(&#x27;click&#x27;,function(){ c.setAttribute(&#x27;aria-pressed&#x27;, c.getAttribute(&#x27;aria-pressed&#x27;)!==&#x27;true&#x27;); }); });
+  function brief(){
+    var sys=$$(&#x27;input[name=&quot;sys&quot;]:checked&#x27;).map(function(i){ return i.value; });
+    var types=chips.filter(function(c){ return c.getAttribute(&#x27;aria-pressed&#x27;)===&#x27;true&#x27;; }).map(function(c){ return c.textContent; });
+    return STR.briefTitle+&#x27;\n\n&#x27;+STR.briefSys+&#x27;: &#x27;+(sys.join(&#x27;, &#x27;)||STR.none)+&#x27;\n&#x27;+STR.briefType+&#x27;: &#x27;+(types.join(&#x27;, &#x27;)||STR.none)+&#x27;\n\n&#x27;+
+      STR.briefFields.map(function(f){ return f+&#x27;: ______________________________&#x27;; }).join(&#x27;\n&#x27;)+&#x27;\n\n&#x27;+STR.briefNote;
+  }
+  var note=$(&#x27;[data-note]&#x27;);
+  $(&#x27;[data-copy]&#x27;).addEventListener(&#x27;click&#x27;,function(){
+    if(navigator.clipboard &amp;&amp; navigator.clipboard.writeText){ navigator.clipboard.writeText(brief()).then(function(){ note.textContent=STR.copied; },function(){ note.textContent=STR.noclip; }); }
+    else note.textContent=STR.noclip;
+  });
+  $(&#x27;[data-dl]&#x27;).addEventListener(&#x27;click&#x27;,function(){
+    var url=URL.createObjectURL(new Blob([brief()],{type:&#x27;text/plain;charset=utf-8&#x27;})), a=document.createElement(&#x27;a&#x27;);
+    a.href=url; a.download=STR.file; document.body.appendChild(a); a.click(); a.remove(); setTimeout(function(){ URL.revokeObjectURL(url); },500);
+    note.textContent=STR.downloaded;
+  });
+})();
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+</div>
+<script>
+var code=document.getElementById('code').textContent, f=document.getElementById('frame'), win=document.getElementById('win');
+f.srcdoc=code;
+document.querySelectorAll('[data-w]').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('[data-w]').forEach(function(x){x.setAttribute('aria-pressed',x===b)});win.style.maxWidth=b.dataset.w==='100%'?'none':b.dataset.w;});});
+document.querySelectorAll('[data-copy]').forEach(function(b){b.addEventListener('click',function(){var t=b.textContent;(navigator.clipboard?navigator.clipboard.writeText(code):Promise.reject()).then(function(){b.textContent='Copied';},function(){var r=document.createRange();r.selectNodeContents(document.getElementById('code'));var s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='Selected: press Ctrl/Cmd+C';}).finally(function(){setTimeout(function(){b.textContent=t},2200)});});});
+</script></body></html>

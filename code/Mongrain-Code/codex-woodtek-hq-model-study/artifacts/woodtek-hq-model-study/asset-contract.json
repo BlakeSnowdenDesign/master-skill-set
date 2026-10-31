@@ -1,0 +1,50 @@
+{
+  "asset": "woodtek-hq.glb",
+  "version": "1.0-review-study",
+  "units": "metres (approximate visual scale)",
+  "gltf": "2.0",
+  "upAxis": "+Y",
+  "frontExteriorAxis": "+Z",
+  "origin": "grade-level center of the primary building footprint",
+  "sourceBasis": [
+    "Uploaded WoodTek HQ exterior photographs",
+    "Ground-floor and fourth-floor plans",
+    "Roof penthouse plan",
+    "Building and stair sections",
+    "Envelope detail sheets"
+  ],
+  "nodeGroups": {
+    "C-": "Context and site elements",
+    "S-": "Primary concrete structure and floor levels",
+    "A-": "Architectural form, cladding, terraces, and roof elements",
+    "G-": "Glazing, window frames, and glass guards"
+  },
+  "levelGroups": [
+    "S-BASEMENT",
+    "S-LEVEL-00",
+    "S-LEVEL-01",
+    "S-LEVEL-02",
+    "S-LEVEL-03",
+    "A-ROOF-PENTHOUSE"
+  ],
+  "viewerInteractions": {
+    "explode": "Moves the named floor and roof groups along Y; reset restores original GLB transforms",
+    "systemIsolation": ["all", "structure", "envelope", "glazing"],
+    "selection": "Raycast selection reports the stable component node name in the accessible status panel"
+  },
+  "materials": [
+    "Concrete • warm grey",
+    "Oxidized amber cladding",
+    "Dark bronze cladding",
+    "Warm soffit timber",
+    "Charcoal window frame",
+    "Blue grey glazing",
+    "Site • pale stone",
+    "Interior shadow"
+  ],
+  "limitations": [
+    "Massing dimensions are estimated from non-dimensioned supplied raster drawings and photographs.",
+    "This visual study does not validate hidden assemblies, structure, code compliance, or as-built conditions.",
+    "Exploded offsets are diagrammatic and do not represent installation or separation distances."
+  ]
+}

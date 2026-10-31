@@ -1,0 +1,472 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Snowden Design — Studio navigation</title><meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet"><link href="https://api.fontshare.com/v2/css?f[]=satoshi@500,600,700,500i,600i,700i&display=swap" rel="stylesheet">
+<style>html,body{margin:0;padding:0;background:transparent} @property --sd-turn { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+.sd-header {
+  --glass-ink: #30383d;
+  /* Brushed aluminum finish. Light/dark sectors of a conic gradient give the
+     anisotropic reflection of turned metal; --sd-grain adds the lathe lines
+     (painted once on a canvas by the script; this CSS ring pattern is the fallback). */
+  --sd-turned: #bcc3cb 0deg, #f4f6f8 22deg, #a3acb6 48deg, #e8ebee 70deg, #fbfcfd 84deg, #9ba4ae 112deg,
+    #d7dce1 140deg, #b0b8c0 170deg, #eef1f3 200deg, #a7b0b9 228deg, #f6f8f9 254deg,
+    #a0a9b3 280deg, #e3e7ea 302deg, #fcfdfd 320deg, #99a3ad 344deg, #bcc3cb 360deg;
+  --sd-bezel: linear-gradient(180deg, #ffffff 0%, #eef2f5 22%, #c4ccd4 50%, #e4e9ed 74%, #ffffff 90%, #d2d9df 100%);
+  --sd-grain-size: 1100px;
+  --sd-grain: repeating-radial-gradient(circle at 50% 50%, rgba(255,255,255,.08) 0 .6px, rgba(52,62,72,.05) .9px 1.4px, rgba(0,0,0,0) 1.7px 2.5px);
+  position: relative;
+  z-index: 60;
+  width: 100%;
+  height: 76px;
+  color: var(--glass-ink);
+  font-family: "Satoshi", "Google Sans Flex", sans-serif;
+  background: transparent;
+}
+.sd-header *, .sd-header *::before, .sd-header *::after { box-sizing: border-box; }
+.sd-header__bar {
+  height: 76px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 8px clamp(14px, 3.3vw, 42px);
+  position: relative;
+  z-index: 2;
+  pointer-events: none;
+}
+.sd-header__toggle {
+  position: relative;
+  width: 58px;
+  height: 58px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  pointer-events: auto;
+  filter: drop-shadow(0 5px 6px rgba(36, 42, 46, .22));
+  transition: transform .28s cubic-bezier(.2,.8,.2,1), filter .28s;
+}
+.sd-header__toggle:hover { transform: translateY(-2px); filter: drop-shadow(0 8px 9px rgba(36,42,46,.26)); }
+.sd-header__toggle:active { transform: translateY(1px) scale(.97); }
+.sd-header__toggle:focus-visible { outline: 2px solid rgba(66,75,82,.8); outline-offset: 5px; }
+.sd-header__toggle-face {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 50%;
+  /* Turned aluminum disc in a polished bezel, same finish as the menu buttons. */
+  border: 3px solid transparent;
+  background:
+    radial-gradient(70% 55% at 28% 14%, rgba(255,255,255,.8), rgba(255,255,255,0) 70%) padding-box,
+    var(--sd-grain) center / var(--sd-grain-size) var(--sd-grain-size) no-repeat padding-box,
+    conic-gradient(from 12deg at 50% 50%, var(--sd-turned)) padding-box,
+    var(--sd-bezel) border-box;
+  box-shadow:
+    inset 0 0 0 1px rgba(88,100,112,.55),
+    inset 0 0 0 2px rgba(255,255,255,.82),
+    inset 0 -4px 6px -3px rgba(36,44,52,.32),
+    0 0 0 1px rgba(118,128,138,.7),
+    0 1px 0 1px rgba(255,255,255,.6);
+}
+.sd-header__toggle-face::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(60% 40% at 50% 100%, rgba(255,240,218,.45), rgba(255,240,218,0) 80%);
+  pointer-events: none;
+}
+.sd-header__toggle-face::after {
+  content: "";
+  position: absolute;
+  inset: -55% -45%;
+  transform: translateX(-74%) rotate(18deg);
+  background: linear-gradient(100deg, transparent 40%, rgba(255,255,255,.08) 45%, rgba(255,255,255,.84) 50%, rgba(255,255,255,.22) 54%, transparent 61%);
+  pointer-events: none;
+  animation: sd-toggle-sheen 8s ease-in-out infinite;
+}
+.sd-header__toggle-lines {
+  width: 24px;
+  height: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  z-index: 1;
+}
+.sd-header__toggle-lines i {
+  display: block;
+  width: 100%;
+  height: 2.5px;
+  border-radius: 999px;
+  background: linear-gradient(180deg,#f7fafb 0%,#737d83 35%,#333c41 75%,#1f272b 100%);
+  box-shadow: 0 1px 0 rgba(255,255,255,.94), inset 0 1px 1px rgba(20,25,28,.25), 0 1px 2px rgba(35,40,44,.28);
+  transition: transform .28s, width .28s, opacity .2s;
+}
+.sd-header__toggle-lines i:nth-child(2) { width: 82%; align-self: center; }
+.sd-header__toggle-lines i:nth-child(3) { width: 65%; align-self: flex-end; }
+.sd-header.is-open .sd-header__toggle-lines i:first-child { transform: translateY(8.5px) rotate(45deg); }
+.sd-header.is-open .sd-header__toggle-lines i:nth-child(2) { opacity: 0; }
+.sd-header.is-open .sd-header__toggle-lines i:last-child { width: 100%; transform: translateY(-8.5px) rotate(-45deg); }
+.sd-header__panel {
+  position: absolute;
+  z-index: 1;
+  top: 8px;
+  left: clamp(11%, 13vw, 15%);
+  right: clamp(82px, 8vw, 112px);
+  max-height: calc(100dvh - 18px);
+  overflow: visible;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-auto-rows: minmax(38px, auto);
+  align-content: start;
+  gap: 9px;
+  padding: 5px 5px 10px;
+  background: transparent;
+  visibility: hidden;
+  pointer-events: none;
+}
+.sd-header.is-open .sd-header__panel { visibility: visible; pointer-events: auto; }
+.sd-header__link {
+  /* Turning centre of the brushed grain, relative to the button face.
+     Each button gets its own (see nth-child below) so no two plates match. */
+  --cx: 34%;
+  --cy: 165%;
+  --sd-base: 0deg;
+  position: relative;
+  display: flex;
+  align-items: center;
+  isolation: isolate;
+  min-height: 38px;
+  width: 100%;
+  padding: 4px 14px;
+  border-radius: 14px;
+  border: 4px solid transparent;
+  background:
+    /* top-left specular bloom */
+    radial-gradient(34% 130% at 3% 0%, rgba(255,255,255,.9), rgba(255,255,255,0) 62%) padding-box,
+    /* warm glint off the tan wall, bottom-right corner */
+    radial-gradient(9% 70% at 97% 92%, #fff3e0, rgba(255,226,186,.55) 40%, rgba(255,226,186,0) 80%) padding-box,
+    /* plate turns away from the light at the right end, cool at the left */
+    linear-gradient(90deg, rgba(90,104,118,.3) 0%, rgba(255,255,255,.55) 3.5%, rgba(255,255,255,0) 12%, rgba(60,66,72,0) 76%, rgba(48,54,60,.62) 91%, rgba(56,60,64,.36) 100%) padding-box,
+    /* bright catch on the top-right shoulder */
+    radial-gradient(10% 45% at 93% 6%, rgba(255,255,255,.9), rgba(255,255,255,0) 80%) padding-box,
+    /* soft roll-off top and bottom */
+    linear-gradient(180deg, rgba(255,255,255,.22), rgba(255,255,255,0) 30%, rgba(40,50,60,.06) 60%, rgba(255,255,255,.18)) padding-box,
+    /* anisotropic reflection of turned metal */
+    conic-gradient(from calc(var(--sd-base) + var(--sd-turn)) at var(--cx) var(--cy), var(--sd-turned)) padding-box,
+    /* glints on the polished rim: warm bottom-right, white top corners */
+    radial-gradient(7% 55% at 95% 100%, #fff4e2, rgba(255,232,200,0) 100%) border-box,
+    radial-gradient(5% 45% at 4% 4%, #fff, rgba(255,255,255,0) 100%) border-box,
+    radial-gradient(6% 45% at 90% 0%, #fff, rgba(255,255,255,0) 100%) border-box,
+    var(--sd-bezel) border-box;
+  box-shadow:
+    inset 0 0 0 1px rgba(62,74,86,.85),
+    inset 0 0 0 2px rgba(255,255,255,.9),
+    inset 0 3px 5px -1px rgba(40,50,62,.28),
+    inset 0 -7px 10px -9px rgba(36,44,52,.5),
+    0 0 0 1px rgba(84,96,108,.85),
+    0 1px 0 1px rgba(255,255,255,.55),
+    0 3px 4px rgba(96,70,36,.2),
+    0 9px 16px -4px rgba(96,66,28,.3);
+  color: #0b0e10;
+  text-decoration: none;
+  font-size: clamp(13px, 3.8vw, 14.5px);
+  line-height: 1.2;
+  font-weight: 650;
+  font-style: normal;
+  letter-spacing: -.018em;
+  text-shadow: 0 1px 0 rgba(255,255,255,.6);
+  opacity: 0;
+  transform: translateX(var(--entry-x, 0px)) rotateY(-5deg);
+  transform-origin: right center;
+  transition: color .2s, font-style .2s, font-weight .2s, box-shadow .24s, --sd-turn .7s cubic-bezier(.2,.8,.2,1);
+  transition-delay: 0ms;
+  will-change: opacity, transform;
+}
+.sd-header__link:nth-child(1) { --cx: 30%; --cy: 320%; --sd-base: 4deg; }
+.sd-header__link:nth-child(2) { --cx: 75%; --cy: 260%; --sd-base: -10deg; }
+.sd-header__link:nth-child(3) { --cx: 57%; --cy: 100%; --sd-base: 0deg; }
+.sd-header__link:nth-child(4) { --cx: 38%; --cy: 380%; --sd-base: 14deg; }
+.sd-header__link:nth-child(5) { --cx: 85%; --cy: 240%; --sd-base: -6deg; }
+.sd-header__link:nth-child(6) { --cx: 20%; --cy: 300%; --sd-base: 9deg; }
+.sd-header__link:nth-child(7) { --cx: 66%; --cy: 420%; --sd-base: -14deg; }
+.sd-header__link:nth-child(8) { --cx: 44%; --cy: 280%; --sd-base: 6deg; }
+.sd-header__sweep {
+  position: absolute;
+  z-index: -1;
+  inset: 2px;
+  overflow: hidden;
+  border-radius: 8px;
+  pointer-events: none;
+}
+/* Specular sweep that crosses the plate on hover. */
+.sd-header__sweep::before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  inset: -35% -52%;
+  transform: translateX(-76%) rotate(0.001deg);
+  background: linear-gradient(100deg, transparent 39%, rgba(255,255,255,.1) 44%, rgba(255,255,255,.72) 49%, rgba(255,255,255,.26) 52%, rgba(255,240,220,.18) 55%, transparent 62%);
+  transition: transform .55s cubic-bezier(.2,.7,.2,1);
+}
+/* Circular lathe grain, centred on the button's turning point. */
+.sd-header__sweep::after {
+  content: "";
+  position: absolute;
+  width: var(--sd-grain-size);
+  height: var(--sd-grain-size);
+  left: calc(var(--cx) - var(--sd-grain-size) / 2);
+  top: calc(var(--cy) - var(--sd-grain-size) / 2);
+  background: var(--sd-grain) center / 100% 100% no-repeat;
+  pointer-events: none;
+}
+.sd-header__label {
+  position: relative;
+  z-index: 1;
+  transition: font-style .2s, font-weight .2s, color .2s;
+}
+.sd-header.is-open .sd-header__link {
+  opacity: 1;
+  transform: translateX(0) rotateY(0);
+  animation: sd-glass-arrive .48s cubic-bezier(.2,.75,.25,1) backwards;
+  animation-delay: calc(var(--i, 0) * 125ms);
+}
+.sd-header__link:hover,
+.sd-header__link:focus-visible,
+.sd-header__link.is-hot {
+  color: #05080a;
+  font-style: italic;
+  font-weight: 750;
+  transform: translateY(-2px);
+  /* the reflection rotates as if the light moved across the turned face */
+  --sd-turn: 24deg;
+  box-shadow:
+    inset 0 0 0 1px rgba(72,84,96,.72),
+    inset 0 0 0 2px rgba(255,255,255,.95),
+    inset 0 3px 5px -1px rgba(40,50,62,.22),
+    inset 0 -7px 10px -9px rgba(36,44,52,.42),
+    0 0 0 1px rgba(110,120,130,.72),
+    0 1px 0 1px rgba(255,255,255,.7),
+    0 5px 7px rgba(96,70,36,.2),
+    0 14px 24px -6px rgba(96,66,28,.36);
+}
+.sd-header__link:hover .sd-header__sweep::before,
+.sd-header__link:focus-visible .sd-header__sweep::before,
+.sd-header__link.is-hot .sd-header__sweep::before { transform: translateX(76%) rotate(0.001deg); }
+.sd-header__link:focus-visible { outline: 2px solid rgba(25,34,39,.92); outline-offset: 4px; }
+.sd-header__link:active {
+  transform: translateY(1px) scale(.992);
+  --sd-turn: 34deg;
+  box-shadow:
+    inset 0 0 0 1px rgba(80,92,104,.6),
+    inset 0 0 0 2px rgba(255,255,255,.6),
+    inset 0 3px 7px rgba(30,38,46,.34),
+    0 0 0 1px rgba(110,120,130,.72),
+    0 1px 0 1px rgba(255,255,255,.5),
+    0 1px 2px rgba(96,70,36,.28);
+}
+.sd-header.is-closing .sd-header__panel { visibility: visible; pointer-events: none; }
+.sd-header.is-closing .sd-header__link {
+  opacity: 1;
+  transform: translateX(0) rotateY(0);
+  animation: sd-glass-leave .42s cubic-bezier(.5,0,.75,.2) forwards;
+  animation-delay: calc(var(--i-out, 0) * 90ms);
+}
+@keyframes sd-glass-leave {
+  from { opacity: 1; transform: translateX(0) rotateY(0); }
+  to { opacity: 0; transform: translateX(var(--entry-x, 0px)) rotateY(-5deg); }
+}
+@keyframes sd-glass-arrive {
+  from { opacity: 0; transform: translateX(var(--entry-x, 0px)) rotateY(-5deg); }
+  to { opacity: 1; transform: translateX(0) rotateY(0); }
+}
+@keyframes sd-toggle-sheen {
+  0%, 58% { transform: translateX(-74%) rotate(18deg); }
+  82%, 100% { transform: translateX(74%) rotate(18deg); }
+}
+@media (max-width: 900px) {
+  .sd-header__panel {
+    left: clamp(10%, 12vw, 16%);
+    right: clamp(76px, 9vw, 96px);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 600px) {
+  .sd-header__panel {
+    top: 67px;
+    left: 12px;
+    right: 12px;
+    width: auto;
+    max-height: calc(100dvh - 82px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+    padding: 5px 5px 14px;
+  }
+  .sd-header__link { min-height: 50px; border-width: 5px; border-radius: 16px; font-size: 17px; font-weight: 700; padding-inline: 18px; }
+}
+@media (max-width: 380px) {
+  .sd-header__panel { left: 10px; right: 10px; }
+  .sd-header__link { padding-inline: 14px; }
+}
+@media (max-height: 520px) {
+  .sd-header__panel { max-height: calc(100dvh - 18px); }
+}
+@media (max-width: 600px) and (max-height: 520px) {
+  .sd-header__panel { max-height: calc(100dvh - 82px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sd-header *, .sd-header *::before, .sd-header *::after { scroll-behavior: auto !important; animation: none !important; transition-duration: .01ms !important; }
+  .sd-header.is-open .sd-header__link { opacity: 1; transform: none; }
+  .sd-header__sweep::before { transform: none !important; opacity: .16; }
+  .sd-header__link:hover, .sd-header__link:focus-visible, .sd-header__link.is-hot { --sd-turn: 0deg; }
+}
+</style></head>
+<body><header class="sd-header" data-sd-header>
+    <div class="sd-header__bar">
+      <button class="sd-header__toggle" type="button" aria-label="Open site menu" aria-expanded="false" aria-controls="sd-header-navigation" data-sd-toggle data-testid="button-menu">
+        <span class="sd-header__toggle-face" aria-hidden="true"><span class="sd-header__toggle-lines"><i></i><i></i><i></i></span></span>
+      </button>
+    </div>
+    <nav class="sd-header__panel" id="sd-header-navigation" aria-label="Main navigation" aria-hidden="true" inert>
+      <a class="sd-header__link" href="https://www.snowden-design.com/work" target="_top" style="--col:0;--row:0;--i:0" data-testid="link-nav-work"><span class="sd-header__sweep" aria-hidden="true"></span><span class="sd-header__label">Work</span></a><a class="sd-header__link" href="https://www.snowden-design.com/services" target="_top" style="--col:1;--row:0;--i:1" data-testid="link-nav-services"><span class="sd-header__sweep" aria-hidden="true"></span><span class="sd-header__label">Services</span></a><a class="sd-header__link" href="https://www.snowden-design.com/home-1-1-1" target="_top" style="--col:2;--row:0;--i:2" data-testid="link-nav-3d-rendering"><span class="sd-header__sweep" aria-hidden="true"></span><span class="sd-header__label">3D & Rendering</span></a><a class="sd-header__link" href="https://www.snowden-design.com/seo-geo" target="_top" style="--col:3;--row:0;--i:3" data-testid="link-nav-seo-geo"><span class="sd-header__sweep" aria-hidden="true"></span><span class="sd-header__label">SEO & GEO</span></a><a class="sd-header__link" href="https://www.snowden-design.com/website-growth" target="_top" style="--col:0;--row:1;--i:4" data-testid="link-nav-website-growth-plans"><span class="sd-header__sweep" aria-hidden="true"></span><span class="sd-header__label">Website & Growth Plans</span></a><a class="sd-header__link" href="https://www.snowden-design.com/drone-photograph-video" target="_top" style="--col:1;--row:1;--i:5" data-testid="link-nav-photography-video-aerial"><span class="sd-header__sweep" aria-hidden="true"></span><span class="sd-header__label">Photography, Video & Aerial</span></a><a class="sd-header__link" href="https://www.snowden-design.com/about" target="_top" style="--col:2;--row:1;--i:6" data-testid="link-nav-about"><span class="sd-header__sweep" aria-hidden="true"></span><span class="sd-header__label">About</span></a><a class="sd-header__link" href="https://www.snowden-design.com/contact" target="_top" style="--col:3;--row:1;--i:7" data-testid="link-nav-contact"><span class="sd-header__sweep" aria-hidden="true"></span><span class="sd-header__label">Contact</span></a>
+    </nav>
+  </header><script>(function(){var paintGrain=function paintGrain(header) {
+  // Paints the circular lathe grain once and hands it to the CSS as --sd-grain.
+  // If anything here fails, the CSS fallback grain stays in place.
+  try {
+    const size = 1100, k = Math.min(2, window.devicePixelRatio || 1), n = Math.round(size * k);
+    const canvas = document.createElement("canvas");
+    canvas.width = canvas.height = n;
+    const g = canvas.getContext("2d");
+    if (!g || !canvas.toBlob) return;
+    const m = n / 2, R = m * 1.42, TAU = Math.PI * 2;
+    const stroke = (r, from, to, light, alpha, width) => {
+      g.strokeStyle = light ? `rgba(255,255,255,${alpha})` : `rgba(40,50,60,${alpha})`;
+      g.lineWidth = width;
+      g.beginPath(); g.arc(m, m, r, from, to); g.stroke();
+    };
+    g.lineCap = "round";
+    for (let r = k; r < R; r += 0.8 * k) stroke(r, 0, TAU, Math.random() < .5, Math.random() * .03, .5 * k);
+    for (let i = 0; i < 7000; i++) {
+      const r = Math.sqrt(Math.random()) * R, start = Math.random() * TAU;
+      const sweep = Math.min(TAU, (16 + Math.random() * 150) * k / Math.max(r, 1));
+      const light = Math.random() < .55;
+      stroke(r, start, start + sweep, light, (light ? .04 : .025) + Math.random() * (light ? .1 : .06), (.4 + Math.random() * .5) * k);
+    }
+    canvas.toBlob(blob => { if (blob) header.style.setProperty("--sd-grain", `url(${URL.createObjectURL(blob)})`); });
+  } catch (e) {}
+};var initHeader=function initHeader(root, { open: openInitially = false } = {}) {
+  const header = root.matches?.("[data-sd-header]") ? root : root.querySelector("[data-sd-header]");
+  if (!header) return () => {};
+  const button = header.querySelector("[data-sd-toggle]");
+  const panel = header.querySelector(".sd-header__panel");
+  const links = [...header.querySelectorAll(".sd-header__link")];
+  let isOpen = false;
+  let closeTimer = 0;
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  function setOpen(next, focus = false) {
+    if (next) measureRollout();
+    isOpen = next;
+    // Closing plays the arrival in reverse (see .is-closing), then hides the panel.
+    clearTimeout(closeTimer);
+    header.classList.remove("is-closing");
+    if (!next && header.classList.contains("is-open") && !reduceMotion.matches) {
+      header.classList.add("is-closing");
+      closeTimer = setTimeout(() => header.classList.remove("is-closing"), links.length * 90 + 450);
+    }
+    header.classList.toggle("is-open", next);
+    button.setAttribute("aria-expanded", String(next));
+    button.setAttribute("aria-label", next ? "Close site menu" : "Open site menu");
+    panel.setAttribute("aria-hidden", String(!next));
+    panel.toggleAttribute("inert", !next);
+    // Keep click activation on the toggle. Moving focus to the first offscreen
+    // grid item can cause browsers to pan the page while the rollout begins.
+    if (!next && focus) button.focus();
+  }
+  function keydown(event) {
+    if (event.key === "Escape" && isOpen) { event.preventDefault(); setOpen(false, true); }
+    if (event.key === "Tab" && isOpen && links.length) {
+      const focusable = [button, ...panel.querySelectorAll("a[href]")];
+      const first = focusable[0], last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault(); last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault(); first.focus();
+      }
+    }
+  }
+  function outside(event) { if (isOpen && !header.contains(event.target)) setOpen(false); }
+  const onToggle = () => setOpen(!isOpen, true);
+  const onLink = () => setOpen(false);
+  const pressedLinks = new Set();
+  function pressLink(event) {
+    const link = event.currentTarget;
+    pressedLinks.add(link);
+    link.classList.add("is-hot");
+  }
+  function releaseLink(event) {
+    const link = event.currentTarget;
+    pressedLinks.delete(link);
+    link.classList.remove("is-hot");
+  }
+  function measureRollout() {
+    // Layout offsets stay stable while entry transforms are running.
+    // Bounding client rects include those transforms and can misidentify rows.
+    const items = links.map((link, index) => {
+      return { link, index, left: link.offsetLeft, top: link.offsetTop,
+        right: link.offsetLeft + link.offsetWidth };
+    });
+    const rows = [...new Set(items.map(item => Math.round(item.top)))].sort((a, b) => a - b);
+    const ordered = items.slice().sort((a, b) => {
+      const rowDiff = rows.indexOf(Math.round(a.top)) - rows.indexOf(Math.round(b.top));
+      return rowDiff || b.left - a.left;
+    });
+    ordered.forEach((item, order) => {
+      item.link.style.setProperty("--i", String(order));
+      item.link.style.setProperty("--i-out", String(ordered.length - 1 - order));
+      const narrowStack = window.matchMedia("(max-width: 600px)").matches && rows.length > 1;
+      item.link.style.setProperty("--entry-x", narrowStack ? "clamp(18px, 8vw, 34px)" : `${Math.max(36, panel.clientWidth - item.right + 36)}px`);
+    });
+  }
+  const resizeObserver = typeof ResizeObserver !== "undefined" ? new ResizeObserver(measureRollout) : null;
+  resizeObserver?.observe(panel);
+  button.addEventListener("click", onToggle);
+  header.addEventListener("keydown", keydown);
+  document.addEventListener("pointerdown", outside);
+  links.forEach(link => {
+    link.addEventListener("click", onLink);
+    link.addEventListener("pointerdown", pressLink);
+    link.addEventListener("pointerup", releaseLink);
+    link.addEventListener("pointercancel", releaseLink);
+    link.addEventListener("pointerleave", releaseLink);
+  });
+  window.addEventListener("resize", measureRollout);
+  if (openInitially) setOpen(true);
+  return () => {
+    button.removeEventListener("click", onToggle);
+    header.removeEventListener("keydown", keydown);
+    document.removeEventListener("pointerdown", outside);
+    window.removeEventListener("resize", measureRollout);
+    resizeObserver?.disconnect();
+    clearTimeout(closeTimer);
+    header.classList.remove("is-closing");
+    links.forEach(link => {
+      link.removeEventListener("click", onLink);
+      link.removeEventListener("pointerdown", pressLink);
+      link.removeEventListener("pointerup", releaseLink);
+      link.removeEventListener("pointercancel", releaseLink);
+      link.removeEventListener("pointerleave", releaseLink);
+      link.classList.remove("is-hot");
+    });
+    pressedLinks.clear();
+  };
+};setTimeout(()=>paintGrain(document.querySelector("[data-sd-header]")),0);initHeader(document.body,{open:new URLSearchParams(location.search).get("menu")==="open"});})();</script></body></html>

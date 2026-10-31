@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Questrial&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}body{margin:0;background:#103b5d;color:#fff;font-family:Questrial,Arial,sans-serif}
+.mg3{min-height:760px;padding:clamp(55px,8vw,110px) clamp(22px,7vw,110px);position:relative;overflow:hidden;background:radial-gradient(circle at 85% 25%,#2d6b9b,transparent 34%),linear-gradient(125deg,#103b5d,#1f5b8f)}
+.mg3:after{content:"";position:absolute;inset:0;background-image:linear-gradient(#fff0 95%,#fff10 95%),linear-gradient(90deg,#fff0 95%,#fff10 95%);background-size:50px 50px}
+.mg3-wrap{max-width:1400px;margin:auto;position:relative;z-index:1}.mg3-head{display:grid;grid-template-columns:1fr .8fr;gap:45px;align-items:end;margin-bottom:55px}
+.mg3-era{font:600 12px Space Grotesk;letter-spacing:.2em;color:#b8d9f1;text-transform:uppercase}
+h2{font:600 clamp(40px,5vw,70px)/1 Space Grotesk;letter-spacing:-.045em;margin:16px 0 0}
+.mg3-intro{font-size:18px;line-height:1.6;color:#d7e7f2;margin:0}
+.mg3-layers{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;perspective:1000px}
+.mg3-card{min-height:260px;padding:24px 18px;display:flex;flex-direction:column;justify-content:space-between;background:#eaf4ff;color:#17354b;border-top:5px solid #8bb9dc;opacity:0;transform:translateY(60px) rotateX(10deg);transition:.7s;transition-delay:calc(var(--i)*.1s)}
+.mg3.on .mg3-card{opacity:1;transform:none}.mg3-card:hover{transform:translateY(-12px)!important;background:#fff}
+.mg3-num{font:600 13px Space Grotesk;color:#1f5b8f}.mg3-icon{width:56px;height:56px;border:1px solid #1f5b8f55;display:grid;place-items:center;transform:rotate(45deg)}.mg3-icon i{width:20px;height:20px;background:#1f5b8f;display:block;transform:rotate(-45deg)}
+.mg3-card h3{font:600 17px/1.25 Space Grotesk;margin:0}.mg3-foot{margin-top:35px;display:flex;align-items:center;gap:18px;color:#cbe1ef;font-size:14px}.mg3-foot:before{content:"";width:80px;height:1px;background:#fff}
+@media(max-width:900px){.mg3-layers{grid-template-columns:repeat(3,1fr)}.mg3-head{grid-template-columns:1fr}}@media(max-width:560px){.mg3-layers{grid-template-columns:repeat(2,1fr)}.mg3-card{min-height:210px;padding:18px 14px}}
+@media(prefers-reduced-motion:reduce){.mg3-card{opacity:1;transform:none;transition:none}}
+</style>
+</head>
+<body>
+<section class="mg3">
+ <div class="mg3-wrap">
+  <div class="mg3-head">
+   <div><div class="mg3-era">1970s—1995 · Raymond Mongrain</div><h2>One trade became an integrated system.</h2></div>
+   <p class="mg3-intro">Under Raymond Mongrain, the company expanded across Quebec, secured major institutional work, and evolved from a single-trade contractor into a comprehensive building-protection company.</p>
+  </div>
+  <div class="mg3-layers">
+   <article class="mg3-card" style="--i:0"><span class="mg3-num">01</span><div class="mg3-icon"><i></i></div><h3>Thermal<br>insulation</h3></article>
+   <article class="mg3-card" style="--i:1"><span class="mg3-num">02</span><div class="mg3-icon"><i></i></div><h3>Waterproofing<br>systems</h3></article>
+   <article class="mg3-card" style="--i:2"><span class="mg3-num">03</span><div class="mg3-icon"><i></i></div><h3>Fireproofing<br>applications</h3></article>
+   <article class="mg3-card" style="--i:3"><span class="mg3-num">04</span><div class="mg3-icon"><i></i></div><h3>Roofing<br>systems</h3></article>
+   <article class="mg3-card" style="--i:4"><span class="mg3-num">05</span><div class="mg3-icon"><i></i></div><h3>Air + vapor<br>barriers</h3></article>
+   <article class="mg3-card" style="--i:5"><span class="mg3-num">06</span><div class="mg3-icon"><i></i></div><h3>Protective<br>coatings</h3></article>
+  </div>
+  <div class="mg3-foot">Expansion without losing specialist discipline</div>
+ </div>
+</section>
+<script>
+const s=document.querySelector('.mg3');new IntersectionObserver(e=>e[0].isIntersecting&&s.classList.add('on'),{threshold:.15}).observe(s);
+</script>
+</body>
+</html>

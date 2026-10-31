@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>%%TITLE%% Preview</title>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0f2329;--card:#17353d;--ink:#eef5f2;--muted:#9fb6b8;--cyan:#66d2da;--ember:#e3651d}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 'Hanken Grotesk',system-ui,sans-serif}
+.wrap{max-width:1360px;margin:0 auto;padding:40px 24px 80px}
+h1{font-size:30px;font-weight:500;letter-spacing:-.03em;margin:0 0 6px}.sub{color:var(--muted);margin:0 0 28px}
+.mono{font:500 11px 'DM Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan)}
+.bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:14px}
+.bar button{min-height:40px;padding:0 16px;border-radius:999px;border:1px solid rgba(238,245,242,.2);background:transparent;color:var(--ink);font:inherit;font-size:13px;cursor:pointer}
+.bar button[aria-pressed=true]{background:var(--ink);color:#17353d}
+.bar .copy{background:var(--ember);border-color:var(--ember);color:#fff;margin-left:auto}
+.win{border-radius:16px;overflow:hidden;background:#fff;box-shadow:0 30px 80px rgba(0,0,0,.4);margin:0 auto;transition:max-width .4s}
+.chrome{height:38px;background:#e7ecea;display:flex;align-items:center;gap:7px;padding:0 14px}.chrome i{width:11px;height:11px;border-radius:50%;background:#c9d2d0}
+.chrome span{margin-left:12px;flex:1;height:22px;border-radius:6px;background:#fff;font:11px 'DM Mono',monospace;color:#6a7d81;display:flex;align-items:center;padding:0 10px}
+iframe{display:block;width:100%;height:860px;border:0}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:36px 0}
+.step{background:var(--card);border-radius:20px;padding:20px 22px}.step b{display:block;font-weight:500;font-size:17px;margin:6px 0 4px}.step p{margin:0;color:var(--muted);font-size:14px}
+pre{margin:0;max-height:520px;overflow:auto;background:#0a181c;border-radius:16px;padding:20px;font:12px/1.5 'DM Mono',monospace;color:#cfe3e2;white-space:pre-wrap;word-break:break-all}
+@media(max-width:760px){.steps{grid-template-columns:1fr}.bar .copy{margin-left:0}}
+</style></head><body><div class="wrap">
+<p class="mono">Mongrain · Wix HTML embed</p><h1>%%TITLE%% page</h1>
+<p class="sub">Live preview of the embed, the full code to paste into Wix, and the three setup steps.</p>
+<div class="bar" role="group" aria-label="Preview width">
+<button type="button" data-w="100%" aria-pressed="true">Desktop</button><button type="button" data-w="980px" aria-pressed="false">Tablet 980</button><button type="button" data-w="390px" aria-pressed="false">Phone 390</button>
+<button type="button" class="copy" data-copy>Copy code</button></div>
+<div class="win" id="win"><div class="chrome"><i></i><i></i><i></i><span>%%URL%%</span></div><iframe title="%%TITLE%% page preview" id="frame"></iframe></div>
+<div class="steps">
+<div class="step"><span class="mono">Step 1</span><b>Add Embed HTML</b><p>In the Wix editor: Add › Embed code › Embed HTML. Stretch it to full width.</p></div>
+<div class="step"><span class="mono">Step 2</span><b>Paste the code</b><p>Choose “Code”, paste everything from the panel below, then Update.</p></div>
+<div class="step"><span class="mono">Step 3</span><b>Set the height</b><p>%%HEIGHTS%%</p></div>
+</div>
+<div class="bar"><span class="mono">Full code</span><button type="button" class="copy" data-copy>Copy code</button></div>
+<pre id="code">%%CODE%%</pre>
+</div>
+<script>
+var code=document.getElementById('code').textContent, f=document.getElementById('frame'), win=document.getElementById('win');
+f.srcdoc=code;
+document.querySelectorAll('[data-w]').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('[data-w]').forEach(function(x){x.setAttribute('aria-pressed',x===b)});win.style.maxWidth=b.dataset.w==='100%'?'none':b.dataset.w;});});
+document.querySelectorAll('[data-copy]').forEach(function(b){b.addEventListener('click',function(){var t=b.textContent;(navigator.clipboard?navigator.clipboard.writeText(code):Promise.reject()).then(function(){b.textContent='Copied';},function(){var r=document.createRange();r.selectNodeContents(document.getElementById('code'));var s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='Selected: press Ctrl/Cmd+C';}).finally(function(){setTimeout(function(){b.textContent=t},2200)});});});
+</script></body></html>

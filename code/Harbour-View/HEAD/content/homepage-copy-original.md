@@ -1,0 +1,7 @@
+Welcome to Harbour View Bayside Cottages, where relaxed island living merges with refined coastal elegance. Situated on a tranquil 0.7-acre property at Harbour Island's peaceful southern tip, these twin two-bedroom, two-bath cottages provide an ideal mix of comfort, luxury, and adventure.
+
+Each 1,400 sq. ft. cottage is carefully crafted with open layouts, natural textures, and soft Bahamian hues that echo the island’s sunny charm. Inside, you’ll discover a king-sized suite with an en-suite bath and closet, a guest room with twin beds that can easily convert to a king (also with an en-suite bath), a modern kitchen, a cozy living room, and a spacious dining area. Large decks of over 700 sq. ft. extend the living space outdoors—ideal for alfresco dining, sunset drinks, or relaxing while enjoying marina views.
+
+The grounds feature lush landscaping with a sparkling pool, shaded cabana, and garden paths. A private 80-foot dock equipped with 30/50/100 AMP service welcomes boats up to 70 feet, making it perfect for island arrivals. Guests can also enjoy snorkel gear, kayaks, and paddleboards to explore the nearby turquoise bay.
+
+Just a short walk away is the world-renowned Pink Sands Beach, while the new Briland Club Marina is nearby. Whether you seek tranquility or lively island adventures, Harbour View Bayside Cottages offer the best of both. Your island getaway starts here.

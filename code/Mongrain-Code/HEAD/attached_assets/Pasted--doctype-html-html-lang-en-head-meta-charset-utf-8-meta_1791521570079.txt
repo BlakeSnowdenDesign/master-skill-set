@@ -1,0 +1,673 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mongrain — 03 Envelope assembly · BIM section</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400..700&family=Questrial&display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;padding:0;background:#EEF3F7}
+#mg-bim{
+  --mist:#EEF3F7;--ink:#0B1A28;--ink-2:#0E1F30;--graphite:#4A5868;--line:#D9E2EA;
+  --cyan:#19C6F5;--royal:#0B6FD6;--amber:#FF8A3D;--grad:linear-gradient(120deg,#19C6F5 0%,#0B6FD6 100%);
+  --f-display:'Space Grotesk',ui-sans-serif,system-ui,sans-serif;--f-body:'Questrial',ui-sans-serif,system-ui,sans-serif;--f-mono:'Space Grotesk',ui-sans-serif,system-ui,sans-serif;
+  --ease:cubic-bezier(.2,.7,.2,1);--spring:cubic-bezier(.34,1.56,.64,1);
+  --tx:0;--ty:0;--e:0;--mx:50%;--my:30%;
+  background:var(--mist);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased
+}
+#mg-bim *,#mg-bim *::before,#mg-bim *::after{box-sizing:border-box}
+#mg-bim a{color:inherit}
+#mg-bim :focus-visible{outline:2px solid var(--cyan);outline-offset:3px;border-radius:10px}
+#mg-bim .sec{padding:24px 0 96px}
+#mg-bim .stagewrap{width:min(1560px,calc(100vw - 32px));margin:0 auto;perspective:2400px}
+#mg-bim .rise{opacity:0;transform:translateY(60px) scale(.96);filter:blur(8px);transition:opacity 1.2s var(--ease),transform 1.4s var(--ease),filter 1.2s var(--ease)}
+#mg-bim.in .rise{opacity:1;transform:none;filter:none}
+
+/* Shell */
+#mg-bim .shell{position:relative;border-radius:30px;padding:1.5px;isolation:isolate;
+  transform:rotateX(calc(var(--e)*12deg + var(--ty)*-1.2deg)) rotateY(calc(var(--tx)*1.4deg)) scale(calc(1 - var(--e)*.05));transform-origin:50% 0;
+  transition:transform .6s var(--ease);
+  box-shadow:0 2px 6px rgba(11,26,40,.12),0 40px 80px -30px rgba(11,26,40,.55),0 90px 140px -60px rgba(11,111,214,.45)}
+#mg-bim .shell::before{content:"";position:absolute;inset:0;border-radius:inherit;z-index:-1;
+  background:conic-gradient(from var(--ang,0deg),rgba(25,198,245,.9),rgba(11,111,214,.35) 18%,rgba(11,26,40,.9) 40%,rgba(11,26,40,.9) 60%,rgba(11,111,214,.35) 82%,rgba(25,198,245,.9));animation:mgSpin 12s linear infinite}
+#mg-bim .cn{position:relative;border-radius:28.5px;background:var(--ink);color:#DDE8F1;overflow:hidden}
+
+/* Bar */
+#mg-bim .bar{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:64px;padding:10px 14px 10px 20px;border-bottom:1px solid rgba(255,255,255,.07);flex-wrap:wrap}
+#mg-bim .crumb{display:flex;align-items:center;gap:10px;color:#8FA6BA;min-width:0;white-space:nowrap;overflow:hidden;font:500 13px/1 var(--f-mono)}
+#mg-bim .crumb i{width:26px;height:26px;border-radius:9px;background:var(--grad);display:grid;place-items:center;color:#fff;font:700 13px/1 var(--f-display);font-style:normal;box-shadow:inset 0 1px 0 rgba(255,255,255,.45),0 6px 16px -6px rgba(25,198,245,.8);flex-shrink:0}
+#mg-bim .crumb em{font-style:normal;color:#E8F2F9}
+#mg-bim .crumb s{text-decoration:none;opacity:.4}
+#mg-bim .ctrls{display:flex;gap:8px;flex-wrap:wrap}
+#mg-bim .cbtn{display:inline-flex;align-items:center;gap:9px;height:40px;padding:0 16px;border-radius:999px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:#C5D6E4;font:500 12.5px/1 var(--f-mono);letter-spacing:.02em;cursor:pointer;
+  transition:border-color .3s,background .3s,color .3s,transform .5s var(--spring),box-shadow .4s}
+#mg-bim .cbtn:hover{border-color:rgba(255,255,255,.28);background:rgba(255,255,255,.08);color:#fff;transform:translateY(-1px)}
+#mg-bim .cbtn svg{width:14px;height:14px}
+#mg-bim .cbtn.primary{background:#fff;color:var(--ink);border-color:#fff;box-shadow:0 10px 24px -10px rgba(25,198,245,.7)}
+#mg-bim .cbtn.primary:hover{background:#E4F6FD;color:var(--ink)}
+#mg-bim .cbtn.on{border-color:rgba(25,198,245,.55);color:#9FE3FA;background:rgba(25,198,245,.1)}
+
+/* Body */
+#mg-bim .body{display:grid;grid-template-columns:minmax(0,1fr) 392px;height:720px}
+#mg-bim .stage{position:relative;overflow:hidden;cursor:grab;touch-action:pan-y;user-select:none;-webkit-user-select:none;
+  background:radial-gradient(ellipse 70% 60% at 50% 45%,#16304A 0%,#0E1F30 55%,#0A1726 100%)}
+#mg-bim .stage.drag{cursor:grabbing}
+#mg-bim .stage::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:linear-gradient(rgba(143,166,186,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(143,166,186,.06) 1px,transparent 1px);background-size:40px 40px;
+  -webkit-mask-image:radial-gradient(ellipse 70% 70% at 50% 50%,#000 30%,transparent 80%);mask-image:radial-gradient(ellipse 70% 70% at 50% 50%,#000 30%,transparent 80%)}
+#mg-bim .view{position:absolute;inset:0;perspective:2600px;perspective-origin:50% 45%}
+#mg-bim .cam{position:absolute;left:50%;top:50%;width:0;height:0;transform-style:preserve-3d}
+#mg-bim .model,#mg-bim .layer,#mg-bim .bx{position:absolute;left:0;top:0;transform-style:preserve-3d}
+#mg-bim .layer{--c:var(--base);transition:transform 1.1s cubic-bezier(.22,.9,.24,1)}
+#mg-bim .fc{position:absolute;left:0;top:0;transform-origin:0 0;backface-visibility:hidden;-webkit-backface-visibility:hidden;
+  box-shadow:inset 0 0 0 .6px rgba(255,255,255,.14);transition:background-color .45s,opacity .45s,box-shadow .45s}
+#mg-bim .f-fr{background-color:var(--c)}
+#mg-bim .f-rt,#mg-bim .f-lf{background-color:color-mix(in srgb,var(--c) 74%,#06111c)}
+#mg-bim .f-tp{background-color:color-mix(in srgb,var(--c) 78%,#fff)}
+#mg-bim .f-bk{background-color:color-mix(in srgb,var(--c) 66%,#06111c)}
+#mg-bim .f-bt{background-color:color-mix(in srgb,var(--c) 55%,#06111c)}
+#mg-bim .t-cut .f-fr{background-image:repeating-linear-gradient(45deg,rgba(11,26,40,.22) 0 1px,transparent 1px 7px)}
+#mg-bim .t-ins .fc{background-image:repeating-linear-gradient(0deg,rgba(11,26,40,.10) 0 1px,transparent 1px 5px)}
+#mg-bim .t-ins .f-fr{background-image:repeating-linear-gradient(-30deg,rgba(11,26,40,.16) 0 1px,transparent 1px 6px),repeating-linear-gradient(30deg,rgba(11,26,40,.16) 0 1px,transparent 1px 6px)}
+#mg-bim .t-dimple .fc{background-image:radial-gradient(circle,rgba(255,255,255,.22) 1.2px,transparent 1.6px);background-size:7px 7px}
+#mg-bim .t-panel .f-rt{background-image:linear-gradient(180deg,rgba(255,255,255,.10),transparent 40%,rgba(0,0,0,.12))}
+#mg-bim .t-perf .fc{background-image:radial-gradient(circle,rgba(6,17,28,.55) 1.1px,transparent 1.5px);background-size:6px 6px}
+#mg-bim .t-ghost .fc{background-color:rgba(25,198,245,.035)!important;box-shadow:inset 0 0 0 1px rgba(143,166,186,.22)}
+#mg-bim .layer.hl{--c:color-mix(in srgb,var(--base) 30%,#19C6F5)}
+#mg-bim .layer.hl .fc{box-shadow:inset 0 0 0 .8px rgba(190,240,255,.9)}
+#mg-bim .layer.hl.t-ghost .fc{background-color:rgba(25,198,245,.16)!important;box-shadow:inset 0 0 0 1px rgba(25,198,245,.8)}
+#mg-bim .model.focus .layer:not(.hl) .fc{opacity:.16}
+#mg-bim .layer.flash .fc{animation:mgFlash 1s ease-out}
+#mg-bim .grade{position:absolute;left:0;top:0;transform-style:preserve-3d}
+#mg-bim .grade .fc{background:rgba(143,166,186,.07);box-shadow:inset 0 0 0 1px rgba(143,166,186,.16)}
+
+/* HUD */
+#mg-bim .tag{position:absolute;left:20px;top:20px;z-index:2;display:inline-flex;align-items:center;gap:8px;padding:8px 13px;border-radius:999px;background:rgba(11,26,40,.6);border:1px solid rgba(255,255,255,.08);backdrop-filter:blur(10px);font:500 11px/1 var(--f-mono);letter-spacing:.06em;color:#8FA6BA;pointer-events:none}
+#mg-bim .tag::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--cyan);box-shadow:0 0 10px var(--cyan);animation:mgBlink 1.6s ease-in-out infinite}
+#mg-bim .hud{position:absolute;left:20px;right:20px;bottom:18px;z-index:2;display:flex;flex-direction:column;gap:10px;pointer-events:none}
+#mg-bim .now{font:500 12px/1.3 var(--f-mono);color:#C5D6E4;letter-spacing:.02em;min-height:16px;transition:opacity .3s}
+#mg-bim .now b{color:var(--cyan);font-weight:500}
+#mg-bim .phases{display:grid;grid-template-columns:8fr 10fr 6fr;gap:6px}
+#mg-bim .ph{display:flex;flex-direction:column;gap:7px;font:500 10px/1 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:#6B8196;transition:color .4s}
+#mg-bim .ph i{display:block;height:3px;border-radius:3px;background:rgba(255,255,255,.08);overflow:hidden}
+#mg-bim .ph i::after{content:"";display:block;height:100%;width:calc(var(--p,0)*100%);background:var(--grad);border-radius:3px;transition:width .3s linear}
+#mg-bim .ph.on{color:#DDE8F1}
+#mg-bim .hint{position:absolute;right:20px;top:22px;z-index:2;font:500 11px/1 var(--f-mono);color:#6B8196;pointer-events:none;transition:opacity .5s}
+#mg-bim .callout{position:absolute;left:0;top:0;z-index:4;width:270px;padding:14px 16px 15px;border-radius:18px;pointer-events:none;
+  background:rgba(14,31,48,.86);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(25,198,245,.35);
+  box-shadow:0 24px 50px -20px rgba(0,0,0,.8),0 0 0 6px rgba(25,198,245,.05);opacity:0;transform:translate(var(--cx,0),var(--cy,0)) scale(.94);transform-origin:0 0;
+  transition:opacity .25s var(--ease),transform .18s var(--ease)}
+#mg-bim .callout.show{opacity:1;transform:translate(var(--cx,0),var(--cy,0)) scale(1)}
+#mg-bim .callout .k{display:flex;justify-content:space-between;font:500 10.5px/1 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:#7FD8F7}
+#mg-bim .callout .k span+span{color:#6B8196}
+#mg-bim .callout h5{margin:9px 0 6px;font:600 16px/1.2 var(--f-display);letter-spacing:-.015em;color:#fff}
+#mg-bim .callout p{margin:0;font-size:12.5px;line-height:1.5;color:#A9BCCC}
+#mg-bim .callout .s{margin-top:10px;padding-top:9px;border-top:1px solid rgba(255,255,255,.08);font:500 11px/1.4 var(--f-mono);color:#DDE8F1}
+#mg-bim .callout .c{margin-top:8px;font:500 10px/1 var(--f-mono);letter-spacing:.06em;color:#6B8196;text-transform:uppercase}
+
+/* Sidebar */
+#mg-bim .side{display:flex;flex-direction:column;min-height:0;border-left:1px solid rgba(255,255,255,.07);background:linear-gradient(180deg,rgba(255,255,255,.025),transparent 50%)}
+#mg-bim .cap{font:500 10.5px/1 var(--f-mono);letter-spacing:.09em;text-transform:uppercase;color:#6B8196}
+#mg-bim .cats{padding:20px 20px 16px;border-bottom:1px solid rgba(255,255,255,.07)}
+#mg-bim .cgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+#mg-bim .cat{display:flex;flex-direction:column;align-items:flex-start;gap:9px;padding:12px 11px 11px;border-radius:16px;border:0;background:rgba(255,255,255,.035);color:#A9BCCC;cursor:pointer;text-align:left;font:500 11.5px/1.2 var(--f-body);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.06);transition:transform .5s var(--spring),background .3s,color .3s,box-shadow .4s}
+#mg-bim .cat svg{width:20px;height:20px;color:#7F97AC;transition:color .3s,transform .5s var(--spring)}
+#mg-bim .cat:hover{transform:translateY(-3px);background:rgba(255,255,255,.06);color:#fff;box-shadow:inset 0 0 0 1px rgba(255,255,255,.12),0 14px 26px -16px rgba(25,198,245,.6)}
+#mg-bim .cat:hover svg{transform:scale(1.12) rotate(-4deg);color:#BFEFFF}
+#mg-bim .cat[aria-pressed="true"]{background:rgba(25,198,245,.12);color:#fff;box-shadow:inset 0 0 0 1px rgba(25,198,245,.55),0 14px 30px -14px rgba(25,198,245,.7)}
+#mg-bim .cat[aria-pressed="true"] svg{color:var(--cyan)}
+#mg-bim .detail{padding:20px;border-bottom:1px solid rgba(255,255,255,.07);min-height:248px;display:flex;flex-direction:column}
+#mg-bim .detail .swap{transition:opacity .35s var(--ease),transform .45s var(--ease),filter .35s;transition-delay:calc(var(--k,0)*50ms)}
+#mg-bim .detail.out .swap{opacity:0;transform:translateY(8px);filter:blur(3px);transition-delay:0s}
+#mg-bim .dtop{display:flex;justify-content:space-between;align-items:center;gap:10px}
+#mg-bim .chip{display:inline-flex;align-items:center;gap:7px;height:26px;padding:0 11px;border-radius:999px;background:rgba(25,198,245,.12);color:#9FE3FA;font:500 10.5px/1 var(--f-mono);letter-spacing:.06em;text-transform:uppercase}
+#mg-bim .chip::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor;box-shadow:0 0 8px currentColor}
+#mg-bim .lock{font:500 10.5px/1 var(--f-mono);color:#6B8196;display:inline-flex;gap:6px;align-items:center}
+#mg-bim .detail h4{margin:14px 0 8px;font:600 21px/1.15 var(--f-display);letter-spacing:-.02em;color:#fff;text-wrap:balance}
+#mg-bim .detail p{margin:0;font-size:13.5px;line-height:1.55;color:#A9BCCC;text-wrap:pretty}
+#mg-bim .specs{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+#mg-bim .specs span{padding:6px 9px;border-radius:9px;background:rgba(255,255,255,.05);font:500 10.5px/1 var(--f-mono);color:#DDE8F1}
+#mg-bim .go{position:relative;overflow:hidden;align-self:flex-start;margin-top:auto;display:inline-flex;align-items:center;gap:10px;height:44px;padding:0 18px;border-radius:14px;background:#fff;color:var(--ink);font:500 13.5px/1 var(--f-body);text-decoration:none;
+  box-shadow:0 12px 26px -12px rgba(25,198,245,.6);transition:transform .5s var(--spring),box-shadow .4s,opacity .3s}
+#mg-bim .go::after{content:"";position:absolute;top:0;bottom:0;width:40%;left:-60%;background:linear-gradient(100deg,transparent,rgba(25,198,245,.35),transparent);transform:skewX(-20deg);transition:left .8s var(--ease)}
+#mg-bim .go:hover{box-shadow:0 18px 34px -12px rgba(25,198,245,.85)}
+#mg-bim .go:hover::after{left:130%}
+#mg-bim .go svg{transition:transform .4s var(--spring)}
+#mg-bim .go:hover svg{transform:translateX(4px)}
+#mg-bim .go[hidden]{display:none}
+#mg-bim .gowrap{margin-top:auto;padding-top:14px}
+#mg-bim .legend{flex:1;min-height:0;overflow:auto;padding:14px 12px 18px;scrollbar-width:thin;scrollbar-color:#2A4058 transparent}
+#mg-bim .grp{margin-top:8px}
+#mg-bim .grp .cap{display:flex;justify-content:space-between;padding:8px 10px}
+#mg-bim .li{display:flex;align-items:center;gap:11px;width:100%;padding:8px 10px;border:0;border-radius:11px;background:transparent;color:#A9BCCC;font:500 13px/1.25 var(--f-body);text-align:left;cursor:pointer;transition:background .25s,color .25s,transform .4s var(--spring)}
+#mg-bim .li i{width:12px;height:12px;flex-shrink:0;border-radius:4px;background:var(--base);box-shadow:inset 0 0 0 1px rgba(255,255,255,.2)}
+#mg-bim .li code{margin-left:auto;font:500 10px/1 var(--f-mono);color:#56708A}
+#mg-bim .li:hover{background:rgba(255,255,255,.05);color:#fff;transform:translateX(3px)}
+#mg-bim .li.hl{background:rgba(25,198,245,.1);color:#fff}
+#mg-bim .li.hl i{box-shadow:0 0 0 2px rgba(25,198,245,.6),0 0 10px rgba(25,198,245,.6)}
+#mg-bim .li.hl code{color:var(--cyan)}
+#mg-bim .li.dim{opacity:.4}
+
+/* lighting + materials */
+#mg-bim .fc::after{content:"";position:absolute;inset:0;pointer-events:none;transition:opacity .5s}
+#mg-bim .f-fr::after{background:linear-gradient(160deg,rgba(255,255,255,.18),rgba(255,255,255,0) 42%,rgba(0,0,0,.22))}
+#mg-bim .f-rt::after{background:linear-gradient(180deg,rgba(255,255,255,.10),rgba(255,255,255,0) 30%,rgba(0,0,0,.28))}
+#mg-bim .f-tp::after{background:linear-gradient(120deg,rgba(255,255,255,.26),rgba(255,255,255,0) 55%)}
+#mg-bim .f-tp{box-shadow:inset 0 0 0 .7px rgba(255,255,255,.34)}
+#mg-bim .t-panel .f-rt::after{background:linear-gradient(172deg,rgba(255,240,220,.30),rgba(255,255,255,0) 30%,rgba(0,0,0,.05) 60%,rgba(0,0,0,.32))}
+#mg-bim .layer.gone .fc{opacity:0!important}
+#mg-bim .layer.wire .fc{background-color:rgba(25,198,245,.035)!important;background-image:none!important;box-shadow:inset 0 0 0 .8px rgba(25,198,245,.75)!important}
+#mg-bim .layer.wire .fc::after{opacity:0}
+#mg-bim .fc{transition:background-color .7s,opacity .6s,box-shadow .7s}
+/* context */
+#mg-bim .soil,#mg-bim .shadow,#mg-bim .scan,#mg-bim .lvl,#mg-bim .gline{position:absolute;left:0;top:0;transform-style:preserve-3d;pointer-events:none}
+#mg-bim .soil .fc{background-color:rgba(120,145,170,.045)!important;box-shadow:none;transition:opacity .9s}
+#mg-bim .soil .fc::after{display:none}
+#mg-bim .soil .f-fr{background-image:repeating-linear-gradient(45deg,rgba(143,166,186,.10) 0 1px,transparent 1px 10px)}
+#mg-bim .soil .f-tp{background:linear-gradient(90deg,rgba(25,198,245,.12),rgba(25,198,245,0) 80%)!important}
+#mg-bim .shadow .fc{background:radial-gradient(ellipse 50% 46% at 42% 50%,rgba(0,6,14,.75),rgba(0,6,14,0) 70%);box-shadow:none}
+#mg-bim .shadow .fc::after{display:none}
+#mg-bim .gline{width:420px;height:1.5px;background:linear-gradient(90deg,rgba(25,198,245,.9),rgba(25,198,245,0));box-shadow:0 0 10px rgba(25,198,245,.7);transition:opacity .9s}
+#mg-bim .lvl{transition:opacity .9s}
+#mg-bim .lvl i{display:block;height:0;border-top:1px dashed rgba(143,166,186,.38)}
+#mg-bim .lvl i::before{content:"";position:absolute;left:-3px;top:-3.5px;width:6px;height:6px;border-radius:50%;border:1px solid rgba(143,166,186,.7)}
+#mg-bim .lvl span{position:absolute;left:8px;bottom:5px;white-space:nowrap;font:500 9px/1 var(--f-mono);letter-spacing:.08em;color:#6B8196}
+#mg-bim .lvl b{color:#B4C6D6;font-weight:500;margin-right:4px}
+#mg-bim .model.exploded .lvl,#mg-bim .model.exploded .gline,#mg-bim .model.exploded .soil .fc{opacity:0}
+#mg-bim .scan{opacity:0;transition:opacity .6s}
+#mg-bim .scan.on{opacity:1}
+#mg-bim .scan .fc{background:radial-gradient(ellipse 48% 44% at 50% 50%,rgba(25,198,245,.26),rgba(25,198,245,.05) 55%,rgba(25,198,245,0) 70%);box-shadow:none}
+#mg-bim .scan .fc::after{display:none}
+#mg-bim .stage::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;opacity:.08;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+#mg-bim .vig{position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse 80% 75% at 50% 48%,transparent 55%,rgba(4,10,18,.55))}
+#mg-bim .pin{position:absolute;left:0;top:0;transform-style:flat;cursor:pointer;transition:transform var(--camt,0ms) var(--came,linear)}
+#mg-bim .pin b{position:absolute;left:-15px;top:-15px;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;
+  background:rgba(11,26,40,.82);border:1px solid rgba(25,198,245,.55);color:#BFEFFF;font:500 11px/1 var(--f-mono);
+  box-shadow:0 8px 18px -6px rgba(0,0,0,.7),0 0 0 4px rgba(25,198,245,.08);opacity:0;transform:scale(.4);
+  transition:opacity .45s var(--ease),transform .55s var(--spring),background .3s,color .3s,box-shadow .3s}
+#mg-bim .model.exploded .pin b{opacity:1;transform:scale(var(--ps,1))}
+#mg-bim .model.exploded .layer.gone .pin b,#mg-bim .model.exploded .layer.wire .pin b{opacity:0;transform:scale(.4)}
+#mg-bim .layer.hl .pin b{opacity:1;transform:scale(calc(var(--ps,1)*1.12));background:#19C6F5;color:#0B1A28;border-color:#BFEFFF;box-shadow:0 0 0 6px rgba(25,198,245,.22),0 10px 24px -6px rgba(25,198,245,.8)}
+#mg-bim .model.focus .layer:not(.hl) .pin b{opacity:.25}
+#mg-bim .pin:hover b{transform:scale(calc(var(--ps,1)*1.2))}
+#mg-bim .links{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;margin-top:auto;padding-top:14px}
+#mg-bim .links .gowrap{margin:0;padding:0}
+#mg-bim .ext{display:inline-flex;align-items:center;gap:7px;font:500 12px/1 var(--f-mono);color:#8FA6BA;text-decoration:none;padding:6px 0;border-bottom:1px solid rgba(143,166,186,.3);transition:color .25s,border-color .25s}
+#mg-bim .ext:hover{color:#BFEFFF;border-color:#19C6F5}
+#mg-bim .ext[hidden]{display:none}
+#mg-bim .idx{font:500 10.5px/1 var(--f-mono);color:#56708A;margin-left:8px}
+/* buttons: shadow + full highlight */
+#mg-bim .cbtn{font-family:var(--f-display);font-weight:500;letter-spacing:.01em;box-shadow:0 1px 0 rgba(255,255,255,.06) inset,0 10px 22px -10px rgba(0,0,0,.85),0 2px 6px rgba(0,0,0,.35)}
+#mg-bim .cbtn:hover{background:#19C6F5;border-color:#19C6F5;color:#0B1A28;box-shadow:0 14px 30px -10px rgba(25,198,245,.85),0 2px 6px rgba(0,0,0,.35)}
+#mg-bim .cbtn.primary{box-shadow:0 12px 28px -10px rgba(25,198,245,.7),0 2px 6px rgba(0,0,0,.35)}
+#mg-bim .cbtn.primary:hover{background:#19C6F5;color:#0B1A28;border-color:#19C6F5}
+#mg-bim .cbtn.on:hover{color:#0B1A28}
+#mg-bim .cat{font-family:var(--f-body);box-shadow:inset 0 0 0 1px rgba(255,255,255,.06),0 10px 22px -12px rgba(0,0,0,.9),0 2px 5px rgba(0,0,0,.3)}
+#mg-bim .cat:hover{background:#19C6F5;color:#0B1A28;box-shadow:0 16px 32px -12px rgba(25,198,245,.85),0 2px 6px rgba(0,0,0,.3)}
+#mg-bim .cat:hover svg{color:#0B1A28}
+#mg-bim .cat[aria-pressed="true"]:hover{background:#19C6F5;color:#0B1A28}
+#mg-bim .li{font-family:var(--f-body);box-shadow:0 0 0 rgba(0,0,0,0);transition:background .25s,color .25s,transform .4s var(--spring),box-shadow .3s}
+#mg-bim .li:hover{background:#19C6F5;color:#0B1A28;box-shadow:0 10px 22px -10px rgba(25,198,245,.8),0 2px 5px rgba(0,0,0,.3)}
+#mg-bim .li:hover code{color:#0B1A28}
+#mg-bim .li:hover i{box-shadow:0 0 0 1.5px #0B1A28}
+#mg-bim .go{font-family:var(--f-display);font-weight:500;box-shadow:0 12px 26px -10px rgba(25,198,245,.6),0 2px 6px rgba(0,0,0,.35)}
+#mg-bim .go:hover{background:#19C6F5;color:#0B1A28;box-shadow:0 18px 34px -10px rgba(25,198,245,.9),0 2px 6px rgba(0,0,0,.35)}
+#mg-bim .ext{font-family:var(--f-display);padding:9px 14px;border:1px solid rgba(143,166,186,.25);border-radius:12px;background:rgba(255,255,255,.04);box-shadow:0 10px 22px -12px rgba(0,0,0,.9),0 2px 5px rgba(0,0,0,.3);transition:background .25s,color .25s,border-color .25s,box-shadow .3s,transform .5s var(--spring)}
+#mg-bim .ext:hover{background:#19C6F5;color:#0B1A28;border-color:#19C6F5;box-shadow:0 14px 28px -10px rgba(25,198,245,.85);transform:translateY(-1px)}
+#mg-bim .pin b{font-family:var(--f-display)}
+#mg-bim .detail h4,#mg-bim .callout h5{font-family:var(--f-display)}
+#mg-bim .detail p,#mg-bim .callout p{font-family:var(--f-body)}
+@keyframes mgSpin{to{--ang:360deg}}
+@property --ang{syntax:'<angle>';inherits:false;initial-value:0deg}
+@keyframes mgBlink{0%,100%{opacity:1}50%{opacity:.35}}
+@keyframes mgFlash{0%{box-shadow:inset 0 0 0 1px rgba(255,255,255,1),0 0 0 rgba(25,198,245,0)}100%{box-shadow:inset 0 0 0 .6px rgba(255,255,255,.14)}}
+
+@media (max-width:1060px){
+  #mg-bim .body{grid-template-columns:minmax(0,1fr);height:auto}
+  #mg-bim .stage{height:560px}
+  #mg-bim .side{border-left:0;border-top:1px solid rgba(255,255,255,.07)}
+  #mg-bim .legend{max-height:420px}
+}
+@media (max-width:640px){
+  #mg-bim .sec{padding:12px 0 64px}
+  #mg-bim .stagewrap{width:calc(100vw - 20px)}
+  #mg-bim .shell{border-radius:24px}#mg-bim .cn{border-radius:22.5px}
+  #mg-bim .crumb .hide-sm{display:none}
+  #mg-bim .stage{height:460px}
+  #mg-bim .hint,#mg-bim .callout{display:none}
+  #mg-bim .cbtn{height:36px;padding:0 12px}
+  #mg-bim .cgrid{grid-template-columns:repeat(2,1fr)}
+}
+@media (prefers-reduced-motion:reduce){
+  #mg-bim *,#mg-bim *::before,#mg-bim *::after{animation:none!important;transition:none!important}
+  #mg-bim .rise{opacity:1;transform:none;filter:none}
+  #mg-bim .shell{transform:none}
+}
+</style>
+</head>
+<body>
+<div id="mg-bim">
+<section class="sec" aria-label="Interactive building envelope assembly"><div class="stagewrap"><div class="rise">
+<div class="shell" id="shell"><div class="cn">
+  <div class="bar">
+    <div class="crumb"><i aria-hidden="true">M</i><em>Envelope</em><s class="hide-sm">/</s><span class="hide-sm">Section A–A</span><s class="hide-sm">/</s><span class="hide-sm">BIM assembly</span></div>
+    <div class="ctrls">
+      <button class="cbtn primary" type="button" id="b-play"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.8v10.4L13 8z" fill="currentColor"/></svg>Play sequence</button>
+      <button class="cbtn" type="button" id="b-explode" aria-pressed="false"><svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 6V2h4M14 6V2h-4M2 10v4h4M14 10v4h-4"/></svg><span>Explode</span></button>
+      <button class="cbtn" type="button" id="b-reset"><svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 8a5.5 5.5 0 1 0 1.8-4.1M2.5 2.5v3h3"/></svg>Reset view</button>
+    </div>
+  </div>
+  <div class="body">
+    <div class="stage" id="stage" aria-label="3D envelope section. Drag to orbit, hover a layer to inspect, click to lock.">
+      <span class="tag">SECTION A–A · BIM VIEW</span>
+      <span class="hint" id="hint">Drag to orbit · Click a layer to lock</span>
+      <div class="view"><div class="cam" id="cam"><div class="model" id="model"></div></div></div><div class="vig" aria-hidden="true"></div>
+      <div class="callout" id="callout" aria-hidden="true"><div class="k"><span data-c="grp"></span><span data-c="code"></span></div><h5 data-c="name"></h5><p data-c="desc"></p><div class="s" data-c="spec"></div><div class="c">Click to lock selection</div></div>
+      <div class="hud">
+        <div class="now" id="now"></div>
+        <div class="phases">
+          <div class="ph" data-ph="Foundation">Foundation<i></i></div>
+          <div class="ph" data-ph="Wall">Above-grade wall<i></i></div>
+          <div class="ph" data-ph="Roof">Roof<i></i></div>
+        </div>
+      </div>
+    </div>
+    <aside class="side">
+      <div class="cats"><div class="cap">Performance categories</div><div class="cgrid" id="cats"></div></div>
+      <div class="detail" id="detail">
+        <div class="dtop swap" style="--k:0"><span class="chip" data-d="chip">Envelope</span><span class="lock" data-d="lock"></span></div>
+        <h4 class="swap" style="--k:1" data-d="title">24 systems. One continuous envelope.</h4>
+        <p class="swap" style="--k:2" data-d="desc">Hover any layer in the model to inspect it, click to lock the selection, or choose a performance category to see every layer that delivers it.</p>
+        <div class="specs swap" style="--k:3" data-d="specs"></div>
+        <div class="links swap" style="--k:4"><div class="gowrap"><a class="go" data-d="link" target="_top" href="#" hidden><span data-d="linkText">Learn more</span><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+        <a class="ext" data-d="ext" target="_blank" rel="noopener" href="#" hidden>SOPREMA product data ↗</a></div>
+      </div>
+      <div class="legend" id="legend" aria-label="Layer legend"></div>
+    </aside>
+  </div>
+</div></div>
+</div></div></section>
+</div>
+<script>
+(function(){
+  /* ---------- Edit links here ---------- */
+  var SITE='https://snowden-design.wixstudio.com/mongrain-new';
+  var LINKS={Foundation:'/services',Wall:'/services',Roof:'/services',weather:'/services',thermal:'/services',structural:'/services',fire:'/services',sound:'/services',health:'/services'};
+  var PLAY_ON_LOAD=true;
+  var SP='https://www.soprema.ca/en/';
+  var PRODUCT={
+    'f-struct':SP+'foundations','f-blind':SP+'products-systems/building-components/foundations/blindside-waterproofing',
+    'f-prot':SP+'products-systems/building-components/foundations/accessories','f-ins':SP+'products-systems/sopra-xps-60',
+    'f-drain':SP+'products-systems/sopradrain-10-g','f-pdrain':SP+'foundations','f-pen':SP+'products-systems/building-components/foundations/accessories',
+    'f-trans':SP+'products-systems/building-components/foundations/accessories',
+    'w-struct':SP+'build-better-walls-assemblies','w-sheath':SP+'build-better-walls-assemblies','w-air':SP+'products-systems/sopraseal-stick-avb-at',
+    'w-vap':SP+'products-systems/building-components/walls/vapour-barrier','w-ci':SP+'products-systems/building-components/walls/insulation',
+    'w-clip':SP+'acs-calculator','w-cav':SP+'build-better-walls-assemblies','w-girt':SP+'build-better-walls-assemblies',
+    'w-clad':SP+'build-better-walls-assemblies','w-flash':SP+'products-systems/building-components/walls/accessories',
+    'r-deck':SP+'csa-a12321-roof-assemblies','r-vap':SP+'products-systems/building-components/roofs/sbs-modified-bitumen',
+    'r-ins':SP+'products-systems/sopra-iso','r-cover':SP+'products-systems/2-1-soprasmart-iso-hd',
+    'r-memb':SP+'products-systems/building-components/roofs/sbs-modified-bitumen','r-edge':SP+'products-systems/building-components/roofs/accessories',
+    weather:SP+'waterproofing',thermal:SP+'insulation',sound:SP+'soundproofing',structural:SP+'civil-engineering-structures',health:SP+'learning-centre/blog/greenguard-certification'
+  };
+
+  var root=document.getElementById('mg-bim'),$=function(s){return root.querySelector(s)};
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches,fine=matchMedia('(hover:hover) and (pointer:fine)').matches;
+  var Z=220;
+  function B(x0,x1,y0,y1,z0,z1){return [x0,x1,y0,y1,z0==null?0:z0,z1==null?Z:z1];}
+  function each(zs,f){var o=[];zs.forEach(function(z){o.push(f(z));});return o;}
+  var ZS=[34,110,186];
+
+  var CATS=[
+    {id:'weather',name:'Weather / Waterproofing',icon:'<path d="M12 3.5s6 6.4 6 10.7a6 6 0 0 1-12 0C6 9.9 12 3.5 12 3.5z"/>',
+     desc:'Every membrane, board and flashing that keeps bulk water, vapour drive and wind out, from the footing drain to the parapet cap.'},
+    {id:'thermal',name:'Thermal Insulation',icon:'<path d="M10 14.5V5a2 2 0 1 1 4 0v9.5a4 4 0 1 1-4 0z"/><path d="M12 9v8"/>',
+     desc:'Continuous insulation with thermally broken supports, so the effective R-value matches the energy model.'},
+    {id:'structural',name:'Structural Protection',icon:'<path d="M4 4.5h16M4 19.5h16M12 4.5v15"/><path d="M8 4.5v0M16 19.5v0"/>',
+     desc:'The concrete, deck and supports the envelope relies on, protected from water, salts and movement.'},
+    {id:'fire',name:'Fireproofing',icon:'<path d="M12 3c1 4 5 5.5 5 10a5 5 0 0 1-10 0c0-2.6 1.5-4.1 2.6-5.1.2 2 1.2 3 2.4 3-.9-3 0-5.8 0-7.9z"/>',
+     desc:'Non-combustible assemblies and fire-rated protection for the structure and the wall build-up.'},
+    {id:'sound',name:'Soundproofing / Vibration',icon:'<path d="M4 10v4M8 7v10M12 4v16M16 7v10M20 10v4"/>',
+     desc:'Mass, decoupling and dense insulation that reduce airborne noise and isolate structural vibration.'},
+    {id:'health',name:'Health / Mould Protection',icon:'<path d="M12 3l7 3v6c0 4.5-3 7.6-7 9-4-1.4-7-4.5-7-9V6z"/><path d="M9 12l2.2 2.2L15 10.4"/>',
+     desc:'Controlled air and vapour movement plus drainage and drying paths, so moisture never gets the chance to grow mould.'}
+  ];
+
+  var L=[
+    /* Foundation */
+    {id:'f-struct',g:'Foundation',code:'FD-01',name:'Foundation structure',base:'#A3ABB2',t:'t-cut',cats:['structural'],
+     desc:'Cast-in-place foundation wall and footing that carry the building and receive the below-grade membrane system.',spec:['Reinforced concrete','Strip footing'],
+     boxes:[B(-40,0,-180,0),B(-84,44,-212,-180)]},
+    {id:'f-blind',g:'Foundation',code:'FD-02',name:'Blindside waterproofing membrane',base:'#1D3B5C',cats:['weather','health'],
+     desc:'Pre-applied membrane placed against the shoring before the pour, bonding to the concrete for a positive-side seal on zero-lot-line sites.',spec:['COLPHENE BSW','Fully bonded'],
+     boxes:[B(0,3,-180,-6)]},
+    {id:'f-prot',g:'Foundation',code:'FD-03',name:'Protection board',base:'#6F7C88',cats:['weather','structural'],
+     desc:'Rigid board that shields the membrane from backfill, rebar and construction traffic.',spec:['Semi-rigid board'],
+     boxes:[B(3,8,-180,-8)]},
+    {id:'f-ins',g:'Foundation',code:'FD-04',name:'Foundation insulation',base:'#8FB4CF',t:'t-ins',cats:['thermal'],
+     desc:'Moisture-resistant rigid insulation that keeps the foundation warm and pushes the dew point out of the wall.',spec:['SOPRA-XPS 60','Below-grade rated'],
+     boxes:[B(8,30,-180,-10)]},
+    {id:'f-drain',g:'Foundation',code:'FD-05',name:'Drainage board',base:'#2F465C',t:'t-dimple',cats:['weather','health'],
+     desc:'Dimpled composite board that relieves hydrostatic pressure and channels groundwater down to the footing drain.',spec:['SOPRADRAIN 10-G','Filter fabric face'],
+     boxes:[B(30,38,-182,-12)]},
+    {id:'f-pdrain',g:'Foundation',code:'FD-06',name:'Perimeter drain',base:'#B9C3CC',t:'t-perf',cats:['weather'],
+     desc:'Perforated weeping tile in clear stone at the footing, carrying collected water away from the building.',spec:['Perforated pipe','Clear stone bed'],
+     boxes:[B(52,70,-210,-192)]},
+    {id:'f-pen',g:'Foundation',code:'FD-07',name:'Penetration / tieback sealing',base:'#C9A46A',cats:['weather','structural'],
+     desc:'Detailed seals at shoring tiebacks and service penetrations, the most common source of below-grade leaks.',spec:['Tieback collars','Liquid detailing'],
+     boxes:[].concat(each(ZS,function(z){return B(-30,46,-112,-106,z-3,z+3);}),each(ZS,function(z){return B(0,10,-117,-101,z-8,z+8);}))},
+    {id:'f-trans',g:'Foundation',code:'FD-08',name:'Transition membrane',base:'#24507A',cats:['weather'],
+     desc:'Membrane strip linking the below-grade waterproofing to the above-grade air barrier at the foundation-to-wall line.',spec:['SBS transition strip','Grade line'],
+     boxes:[B(0,5,-26,30)]},
+    /* Wall */
+    {id:'w-struct',g:'Wall',code:'EW-01',name:'Structural backup wall',base:'#A3ABB2',t:'t-cut',cats:['structural','fire','sound'],
+     desc:'Concrete or masonry backup that carries the wall assembly and adds mass for fire resistance and acoustics.',spec:['Concrete / CMU','Parapet to 380'],
+     boxes:[B(-40,0,0,380)]},
+    {id:'w-sheath',g:'Wall',code:'EW-02',name:'Exterior sheathing',base:'#CBBF9F',cats:['fire'],
+     desc:'Glass-mat gypsum sheathing that gives the membranes a stable, non-combustible substrate.',spec:['Glass-mat gypsum'],
+     boxes:[B(0,5,0,380)]},
+    {id:'w-air',g:'Wall',code:'EW-03',name:'Air barrier',base:'#1A3A5E',cats:['weather','thermal','health'],
+     desc:'Continuous self-adhered membrane that stops air leakage, the largest uncontrolled heat and moisture path in a wall.',spec:['SOPRASEAL STICK AVB AT','Continuous'],
+     boxes:[B(5,8,0,380)]},
+    {id:'w-vap',g:'Wall',code:'EW-04',name:'Vapour control layer',base:'#4A7598',cats:['thermal','health'],
+     desc:'Vapour control placed on the warm side of the insulation to keep condensation out of the assembly.',spec:['Class II retarder'],
+     boxes:[B(8,10,2,378)]},
+    {id:'w-ci',g:'Wall',code:'EW-05',name:'Continuous insulation',base:'#D6C79A',t:'t-ins',cats:['thermal','fire','sound'],
+     desc:'Unbroken insulation outboard of the structure, eliminating slab-edge and stud thermal bridges.',spec:['SOPRA-ISO / mineral wool','R-15+ continuous'],
+     boxes:[B(10,40,6,376)]},
+    {id:'w-clip',g:'Wall',code:'EW-06',name:'Thermal clips',base:'#B7C2CC',cats:['thermal','sound'],
+     desc:'Thermally broken brackets that carry the cladding through the insulation with minimal heat loss.',spec:['ACS THERMAL CLIPS','Isolated pads'],
+     boxes:(function(){var o=[];[52,148,244,340].forEach(function(y){ZS.forEach(function(z){o.push(B(10,46,y,y+9,z-5,z+5));});});return o;})()},
+    {id:'w-cav',g:'Wall',code:'EW-07',name:'Rainscreen cavity',base:'#19C6F5',t:'t-ghost',cats:['weather','health'],
+     desc:'Vented and drained air space behind the cladding that equalises pressure and lets the wall dry.',spec:['25 mm drained cavity','Vented top & bottom'],
+     boxes:[B(40,58,8,374)]},
+    {id:'w-girt',g:'Wall',code:'EW-08',name:'Cladding rails / girts',base:'#8F9BA6',cats:['structural'],
+     desc:'Vertical aluminium rails fixed to the clips, setting the plane and joints of the cladding.',spec:['Aluminium T-rails'],
+     boxes:each(ZS,function(z){return B(46,52,10,372,z-4,z+4);})},
+    {id:'w-clad',g:'Wall',code:'EW-09',name:'Exterior cladding',base:'#8A735C',t:'t-panel',cats:['weather'],
+     desc:'Rainscreen panels that shed most of the water and give the building its finished face.',spec:['Metal composite panels','Open joints'],
+     boxes:[B(58,68,12,128),B(58,68,132,250),B(58,68,254,372)]},
+    {id:'w-flash',g:'Wall',code:'EW-10',name:'Flashing & transitions',base:'#C9D1D8',cats:['weather'],
+     desc:'Base, sill and head flashings that turn water back out of the cavity at every interruption.',spec:['Prefinished metal','Drip edge'],
+     boxes:[B(5,76,0,4),B(72,76,-10,4)]},
+    /* Roof */
+    {id:'r-deck',g:'Roof',code:'RF-01',name:'Structural roof deck',base:'#A3ABB2',t:'t-cut',cats:['structural','fire','sound'],
+     desc:'Concrete or steel deck that supports the roof assembly and ties into the parapet wall.',spec:['Concrete slab / steel deck'],
+     boxes:[B(-270,-40,298,316)]},
+    {id:'r-vap',g:'Roof',code:'RF-02',name:'Vapour barrier',base:'#4A7598',cats:['thermal','health'],
+     desc:'Self-adhered vapour barrier on the deck, also acting as a temporary roof during construction.',spec:['SOPRAVAP\'R'],
+     boxes:[B(-270,-40,316,319)]},
+    {id:'r-ins',g:'Roof',code:'RF-03',name:'Roof insulation',base:'#DDD3AE',t:'t-ins',cats:['thermal','sound'],
+     desc:'Polyiso boards, tapered where needed to drive water to the drains.',spec:['SOPRA-ISO tapered','LTTR rated'],
+     boxes:[B(-270,-40,319,349)]},
+    {id:'r-cover',g:'Roof',code:'RF-04',name:'Cover board',base:'#CBBF9F',cats:['weather'],
+     desc:'High-density board that protects the insulation and gives the membrane a firm, fire-resistant base.',spec:['2-1 SOPRASMART ISO HD'],
+     boxes:[B(-270,-40,349,355)]},
+    {id:'r-memb',g:'Roof',code:'RF-05',name:'Roofing membrane',base:'#232E3A',cats:['weather'],
+     desc:'Two-ply SBS membrane, flame-free where required, turned up the parapet to the cap flashing.',spec:['SOPRAPLY SBS two-ply','SOPRASTAR cap'],
+     boxes:[B(-270,-40,355,359),B(-44,-40,359,378)]},
+    {id:'r-edge',g:'Roof',code:'RF-06',name:'Edge metal / parapet flashing',base:'#C9D1D8',cats:['weather'],
+     desc:'Sloped metal cap over the parapet, lapped over the cladding to close the top of the envelope.',spec:['Prefinished coping','Cleated'],
+     boxes:[B(-48,76,380,384),B(72,76,362,384),B(-48,-44,370,384)]}
+  ];
+  var GROUPS=['Foundation','Wall','Roof'];
+  var byId={};L.forEach(function(l){byId[l.id]=l;});
+
+  // exploded offsets
+  var gi={Foundation:0,Wall:0,Roof:0};
+  L.forEach(function(l){
+    var i=gi[l.g]++;
+    if(l.g==='Foundation')l.ex=[i*26,-70-i*4,0];
+    else if(l.g==='Wall')l.ex=[i*24,0,0];
+    else l.ex=[0,60+i*30,0];
+  });
+
+  /* ---------- Build model ---------- */
+  var model=$('#model'),cam=$('#cam'),stage=$('#stage');
+  function face(cls,w,h,tf){var f=document.createElement('div');f.className='fc '+cls;f.style.width=w+'px';f.style.height=h+'px';f.style.transform=tf;return f;}
+  function box(b){
+    var x0=b[0],w=b[1]-b[0],y1=b[3],h=b[3]-b[2],z0=b[4],d=b[5]-b[4];
+    var el=document.createElement('div');el.className='bx';el.style.transform='translate3d('+x0+'px,'+(-y1)+'px,'+z0+'px)';
+    el.appendChild(face('f-fr',w,h,'translateZ('+d+'px)'));
+    el.appendChild(face('f-bk',w,h,'translateX('+w+'px) rotateY(180deg)'));
+    el.appendChild(face('f-rt',d,h,'translate3d('+w+'px,0,'+d+'px) rotateY(90deg)'));
+    el.appendChild(face('f-lf',d,h,'rotateY(-90deg)'));
+    el.appendChild(face('f-tp',w,d,'rotateX(90deg)'));
+    el.appendChild(face('f-bt',w,d,'translate3d(0,'+h+'px,'+d+'px) rotateX(-90deg)'));
+    return el;
+  }
+  L.forEach(function(l){
+    var g=document.createElement('div');g.className='layer '+(l.t||'');g.style.setProperty('--base',l.base);g.dataset.id=l.id;
+    l.boxes.forEach(function(b){g.appendChild(box(b));});
+    var b0=l.boxes[0],px,py;
+    if(l.g==='Wall'){px=(b0[0]+b0[1])/2;py=b0[3]+24;}
+    else if(l.g==='Foundation'){px=(b0[0]+b0[1])/2;py=b0[2]-22;}
+    else{px=b0[0]-24;py=(b0[2]+b0[3])/2;}
+    var p=document.createElement('div');p.className='pin';p.dataset.p=px+','+py;
+    p.innerHTML='<b>'+String(L.indexOf(l)+1).padStart(2,'0')+'</b>';g.appendChild(p);l.pin=p;
+    model.appendChild(g);l.el=g;
+  });
+  function billboard(){L.forEach(function(l){var q=l.pin.dataset.p.split(',');
+    l.pin.style.transform='translate3d('+q[0]+'px,'+(-q[1])+'px,'+Z+'px) rotateY('+(-(yaw+sway)).toFixed(3)+'deg) rotateX('+(-pitch)+'deg)';});}
+  // context: soil, shadow, grade line, levels, scan plane
+  function plane(cls,x,y,z,w,d){var el=document.createElement('div');el.className=cls;el.style.transform='translate3d('+x+'px,'+(-y)+'px,'+z+'px)';el.appendChild(face('',w,d,'rotateX(90deg)'));model.appendChild(el);return el;}
+  plane('shadow',-340,-213,-70,740,Z+140);
+  var soil=document.createElement('div');soil.className='soil';soil.appendChild(box(B(76,330,-212,0)));model.appendChild(soil);
+  var gl=document.createElement('div');gl.className='gline';gl.style.transform='translate3d(-40px,0,'+Z+'px)';model.appendChild(gl);
+  [[384,-48,'+3.84','T/O PARAPET'],[316,-270,'+3.16','T/O ROOF DECK'],[0,-40,'±0.00','GRADE'],[-212,-84,'−2.12','U/S FOOTING']].forEach(function(v){
+    var el=document.createElement('div');el.className='lvl';el.style.transform='translate3d(-372px,'+(-v[0])+'px,'+Z+'px)';
+    el.innerHTML='<i style="width:'+(v[1]+372)+'px"></i><span><b>'+v[2]+'</b>'+v[3]+'</span>';model.appendChild(el);});
+  var scan=plane('scan',-350,-240,-60,780,Z+120);
+
+  /* ---------- Camera ---------- */
+  var yaw=-36,pitch=-22,base=1,exploded=false,sway=0,busy=0,Y0=-36,P0=-22;
+  function fit(){var r=stage.getBoundingClientRect();base=Math.min(r.width/860,r.height/800);setCam(0);}
+  function setCam(ms,ease){
+    var z=base*(exploded?.76:1);model.style.setProperty('--ps',(0.92/z).toFixed(3));
+    cam.style.transition=ms?'transform '+ms+'ms '+(ease||'cubic-bezier(.65,0,.35,1)'):'none';
+    model.style.setProperty('--camt',(ms||0)+'ms');model.style.setProperty('--came',ease||'cubic-bezier(.65,0,.35,1)');
+    if(ms)busy=performance.now()+ms;
+    cam.style.transform='translateY(-10px) scale('+z.toFixed(4)+') rotateX('+pitch+'deg) rotateY('+(yaw+sway).toFixed(3)+'deg) translate3d('+(exploded?-30:50)+'px,'+(exploded?150:100)+'px,'+(-Z/2)+'px)';
+    billboard();
+  }
+  function setLayer(l,ex){l.el.style.transform=ex?'translate3d('+l.ex[0]+'px,'+(-l.ex[1])+'px,'+l.ex[2]+'px)':'translate3d(0,0,0)';}
+  function setAll(ex,instant){
+    L.forEach(function(l){if(instant){l.el.style.transition='none';}l.el.style.transitionDelay='0s';setLayer(l,ex);});
+    if(instant){void model.offsetWidth;L.forEach(function(l){l.el.style.transition='';});}
+  }
+  // idle camera breathing
+  var idle=false,last=0,tIdle=0;
+  function idleLoop(t){
+    requestAnimationFrame(idleLoop);var dt=last?Math.min(64,t-last):0;last=t;
+    if(!idle||reduce||dragging||hoverId||t<busy)return;
+    tIdle+=dt;sway=Math.sin(tIdle/3400)*7;setCam(0);
+  }
+  requestAnimationFrame(idleLoop);
+
+  /* ---------- Sequence ---------- */
+  var timers=[],playing=false,now=$('#now'),phs=root.querySelectorAll('.ph');
+  function at(ms,fn){timers.push(setTimeout(fn,reduce?0:ms));}
+  function clearSeq(){timers.forEach(clearTimeout);timers=[];playing=false;scan.classList.remove('on');L.forEach(function(l){l.el.classList.remove('wire','gone');});}
+  function setPhase(g,p){phs.forEach(function(ph){if(ph.dataset.ph===g){ph.style.setProperty('--p',p);ph.classList.toggle('on',p>0&&p<1);}});}
+  function play(){
+    clearSeq();playing=true;idle=false;unlock(true);
+    exploded=true;setAll(true,true);model.classList.add('exploded');
+    L.forEach(function(l){l.el.classList.add('gone');});
+    yaw=-64;pitch=-34;sway=0;tIdle=0;setCam(0);
+    phs.forEach(function(ph){ph.style.setProperty('--p',0);ph.classList.remove('on');});
+    now.innerHTML='<b>Scanning model</b> · 24 envelope systems';
+    at(60,function(){yaw=-46;pitch=-27;setCam(3000,'cubic-bezier(.3,0,.2,1)');});
+    L.forEach(function(l,i){
+      at(140+i*45,function(){l.el.classList.remove('gone');l.el.classList.add('wire');});
+      at(1350+i*38,function(){l.el.classList.remove('wire');});
+    });
+    var START=2700,STEP=210,DUR=L.length*STEP;
+    var count={Foundation:0,Wall:0,Roof:0},tot={Foundation:8,Wall:10,Roof:6};
+    at(START-60,function(){
+      now.innerHTML='<b>Exploded view</b> · assembling foundation to roof';
+      scan.style.transition='none';scan.style.transform='translate3d(-350px,240px,-60px)';void scan.offsetWidth;
+      scan.classList.add('on');scan.style.transition='transform '+(DUR+500)+'ms cubic-bezier(.4,0,.6,1),opacity .6s';scan.style.transform='translate3d(-350px,-400px,-60px)';
+      exploded=false;yaw=-38;pitch=-23;setCam(DUR+900,'cubic-bezier(.45,0,.25,1)');
+    });
+    L.forEach(function(l,i){
+      at(START+i*STEP,function(){
+        setLayer(l,false);
+        l.el.classList.remove('flash');void l.el.offsetWidth;l.el.classList.add('flash');
+        count[l.g]++;setPhase(l.g,count[l.g]/tot[l.g]);
+        now.innerHTML='Assembling · <b>'+l.code+'</b> '+l.name;
+      });
+    });
+    at(START+DUR+900,function(){
+      playing=false;scan.classList.remove('on');model.classList.remove('exploded');
+      GROUPS.forEach(function(g){setPhase(g,1);});phs.forEach(function(ph){ph.classList.remove('on');});
+      now.innerHTML='<b>Assembled</b> · hover a layer to inspect';
+      yaw=Y0;pitch=P0;setCam(1400);idle=true;setExplodeBtn();
+    });
+    setExplodeBtn();
+  }
+
+  /* ---------- Selection ---------- */
+  var hoverId=null,lockId=null,catId=null,legendItems={};
+  function lit(){
+    var ids=null;
+    if(hoverId)ids=[hoverId];else if(lockId)ids=[lockId];else if(catId)ids=L.filter(function(l){return l.cats.indexOf(catId)>-1;}).map(function(l){return l.id;});
+    model.classList.toggle('focus',!!ids);
+    L.forEach(function(l){var on=!!ids&&ids.indexOf(l.id)>-1;l.el.classList.toggle('hl',on);var li=legendItems[l.id];li.classList.toggle('hl',on);li.classList.toggle('dim',!!catId&&!on&&!hoverId&&!lockId);});
+  }
+  var detail=$('#detail'),dT;
+  function setDetail(o){
+    clearTimeout(dT);detail.classList.add('out');
+    dT=setTimeout(function(){
+      detail.querySelector('[data-d=chip]').textContent=o.chip;
+      detail.querySelector('[data-d=lock]').textContent=o.lock||'';
+      detail.querySelector('[data-d=title]').textContent=o.title;
+      detail.querySelector('[data-d=desc]').textContent=o.desc;
+      detail.querySelector('[data-d=specs]').innerHTML=(o.specs||[]).map(function(s){return '<span>'+s.replace(/</g,'&lt;')+'</span>';}).join('');
+      var a=detail.querySelector('[data-d=link]');
+      if(o.link){a.hidden=false;a.href=SITE+o.link;detail.querySelector('[data-d=linkText]').textContent=o.linkText;}else a.hidden=true;
+      var x=detail.querySelector('[data-d=ext]');if(o.ext){x.hidden=false;x.href=o.ext;}else x.hidden=true;
+      detail.classList.remove('out');
+    },reduce?0:200);
+  }
+  var DEFAULT={chip:'Envelope',title:'24 systems. One continuous envelope.',desc:'Hover any layer in the model to inspect it, click to lock the selection, or choose a performance category to see every layer that delivers it.'};
+  function lock(id){
+    if(lockId===id){unlock();return;}
+    lockId=id;catId=null;syncCats();var l=byId[id];
+    var gName={Foundation:'Foundation',Wall:'Above-grade wall',Roof:'Roof'}[l.g];
+    setDetail({chip:gName,lock:'● '+String(L.indexOf(l)+1).padStart(2,'0')+' / 24 · locked',title:l.name,desc:l.desc,specs:[l.code].concat(l.spec),link:LINKS[l.g],linkText:'Explore '+l.name.toLowerCase(),ext:PRODUCT[l.id]});
+    lit();
+  }
+  function unlock(silent){lockId=null;catId=null;syncCats();lit();if(!silent||true)setDetail(DEFAULT);}
+  function pickCat(id){
+    if(catId===id){unlock();return;}
+    catId=id;lockId=null;syncCats();var c=CATS.filter(function(c){return c.id===id;})[0];
+    var n=L.filter(function(l){return l.cats.indexOf(id)>-1;});
+    setDetail({chip:'Category',lock:n.length+' layers',title:c.name,desc:c.desc,specs:n.map(function(l){return l.code;}),link:LINKS[id],linkText:'Explore '+c.name.split(' /')[0].toLowerCase(),ext:PRODUCT[id]});
+    lit();
+  }
+
+  // categories
+  var catBox=$('#cats'),catBtns={};
+  CATS.forEach(function(c){
+    var b=document.createElement('button');b.type='button';b.className='cat';b.setAttribute('aria-pressed','false');
+    b.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+c.icon+'</svg><span></span>';
+    b.querySelector('span').textContent=c.name;
+    b.addEventListener('click',function(){pickCat(c.id);});
+    catBox.appendChild(b);catBtns[c.id]=b;
+  });
+  function syncCats(){Object.keys(catBtns).forEach(function(k){catBtns[k].setAttribute('aria-pressed',k===catId);});}
+
+  // legend
+  var leg=$('#legend');
+  GROUPS.forEach(function(g){
+    var wrap=document.createElement('div');wrap.className='grp';
+    var items=L.filter(function(l){return l.g===g;});
+    wrap.innerHTML='<div class="cap"><span>'+({Foundation:'Foundation / below grade',Wall:'Above-grade wall',Roof:'Roof system'}[g])+'</span><span>'+items.length+'</span></div>';
+    items.forEach(function(l){
+      var b=document.createElement('button');b.type='button';b.className='li';b.style.setProperty('--base',l.base);
+      b.innerHTML='<i></i><span></span><code>'+String(L.indexOf(l)+1).padStart(2,'0')+'</code>';b.querySelector('span').textContent=l.name;
+      b.addEventListener('click',function(){lock(l.id);});
+      b.addEventListener('mouseenter',function(){hoverId=l.id;lit();});
+      b.addEventListener('mouseleave',function(){hoverId=null;lit();});
+      b.addEventListener('focus',function(){hoverId=l.id;lit();});
+      b.addEventListener('blur',function(){hoverId=null;lit();});
+      wrap.appendChild(b);legendItems[l.id]=b;
+    });
+    leg.appendChild(wrap);
+  });
+
+  // model hover + callout
+  var co=$('#callout'),hint=$('#hint');
+  function fillCallout(l){
+    co.querySelector('[data-c=grp]').textContent={Foundation:'Below grade',Wall:'Wall assembly',Roof:'Roof system'}[l.g];
+    co.querySelector('[data-c=code]').textContent=l.code;
+    co.querySelector('[data-c=name]').textContent=l.name;
+    co.querySelector('[data-c=desc]').textContent=l.desc;
+    co.querySelector('[data-c=spec]').textContent=l.spec.join(' · ');
+  }
+  function placeCallout(e){
+    var r=stage.getBoundingClientRect(),x=e.clientX-r.left+20,y=e.clientY-r.top+20;
+    if(x+280>r.width)x=e.clientX-r.left-290;if(y+200>r.height)y=Math.max(10,e.clientY-r.top-210);
+    co.style.setProperty('--cx',x+'px');co.style.setProperty('--cy',y+'px');
+  }
+  L.forEach(function(l){
+    l.el.addEventListener('pointerenter',function(e){if(dragging)return;hoverId=l.id;lit();fillCallout(l);placeCallout(e);co.classList.add('show');hint.style.opacity=0;});
+    l.el.addEventListener('pointerleave',function(){if(hoverId===l.id){hoverId=null;lit();co.classList.remove('show');}});
+    l.el.addEventListener('click',function(){if(moved)return;lock(l.id);co.classList.remove('show');});
+    l.pin.addEventListener('click',function(e){e.stopPropagation();if(moved)return;lock(l.id);co.classList.remove('show');});
+  });
+  stage.addEventListener('pointermove',function(e){if(co.classList.contains('show'))placeCallout(e);});
+
+  // orbit
+  var dragging=false,moved=false,sx,sy,syaw,spitch;
+  stage.addEventListener('pointerdown',function(e){if(e.pointerType!=='mouse'&&e.pointerType!=='pen')return;dragging=true;moved=false;sx=e.clientX;sy=e.clientY;syaw=yaw;spitch=pitch;});
+  window.addEventListener('pointermove',function(e){
+    if(!dragging)return;var dx=e.clientX-sx,dy=e.clientY-sy;
+    if(!moved&&Math.abs(dx)+Math.abs(dy)>4){moved=true;stage.classList.add('drag');co.classList.remove('show');hoverId=null;lit();}
+    if(moved){yaw=Math.max(-80,Math.min(10,syaw+dx*.25));pitch=Math.max(-55,Math.min(-4,spitch-dy*.2));setCam(0);}
+  });
+  window.addEventListener('pointerup',function(){if(!dragging)return;dragging=false;stage.classList.remove('drag');setTimeout(function(){moved=false;},0);});
+
+  // controls
+  var bEx=$('#b-explode');
+  function setExplodeBtn(){bEx.setAttribute('aria-pressed',exploded);bEx.classList.toggle('on',exploded);bEx.querySelector('span').textContent=exploded?'Assemble':'Explode';}
+  $('#b-play').addEventListener('click',play);
+  bEx.addEventListener('click',function(){clearSeq();exploded=!exploded;
+    L.forEach(function(l,i){l.el.style.transitionDelay=(reduce?0:(exploded?i*25:(L.length-i)*20))+'ms';setLayer(l,exploded);});
+    GROUPS.forEach(function(g){setPhase(g,exploded?0:1);});
+    now.innerHTML=exploded?'<b>Exploded view</b> · 24 envelope systems':'<b>Assembled</b> · hover a layer to inspect';
+    model.classList.toggle('exploded',exploded);idle=true;setCam(1400);setExplodeBtn();});
+  $('#b-reset').addEventListener('click',function(){clearSeq();exploded=false;yaw=Y0;pitch=P0;sway=0;tIdle=0;idle=true;setAll(false);unlock();model.classList.remove('exploded');
+    GROUPS.forEach(function(g){setPhase(g,1);});now.innerHTML='<b>Assembled</b> · hover a layer to inspect';setCam(1600);setExplodeBtn();});
+
+  // shell entrance, scroll tilt, cursor tilt
+  var started=false;
+  function go(){root.classList.add('in');if(!started){started=true;if(PLAY_ON_LOAD)setTimeout(play,reduce?0:500);else{exploded=false;setAll(false,true);model.classList.remove('exploded');GROUPS.forEach(function(g){setPhase(g,1);});setCam(1200);idle=true;}}}
+  exploded=true;setAll(true,true);model.classList.add('exploded');if(PLAY_ON_LOAD&&!reduce)L.forEach(function(l){l.el.classList.add('gone');});fit();setExplodeBtn();
+  now.innerHTML='<b>Exploded view</b> · 24 envelope systems';
+  if(reduce||!('IntersectionObserver' in window))go();
+  else{
+    new IntersectionObserver(function(es){if(es[0].isIntersecting)go();},{threshold:.2}).observe(stage);
+    var th=[];for(var k=0;k<=40;k++)th.push(k/40);
+    var shell=$('#shell');
+    new IntersectionObserver(function(es){es.forEach(function(e){
+      var r=e.boundingClientRect,vis=e.intersectionRect.height/Math.min(r.height,640);
+      var below=r.top>0&&e.intersectionRect.height<r.height;
+      root.style.setProperty('--e',below?Math.max(0,1-Math.min(1,vis)).toFixed(3):0);
+    });},{threshold:th}).observe(shell);
+    if(fine){
+      shell.addEventListener('mousemove',function(e){var r=shell.getBoundingClientRect();root.style.setProperty('--tx',((e.clientX-r.left)/r.width-.5).toFixed(3));root.style.setProperty('--ty',((e.clientY-r.top)/r.height-.5).toFixed(3));});
+      shell.addEventListener('mouseleave',function(){root.style.setProperty('--tx',0);root.style.setProperty('--ty',0);});
+    }
+  }
+  setTimeout(go,2500);
+  var rT;window.addEventListener('resize',function(){clearTimeout(rT);rT=setTimeout(fit,120);});
+  // magnetic link
+  if(fine&&!reduce){var a=detail.querySelector('.go');a.addEventListener('mousemove',function(e){var r=a.getBoundingClientRect();a.style.transform='translate('+(e.clientX-r.left-r.width/2)*.2+'px,'+(e.clientY-r.top-r.height/2)*.3+'px)';});a.addEventListener('mouseleave',function(){a.style.transform='';});}
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Questrial&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}body{margin:0;background:#eaf4ff;color:#17384f;font-family:Questrial,Arial,sans-serif}
+.mg5{min-height:720px;padding:clamp(55px,8vw,105px) 0;overflow:hidden}
+.mg5-head{padding:0 clamp(22px,7vw,110px);max-width:1400px;margin:0 auto 60px}.mg5-k{font:600 12px Space Grotesk;letter-spacing:.2em;color:#1f5b8f;text-transform:uppercase}
+h2{font:600 clamp(42px,6vw,78px)/1 Space Grotesk;letter-spacing:-.05em;margin:16px 0}.mg5-head p{font-size:18px;color:#587181}
+.mg5-scroll{overflow-x:auto;scrollbar-width:thin;scrollbar-color:#1f5b8f #d0d5dd;padding:25px clamp(22px,7vw,110px) 45px}
+.mg5-track{position:relative;display:grid;grid-template-columns:repeat(6,minmax(230px,1fr));min-width:1400px;padding:54px 0 40px}
+.mg5-base,.mg5-progress{position:absolute;left:0;right:0;top:82px;height:3px}.mg5-base{background:#d0d5dd}.mg5-progress{right:auto;width:0;background:linear-gradient(90deg,#1f5b8f,#76a9cf);transition:2.4s cubic-bezier(.2,.8,.2,1)}.mg5.on .mg5-progress{width:100%}
+.mg5-item{position:relative;padding:75px 32px 0 0;opacity:0;transform:translateX(-25px);transition:.65s;transition-delay:calc(.25s + var(--i)*.18s)}.mg5.on .mg5-item{opacity:1;transform:none}
+.mg5-dot{position:absolute;top:16px;left:0;width:31px;height:31px;background:#eaf4ff;border:7px solid #1f5b8f;border-radius:50%;z-index:2;transition:.3s}.mg5-item:hover .mg5-dot{transform:scale(1.35);background:#fff}
+.mg5-year{font:600 clamp(25px,3vw,39px) Space Grotesk;color:#1f5b8f;display:block;margin-bottom:16px}.mg5-item h3{font:600 18px/1.25 Space Grotesk;margin:0 0 10px}.mg5-item p{font-size:15px;line-height:1.55;color:#5c7280;margin:0;max-width:200px}
+.mg5-hint{padding:0 clamp(22px,7vw,110px);font:500 11px Space Grotesk;letter-spacing:.14em;color:#1f5b8f;text-transform:uppercase}
+@media(max-width:700px){.mg5-track{grid-template-columns:repeat(6,220px);min-width:1320px}.mg5-head{margin-bottom:25px}.mg5-scroll{padding-right:22px}}
+@media(prefers-reduced-motion:reduce){.mg5-progress{width:100%;transition:none}.mg5-item{opacity:1;transform:none;transition:none}}
+</style>
+</head>
+<body>
+<section class="mg5">
+ <div class="mg5-head"><div class="mg5-k">The Mongrain Continuum</div><h2>Seven decades, one direction.</h2><p>Scroll horizontally to trace the company’s evolution across Canada.</p></div>
+ <div class="mg5-scroll">
+  <div class="mg5-track">
+   <div class="mg5-base"></div><div class="mg5-progress"></div>
+   <article class="mg5-item" style="--i:0"><i class="mg5-dot"></i><span class="mg5-year">1955</span><h3>Founded in Quebec</h3><p>Donat Mongrain establishes a thermal-insulation specialist.</p></article>
+   <article class="mg5-item" style="--i:1"><i class="mg5-dot"></i><span class="mg5-year">1970s</span><h3>Second generation</h3><p>Raymond Mongrain leads expansion into broader protection services.</p></article>
+   <article class="mg5-item" style="--i:2"><i class="mg5-dot"></i><span class="mg5-year">1970s–90s</span><h3>Multi-trade growth</h3><p>Waterproofing, fireproofing, roofing, barriers, and coatings are integrated.</p></article>
+   <article class="mg5-item" style="--i:3"><i class="mg5-dot"></i><span class="mg5-year">1995</span><h3>Modernization</h3><p>Karl Mongrain assumes third-generation leadership.</p></article>
+   <article class="mg5-item" style="--i:4"><i class="mg5-dot"></i><span class="mg5-year">2000s</span><h3>Infrastructure scale</h3><p>Major institutional and Canadian infrastructure projects follow.</p></article>
+   <article class="mg5-item" style="--i:5"><i class="mg5-dot"></i><span class="mg5-year">2022—Today</span><h3>National reach</h3><p>A Vancouver operation extends the company’s coast-to-coast capability.</p></article>
+  </div>
+ </div>
+ <div class="mg5-hint">← Drag or swipe timeline →</div>
+</section>
+<script>
+const s=document.querySelector('.mg5');new IntersectionObserver(e=>e[0].isIntersecting&&s.classList.add('on'),{threshold:.2}).observe(s);
+</script>
+</body>
+</html>

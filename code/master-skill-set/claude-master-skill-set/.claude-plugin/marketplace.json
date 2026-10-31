@@ -1,0 +1,14 @@
+{
+  "name": "snowden-design",
+  "description": "Snowden Design's agent skills for Wix, motion, 3D and SEO work.",
+  "owner": {
+    "name": "Blake Snowden"
+  },
+  "plugins": [
+    {
+      "name": "snowden-design-studio",
+      "source": "./",
+      "description": "Snowden Design's master skill set: Wix Studio pages and embeds, motion, 3D/WebGL, SEO and GEO, and client art direction."
+    }
+  ]
+}

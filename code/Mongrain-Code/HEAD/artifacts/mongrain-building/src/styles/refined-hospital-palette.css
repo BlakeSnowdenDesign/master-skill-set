@@ -1,0 +1,83 @@
+/* Hospital explorer palette; preserve refined viewer geometry and materials. */
+html,body{background:#E8EBEC}
+#mg-bim{
+  --mist:#E8EBEC;--ink:#132027;--ink-2:#243B46;--graphite:#55646D;
+  --line:#C5CED2;--cyan:#12B5D1;--royal:#0C9CAE;
+  --grad:linear-gradient(120deg,#12B5D1,#0C9CAE);
+}
+#mg-bim .cn{background:#E8EBEC;color:var(--ink)}
+#mg-bim .shell{box-shadow:0 24px 60px -28px rgba(18,52,62,.4)}
+#mg-bim .shell::before{background:rgba(255,255,255,.7);animation:none}
+#mg-bim .bar,#mg-bim .workspacebar,#mg-bim .viewer-footer{
+  background:rgba(247,250,250,.72);border-color:var(--line);color:var(--graphite);
+  backdrop-filter:blur(18px) saturate(1.2);-webkit-backdrop-filter:blur(18px) saturate(1.2);
+}
+#mg-bim .stage{background:radial-gradient(ellipse at 50% 45%,#E8EBEC 55%,#D8DFE2 100%)}
+#mg-bim .stage::before{background-image:linear-gradient(rgba(85,100,109,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(85,100,109,.045) 1px,transparent 1px)}
+#mg-bim .crumb,#mg-bim .crumb em,#mg-bim .tag,#mg-bim #now{color:var(--ink)}
+#mg-bim .crumb i{background:var(--cyan);color:white;box-shadow:none}
+#mg-bim .workspace-note,#mg-bim .scope-controls span,#mg-bim .gesture-hint,#mg-bim .range-labels,#mg-bim .camera-tools output{color:var(--graphite)}
+#mg-bim .cbtn,#mg-bim .space-button,#mg-bim .scope-controls button{
+  color:var(--ink);background:rgba(247,250,250,.72);border-color:var(--line);box-shadow:none;
+}
+#mg-bim .cbtn:hover,#mg-bim .space-button:hover,#mg-bim .scope-controls button:hover{
+  color:var(--ink);background:rgba(255,255,255,.9);border-color:#98B0B9;
+}
+#mg-bim .cbtn.primary{background:var(--cyan);border-color:var(--cyan);color:#06242B}
+#mg-bim .cbtn.primary:hover{background:#43C5DA;border-color:#43C5DA}
+#mg-bim .cbtn.on,#mg-bim .scope-controls button[aria-pressed=true]{
+  background:rgba(18,181,209,.15);border-color:rgba(18,181,209,.4);color:var(--ink);
+}
+#mg-bim .spread-control,#mg-bim .camera-tools{
+  background:rgba(247,250,250,.82);border-color:rgba(255,255,255,.7);
+  color:var(--ink);box-shadow:0 24px 60px -28px rgba(18,52,62,.4);
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+}
+#mg-bim .spread-control label,#mg-bim .camera-tools button{color:var(--ink)}
+#mg-bim .spread-control output{color:#0C9CAE}
+#mg-bim .camera-tools button:hover{background:rgba(18,181,209,.12)}
+#mg-bim .camera-tools #fit-view{border-color:var(--line)}
+#mg-bim input[type=range]{background:linear-gradient(90deg,var(--cyan) var(--fill,0%),#C5CED2 var(--fill,0%))}
+#mg-bim input[type=range]::-webkit-slider-thumb{border-color:var(--cyan);box-shadow:0 0 0 5px rgba(18,181,209,.1)}
+#mg-bim input[type=range]::-moz-range-thumb{border-color:var(--cyan)}
+#mg-bim .side,#mg-bim .detail,#mg-bim .layers-panel,#mg-bim #performance-panel{
+  background:rgba(247,250,250,.72);border-color:var(--line);color:var(--ink);
+}
+#mg-bim .detail h4,#mg-bim .performance-help,#mg-bim .detail p{color:var(--ink)}
+#mg-bim .detail p,#mg-bim .performance-help{color:var(--graphite)}
+#mg-bim .chip{background:rgba(18,181,209,.13);color:#087C8E}
+#mg-bim .inspector-tabs{border-color:var(--line)}
+#mg-bim .inspector-tabs button,#mg-bim .inspector-tabs span,#mg-bim .grp .cap,#mg-bim .li,#mg-bim .li code,#mg-bim .no-results{color:var(--graphite)}
+#mg-bim .inspector-tabs button[aria-selected=true]{color:var(--ink);border-color:var(--cyan)}
+#mg-bim input[type=search]{background:rgba(255,255,255,.72);border-color:var(--line);color:var(--ink)}
+#mg-bim .li:hover,#mg-bim .cat:hover{background:rgba(255,255,255,.9);color:var(--ink)}
+#mg-bim .li.hl,#mg-bim .cat[aria-pressed=true],#mg-bim .cat[aria-pressed=true]:hover{background:rgba(18,181,209,.15);color:var(--ink);border-color:var(--cyan)}
+#mg-bim .li.hl code,#mg-bim .li:hover code,#mg-bim .cat svg,#mg-bim .cat:hover svg,#mg-bim .cat[aria-pressed=true] svg{color:#087C8E}
+#mg-bim .li.hl i{box-shadow:0 0 0 2px rgba(18,181,209,.2)}
+#mg-bim .cat{background:rgba(247,250,250,.82);border-color:var(--line);color:var(--graphite)}
+#mg-bim .annotation-overlay line{stroke:#0C9CAE;opacity:.65}
+#mg-bim .layer-marker,#mg-bim .pin b{
+  background:rgba(247,250,250,.95);border-color:#98B0B9;color:var(--ink);
+  box-shadow:0 4px 16px rgba(18,52,62,.12);
+}
+#mg-bim .layer-marker:hover,#mg-bim .layer-marker[aria-pressed=true],#mg-bim .layer.hl .pin b{
+  background:var(--cyan);color:#06242B;border-color:var(--cyan);
+}
+#mg-bim .layer.hl{--c:color-mix(in srgb,var(--base) 30%,#12B5D1)}
+#mg-bim .layer.hl .fc{box-shadow:inset 0 0 0 .8px rgba(18,181,209,.9)}
+#mg-bim .layer.hl.t-ghost .fc{background-color:rgba(18,181,209,.16)!important}
+#mg-bim .legend{scrollbar-color:#AABAC0 transparent}
+#mg-bim .selected-caption,#mg-bim #clear-selection,#mg-bim .go,#mg-bim .go:hover,#mg-bim .ext:hover{color:#087C8E}
+#mg-bim .ext,#mg-bim .cap,#mg-bim .lock,#mg-bim .search-label{color:var(--graphite)}
+#mg-bim .specs span{background:#DEE7E9;color:var(--graphite)}
+#mg-bim #isolate{background:rgba(247,250,250,.82);color:var(--ink);border-color:var(--line)}
+#mg-bim #isolate[aria-pressed=true]{background:rgba(18,181,209,.15);border-color:var(--cyan)}
+#mg-bim .callout{
+  background:rgba(247,250,250,.92);border-color:rgba(18,181,209,.4);
+  box-shadow:0 24px 60px -28px rgba(18,52,62,.4);
+}
+#mg-bim .callout h5,#mg-bim .callout .s{color:var(--ink)}
+#mg-bim .callout p,#mg-bim .callout .c,#mg-bim .callout .k span+span{color:var(--graphite)}
+#mg-bim .callout .k{color:#087C8E}
+#mg-bim .callout .s{border-color:var(--line)}
+#mg-bim .crumb small{color:var(--graphite)}
